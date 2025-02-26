@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import measurementsData from './data.json';
+import myLogo from "./assets/2loghi.svg";
+import profile from "./assets/frame-profilo.svg";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 function App() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
+  const [showAreas, setShowAreas] = useState(true);
+  const [showTensione, setShowTensione] = useState(true);
+  const [showModelli, setShowModelli] = useState(true);
+  const [showProtocolli, setShowProtocolli] = useState(true);
+  const [showAnnoInst, setShowAnnoInst] = useState(true);
+
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: 'ascending'
@@ -15,7 +24,13 @@ function App() {
     areas: {
       nord: false,
       sud: false,
-      centro: false
+      centro: false,
+      cnord: false,
+      csud: false,
+      calabria: false,
+      sicilia: false,
+      sardegna: false,
+
     },
     tensione: {
       at: false,
@@ -28,20 +43,32 @@ function App() {
       d: false
     },
     protocolli: {
-      misuraPotenza: false,
-      tensione: false,
-      corrente: false,
-      fasi: false,
+      g: false,
+      ethernet: false,
+      apiRestful: false,
+      integrazioneCloud: false,
       frequenza: false,
       meccanismoAutoprotezione: false
     },
-    annoInstallazione: ''
+    fornitore: {
+      furn1: false,
+      furn2: false,
+      furn3: false,
+      furn4: false,
+      furn5: false,
+    },
+    state: {
+      online: false,
+      offline: false,
+      alert: false
+    }
   });
 
   useEffect(() => {
     setData(measurementsData.measurements);
     setFilteredData(measurementsData.measurements);
   }, []);
+
 
   useEffect(() => {
     filterData();
@@ -182,7 +209,13 @@ function App() {
       areas: {
         nord: false,
         sud: false,
-        centro: false
+        centro: false,
+        cnord: false,
+        csud: false,
+        calabria: false,
+        sicilia: false,
+        sardegna: false,
+  
       },
       tensione: {
         at: false,
@@ -195,21 +228,32 @@ function App() {
         d: false
       },
       protocolli: {
-        misuraPotenza: false,
-        tensione: false,
-        corrente: false,
-        fasi: false,
+        g: false,
+        ethernet: false,
+        apiRestful: false,
+        integrazioneCloud: false,
         frequenza: false,
         meccanismoAutoprotezione: false
       },
-      annoInstallazione: ''
+      fornitore: {
+        furn1: false,
+        furn2: false,
+        furn3: false,
+        furn4: false,
+        furn5: false,
+      },
+      state: {
+        online: false,
+        offline: false,
+        alert: false
+      }
     });
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>PoC Meter Management</h1>
+        <img src={myLogo} alt="Description" width="300" />
         <nav>
           <ul>
             <li>Gestione Misuratori</li>
@@ -217,37 +261,61 @@ function App() {
             <li>Reportistica</li>
           </ul>
         </nav>
+        <img src={profile} alt="Description" width="300" />
       </header>
       <main>
         <aside className="filters">
           <h2>Filtri applicati</h2>
           <button onClick={clearFilters}>Cancella filtri</button>
           <div className="filter-group">
-            <h3>Area zonali</h3>
+            <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
+              <h3>Area zonali</h3>
+              { showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+            </div>
+            { showAreas &&
             <label>
               <input 
                 type="checkbox" 
                 checked={filters.areas.nord}
                 onChange={(e) => handleFilterChange('areas', 'nord', e.target.checked)}
               /> Nord
-            </label>
+            </label>}
+            { showAreas &&
             <label>
+              <input 
+                type="checkbox" 
+                checked={filters.areas.cnord}
+                onChange={(e) => handleFilterChange('areas', 'cnord', e.target.checked)}
+              /> CNord
+            </label>}
+            { showAreas && <label>
               <input 
                 type="checkbox" 
                 checked={filters.areas.sud}
                 onChange={(e) => handleFilterChange('areas', 'sud', e.target.checked)}
               /> Sud
-            </label>
-            <label>
+            </label> }
+            { showAreas && <label>
+              <input 
+                type="checkbox" 
+                checked={filters.areas.csud}
+                onChange={(e) => handleFilterChange('areas', 'csud', e.target.checked)}
+              /> CSud
+            </label> }
+            { showAreas && <label>
               <input 
                 type="checkbox" 
                 checked={filters.areas.centro}
                 onChange={(e) => handleFilterChange('areas', 'centro', e.target.checked)}
               /> Centro
-            </label>
+            </label> }
           </div>
           <div className="filter-group">
-            <h3>Tensione</h3>
+            <div className='filter-group-header' onClick={() => setShowTensione(!showTensione)}>
+              <h3>Tensione</h3>
+              { showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+            </div>
+            {showTensione &&
             <label>
               <input 
                 type="checkbox" 
@@ -255,6 +323,8 @@ function App() {
                 onChange={(e) => handleFilterChange('tensione', 'at', e.target.checked)}
               /> AT
             </label>
+            }
+            {showTensione &&
             <label>
               <input 
                 type="checkbox" 
@@ -262,9 +332,14 @@ function App() {
                 onChange={(e) => handleFilterChange('tensione', 'mt', e.target.checked)}
               /> MT
             </label>
+            }
           </div>
           <div className="filter-group">
-            <h3>Modelli</h3>
+            <div className='filter-group-header' onClick={() => setShowModelli(!showModelli)}>
+              <h3>Modelli</h3>
+              { showModelli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+            </div>
+            {showModelli && 
             <label>
               <input 
                 type="checkbox" 
@@ -272,6 +347,8 @@ function App() {
                 onChange={(e) => handleFilterChange('modelli', 'a', e.target.checked)}
               /> A
             </label>
+            }
+            {showModelli && 
             <label>
               <input 
                 type="checkbox" 
@@ -279,6 +356,8 @@ function App() {
                 onChange={(e) => handleFilterChange('modelli', 'b', e.target.checked)}
               /> B
             </label>
+            }
+            {showModelli && 
             <label>
               <input 
                 type="checkbox" 
@@ -286,6 +365,8 @@ function App() {
                 onChange={(e) => handleFilterChange('modelli', 'c', e.target.checked)}
               /> C
             </label>
+            }
+            {showModelli && 
             <label>
               <input 
                 type="checkbox" 
@@ -293,9 +374,14 @@ function App() {
                 onChange={(e) => handleFilterChange('modelli', 'd', e.target.checked)}
               /> D
             </label>
+            }
           </div>
           <div className="filter-group">
-            <h3>Protocolli</h3>
+            <div className='filter-group-header' onClick={() => setShowProtocolli(!showProtocolli)}>
+              <h3>Protocolli</h3>
+              { showProtocolli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+            </div>
+            {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
@@ -303,6 +389,8 @@ function App() {
                 onChange={(e) => handleFilterChange('protocolli', 'misuraPotenza', e.target.checked)}
               /> Misura potenza
             </label>
+            }
+            {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
@@ -310,6 +398,8 @@ function App() {
                 onChange={(e) => handleFilterChange('protocolli', 'tensione', e.target.checked)}
               /> Tensione
             </label>
+            }
+            {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
@@ -317,6 +407,8 @@ function App() {
                 onChange={(e) => handleFilterChange('protocolli', 'corrente', e.target.checked)}
               /> Corrente
             </label>
+            }
+            {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
@@ -324,6 +416,8 @@ function App() {
                 onChange={(e) => handleFilterChange('protocolli', 'fasi', e.target.checked)}
               /> Fasi
             </label>
+            }
+            {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
@@ -331,6 +425,8 @@ function App() {
                 onChange={(e) => handleFilterChange('protocolli', 'frequenza', e.target.checked)}
               /> Frequenza
             </label>
+            }
+            {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
@@ -338,15 +434,21 @@ function App() {
                 onChange={(e) => handleFilterChange('protocolli', 'meccanismoAutoprotezione', e.target.checked)}
               /> Meccanismo di autoprotezione
             </label>
+            }
           </div>
           <div className="filter-group">
-            <h3>Anno installazione</h3>
+            <div className='filter-group-header' onClick={() => setShowAnnoInst(!showAnnoInst)}>
+              <h3>Anno installazione</h3>
+              { showAnnoInst ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+            </div> 
+            {showAnnoInst &&
             <input 
               type="text" 
               placeholder="Anno installazione*" 
               value={filters.annoInstallazione}
               onChange={(e) => handleAnnoInstallazioneChange(e.target.value)}
             />
+            }
           </div>
         </aside>
         <section className="content">
