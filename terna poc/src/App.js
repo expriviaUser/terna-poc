@@ -3,7 +3,7 @@ import './App.css';
 import measurementsData from './data.json';
 import myLogo from "./assets/2loghi.svg";
 import profile from "./assets/frame-profilo.svg";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
 import Form from 'react-bootstrap/Form';
 
 function App() {
@@ -15,7 +15,8 @@ function App() {
   const [showTensione, setShowTensione] = useState(true);
   const [showModelli, setShowModelli] = useState(true);
   const [showProtocolli, setShowProtocolli] = useState(true);
-  const [showAnnoInst, setShowAnnoInst] = useState(true);
+  const [showFurn, setShowFurn] = useState(true);
+  const [showState, setShowState] = useState(true);
   
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -341,7 +342,7 @@ function App() {
       <main>
         <aside className="filters">
           <h2>Filtri applicati</h2>
-          <button onClick={clearFilters}>Cancella filtri</button>
+          <button onClick={clearFilters}>Cancella filtri <CircleX size={18}/></button>
           <div className="filter-group">
           <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
               <h3>Area zonali</h3>
@@ -494,6 +495,15 @@ function App() {
             <label>
               <input 
                 type="checkbox" 
+                checked={filters.protocolli.all}
+                onChange={(e) => {handleFilterChange('protocolli', 'gsm', e.target.checked); clearProtocolli()}}
+              /> Tutti
+            </label>
+            }
+            {showProtocolli &&
+            <label>
+              <input 
+                type="checkbox" 
                 checked={filters.protocolli.gsm}
                 onChange={(e) => handleFilterChange('protocolli', 'gsm', e.target.checked)}
               /> GSM
@@ -503,54 +513,164 @@ function App() {
             <label>
               <input 
                 type="checkbox" 
-                checked={filters.protocolli['4g']}
-                onChange={(e) => handleFilterChange('protocolli', '4g', e.target.checked)}
-              /> 4G
+                checked={filters.protocolli['g']}
+                onChange={(e) => handleFilterChange('protocolli', 'g', e.target.checked)}
+              /> 4G/5G
             </label>
             }
             {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
-                checked={filters.protocolli['5g']}
-                onChange={(e) => handleFilterChange('protocolli', '5g', e.target.checked)}
-              /> 5G
+                checked={filters.protocolli.ethernet}
+                onChange={(e) => handleFilterChange('protocolli', 'ethernet', e.target.checked)}
+              /> Ethernet
+            </label>
+            }
+            {showProtocolli &&
+            <label>
+              <input 
+                type="checkbox" 
+                checked={filters.protocolli.apiRestful}
+                onChange={(e) => handleFilterChange('protocolli', 'apiRestful', e.target.checked)}
+              /> API RESTful
+            </label>
+            }
+            {showProtocolli &&
+            <label>
+              <input 
+                type="checkbox" 
+                checked={filters.protocolli.integrazioneCloud}
+                onChange={(e) => handleFilterChange('protocolli', 'integrazioneCloud', e.target.checked)}
+              /> Integrazione cloud via HTTP/HTTPS
             </label>
             }
            
           </div>
           <div className="filter-group">
-          <div className='filter-group-header' onClick={() => setShowAnnoInst(!showAnnoInst)}>
-              <h3>Anno installazione</h3>
-              { showAnnoInst ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+          <div className='filter-group-header' onClick={() => setShowFurn(!showFurn)}>
+              <h3>Fornitore</h3>
+              { showFurn ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div> 
-            {showAnnoInst &&
-            <input 
-              type="text" 
-              placeholder="Anno installazione*" 
-              value={filters.annoInstallazione}
-              onChange={(e) => handleAnnoInstallazioneChange(e.target.value)}
-            />
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.all}
+               onChange={(e) => {handleFilterChange('fornitore', 'all', e.target.checked); clearFornitore()}}
+             /> Tutti
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.furn1}
+               onChange={(e) => handleFilterChange('fornitore', 'furn1', e.target.checked)}
+             /> Fornitore 1
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.furn2}
+               onChange={(e) => handleFilterChange('fornitore', 'furn2', e.target.checked)}
+             /> Fornitore 2
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.furn3}
+               onChange={(e) => handleFilterChange('fornitore', 'furn3', e.target.checked)}
+             /> Fornitore 3
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.furn4}
+               onChange={(e) => handleFilterChange('fornitore', 'furn4', e.target.checked)}
+             /> Fornitore 4
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.furn5}
+               onChange={(e) => handleFilterChange('fornitore', 'furn5', e.target.checked)}
+             /> Fornitore 5
+           </label>
+            }
+          </div>
+          <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowState(!showState)}>
+              <h3>Stato</h3>
+              { showState ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+            </div> 
+            {showState &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.fornitore.all}
+               onChange={(e) => {handleFilterChange('fornitore', 'all', e.target.checked); clearState()}}
+             /> Tutti
+           </label>
+            }
+            {showState &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.state.online}
+               onChange={(e) => handleFilterChange('state', 'online', e.target.checked)}
+             /> Online
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.state.offline}
+               onChange={(e) => handleFilterChange('state', 'offline', e.target.checked)}
+             /> Offline 
+           </label>
+            }
+            {showFurn &&
+             <label>
+             <input 
+               type="checkbox" 
+               checked={filters.state.alert}
+               onChange={(e) => handleFilterChange('state', 'alert', e.target.checked)}
+             /> Alert
+           </label>
             }
           </div>
         </aside>
         <section className="content">
           <div className="clusters">
             <div className="cluster">
-              <h3>MANCANTI</h3>
               <p>{clusterStats.mancanti}</p>
+              <h3>MANCANTI</h3>
+              <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
             </div>
             <div className="cluster">
-              <h3>CORRETTE AUTOMATICAMENTE</h3>
               <p>{clusterStats.corrette}</p>
+              <h3>CORRETTE AUTOMATICAMENTE</h3>
+              <p>Misure che si discostano dal forecast (andamento standard) del +- 10%</p>
             </div>
             <div className="cluster">
-              <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
               <p>{clusterStats.anomalie}</p>
+              <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
+              <p>Misuratori che hanno un livello di correzioni / mancate trasmissioni superiore al 50%</p>
             </div>
             <div className="cluster">
-              <h3>VALIDATE AUTOMATICAMENTE</h3>
               <p>{clusterStats.validate}</p>
+              <h3>VALIDATE AUTOMATICAMENTE</h3>
+              <p>Tutte le misure reali coerenti con il forecast</p>
             </div>
           </div>
           <div className="measurements">
