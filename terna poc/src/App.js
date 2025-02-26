@@ -39,6 +39,7 @@ function App() {
 
     },
     tensione: {
+      prova: true,
       at: true,
       mt: true
     },
@@ -433,22 +434,28 @@ function App() {
             </div>
             {showTensione &&
             <label>
-              <Form.Switch // prettier-ignore
+              <Form.Check
+              type='radio' // prettier-ignore
         id="custom-switch"
+        value={true}
         label="AT"
         checked={filters.tensione.at}
-                onChange={(e) => handleFilterChange('tensione', 'at', e.target.checked)}
+        onSelect={(e) => {filters.tensione.mt = false; filters.tensione.at = true;}}
+                /* onChange={(e) => handleFilterChange('tensione', 'at', e.target.checked)} */
       />
        
             </label>
             }
             {showTensione &&
             <label>
-              <Form.Switch // prettier-ignore
+              <Form.Check
+              type='radio' // prettier-ignore
         id="custom-switch"
+              value={false}
         label="MT"
         checked={filters.tensione.mt}
-                onChange={(e) => handleFilterChange('tensione', 'mt', e.target.checked)}
+        onSelect={(e) => {filters.tensione.mt = true; filters.tensione.at = false;}}
+                /* onChange={(e) => handleFilterChange('tensione', 'mt', e.target.checked)} */
       />
             </label>
             }
@@ -692,7 +699,21 @@ function App() {
             </div>
           </div>
           <div className="measurements">
-            <h2>Misure</h2>
+            <div className='header-table'>
+            <h2>{selectedCard===1 ? clusterStats.mancanti : selectedCard===2 ? clusterStats.corrette : selectedCard===3 ? clusterStats.anomalie : selectedCard===4 ? clusterStats.validate : ''} Misure {selectedCard===1 ? "mancanti" : selectedCard===2 ? "corrette automaticamente" : selectedCard===3 ? "derivate da misuratori con probabili anomalie" : selectedCard===4 ? "validate automaticamente" : ''}</h2>
+            {
+              selectedCard===1 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+            }
+            {
+              selectedCard===2 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+            }
+            {
+              selectedCard===3 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+            }
+            {
+              selectedCard===4 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+            }
+            </div>
             <div className="table-container">
               <table>
                 <thead>
