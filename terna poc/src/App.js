@@ -16,7 +16,7 @@ function App() {
   const [showModelli, setShowModelli] = useState(true);
   const [showProtocolli, setShowProtocolli] = useState(true);
   const [showAnnoInst, setShowAnnoInst] = useState(true);
-
+  
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: 'ascending'
@@ -50,9 +50,7 @@ function App() {
       g: false,
       ethernet: false,
       apiRestful: false,
-      integrazioneCloud: false,
-      frequenza: false,
-      meccanismoAutoprotezione: false
+      integrazioneCloud: false
     },
     fornitore: {
       all: false,
@@ -71,88 +69,36 @@ function App() {
   });
 
   useEffect(() => {
-    setData(measurementsData.measurements);
-    setFilteredData(measurementsData.measurements);
+    // Transform the data to flatten the latest measurement with device info
+    const transformedData = measurementsData.misuratori.map(device => {
+      const latestMeasurement = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Fase: device.Fase,
+        ...latestMeasurement,
+        Cluster: device.Cluster
+      };
+    });
+    
+    setData(transformedData);
+    setFilteredData(transformedData);
   }, []);
-
 
   useEffect(() => {
     filterData();
   }, [filters, data]);
 
-  const filterData = () => {
-    let result = [...data];
-    
-    // Apply area filter (this is simulated since we don't have area data)
-    const anyAreaSelected = Object.values(filters.areas).some(v => v);
-    if (anyAreaSelected) {
-      // For simulation, we'll filter based on Misuratore numbers
-      if (filters.areas.nord) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) <= 33);
-      }
-      if (filters.areas.sud) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) > 33 && parseInt(item.Misuratore.split('-')[1]) <= 66);
-      }
-      if (filters.areas.centro) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) > 66);
-      }
-    }
-    
-    // Apply tensione filter
-    const anyTensioneSelected = Object.values(filters.tensione).some(v => v);
-    if (anyTensioneSelected) {
-      if (filters.tensione.at) {
-        result = result.filter(item => item.Tensione > 70);
-      }
-      if (filters.tensione.mt) {
-        result = result.filter(item => item.Tensione <= 70);
-      }
-    }
-    
-    // Apply modelli filter (simulated)
-    const anyModelliSelected = Object.values(filters.modelli).some(v => v);
-    if (anyModelliSelected) {
-      if (filters.modelli.a) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) % 4 === 0);
-      }
-      if (filters.modelli.b) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) % 4 === 1);
-      }
-      if (filters.modelli.c) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) % 4 === 2);
-      }
-      if (filters.modelli.d) {
-        result = result.filter(item => parseInt(item.Misuratore.split('-')[1]) % 4 === 3);
-      }
-    }
-    
-    // Apply protocolli filters
-    const anyProtocolliSelected = Object.values(filters.protocolli).some(v => v);
-    if (anyProtocolliSelected) {
-      if (filters.protocolli.misuraPotenza) {
-        result = result.filter(item => item.PotenzaAttiva > 50);
-      }
-      if (filters.protocolli.tensione) {
-        result = result.filter(item => item.Tensione > 80);
-      }
-      if (filters.protocolli.corrente) {
-        result = result.filter(item => item.Corrente > 70);
-      }
-      if (filters.protocolli.frequenza) {
-        result = result.filter(item => item.Frequenza > 50);
-      }
-    }
-    
-    // Apply anno installazione filter (simulated)
-    if (filters.annoInstallazione) {
-      result = result.filter(item => 
-        parseInt(item.Misuratore.split('-')[1]) % 100 > parseInt(filters.annoInstallazione)
-      );
-    }
-    
-    // Apply sorting if sortConfig is not null
+  useEffect(() => {
     if (sortConfig.key) {
-      result.sort((a, b) => {
+      const sortedData = [...filteredData];
+      sortedData.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
           return sortConfig.direction === 'ascending' ? -1 : 1;
         }
@@ -161,11 +107,77 @@ function App() {
         }
         return 0;
       });
+      setFilteredData(sortedData);
+    }
+  }, [sortConfig]);
+
+  const filterData = () => {
+    let result = [...data];
+    
+    // Apply area filter based on Zona field
+    const anyAreaSelected = Object.values(filters.areas).some(v => v);
+    if (anyAreaSelected) {
+      result = result.filter(item => {
+        if (filters.areas.nord && item.Zona === "Nord") return true;
+        if (filters.areas.sud && item.Zona === "Sud") return true;
+        if (filters.areas.centro && item.Zona === "Centro") return true;
+        return false;
+      });
+    }
+    
+    // Apply tensione filter based on Livello_Tensione field
+    const anyTensioneSelected = Object.values(filters.tensione).some(v => v);
+    if (anyTensioneSelected) {
+      result = result.filter(item => {
+        if (filters.tensione.at && item.Livello_Tensione === "AT") return true;
+        if (filters.tensione.mt && item.Livello_Tensione === "MT") return true;
+        return false;
+      });
+    }
+    
+    // Updated modelli filter to use Modello_Misuratore field
+    const anyModelliSelected = Object.values(filters.modelli).some(v => v);
+    if (anyModelliSelected) {
+      result = result.filter(item => {
+        if (filters.modelli.a && item.Modello_Misuratore === "A") return true;
+        if (filters.modelli.b && item.Modello_Misuratore === "B") return true;
+        if (filters.modelli.c && item.Modello_Misuratore === "C") return true;
+        if (filters.modelli.d && item.Modello_Misuratore === "D") return true;
+        return false;
+      });
+    }
+    
+    // Apply protocolli filters based on Protocolli_Supportati array
+    const anyProtocolliSelected = Object.values(filters.protocolli).some(v => v);
+    if (anyProtocolliSelected) {
+      result = result.filter(item => {
+        const protocols = item.Protocolli_Supportati.map(p => p.toLowerCase());
+        if (filters.protocolli.gsm && protocols.includes("interfaccia gsm")) return true;
+        if (filters.protocolli["4g"] && protocols.includes("4g")) return true;
+        if (filters.protocolli["5g"] && protocols.includes("5g")) return true;
+        return false;
+      });
+    }
+    
+    // Apply anno installazione filter
+    if (filters.annoInstallazione) {
+      result = result.filter(item => 
+        item.Anno_Installazione >= parseInt(filters.annoInstallazione)
+      );
     }
     
     setFilteredData(result);
     setCurrentPage(1); // Reset to first page when filters change
   };
+
+  // Calculate cluster statistics
+  const clusterStats = data.reduce((stats, item) => {
+    if (item.Cluster.Misure_Mancanti) stats.mancanti++;
+    if (item.Cluster.Misure_Corrette_Automaticamente) stats.corrette++;
+    if (item.Cluster.Misure_Anomale) stats.anomalie++;
+    if (item.Cluster.Misure_Validate_Automaticamente) stats.validate++;
+    return stats;
+  }, { mancanti: 0, corrette: 0, anomalie: 0, validate: 0 });
 
   // Get current items for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -198,7 +210,7 @@ function App() {
   const handleFilterChange = (filterType, filterValue, isChecked) => {
     if (filterValue !== 'all') {
       filters[filterType].all = false;
-    }
+    } 
     setFilters(prevFilters => {
       const newFilters = { ...prevFilters };
       newFilters[filterType][filterValue] = isChecked;
@@ -244,8 +256,6 @@ function App() {
         ethernet: false,
         apiRestful: false,
         integrazioneCloud: false,
-        frequenza: false,
-        meccanismoAutoprotezione: false
       },
       fornitore: {
         all: false,
@@ -318,7 +328,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={myLogo} alt="Description" width="300" />
+      <img src={myLogo} alt="Description" width="300" />
         <nav>
           <ul>
             <li>Gestione Misuratori</li>
@@ -333,7 +343,7 @@ function App() {
           <h2>Filtri applicati</h2>
           <button onClick={clearFilters}>Cancella filtri</button>
           <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
+          <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
               <h3>Area zonali</h3>
               { showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
@@ -398,7 +408,7 @@ function App() {
             </label> }
           </div>
           <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowTensione(!showTensione)}>
+          <div className='filter-group-header' onClick={() => setShowTensione(!showTensione)}>
               <h3>Tensione</h3>
               { showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
@@ -425,10 +435,19 @@ function App() {
             }
           </div>
           <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowModelli(!showModelli)}>
+          <div className='filter-group-header' onClick={() => setShowModelli(!showModelli)}>
               <h3>Modelli</h3>
               { showModelli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
+            {showModelli && 
+            <label>
+              <input 
+                type="checkbox" 
+                checked={filters.modelli.all}
+                onChange={(e) => {handleFilterChange('modelli', 'all', e.target.checked); clearModelli()}}
+              /> Tutti
+            </label>
+            }
             {showModelli && 
             <label>
               <input 
@@ -467,7 +486,7 @@ function App() {
             }
           </div>
           <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowProtocolli(!showProtocolli)}>
+          <div className='filter-group-header' onClick={() => setShowProtocolli(!showProtocolli)}>
               <h3>Protocolli</h3>
               { showProtocolli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
@@ -475,59 +494,33 @@ function App() {
             <label>
               <input 
                 type="checkbox" 
-                checked={filters.protocolli.misuraPotenza}
-                onChange={(e) => handleFilterChange('protocolli', 'misuraPotenza', e.target.checked)}
-              /> Misura potenza
+                checked={filters.protocolli.gsm}
+                onChange={(e) => handleFilterChange('protocolli', 'gsm', e.target.checked)}
+              /> GSM
             </label>
             }
             {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
-                checked={filters.protocolli.tensione}
-                onChange={(e) => handleFilterChange('protocolli', 'tensione', e.target.checked)}
-              /> Tensione
+                checked={filters.protocolli['4g']}
+                onChange={(e) => handleFilterChange('protocolli', '4g', e.target.checked)}
+              /> 4G
             </label>
             }
             {showProtocolli &&
             <label>
               <input 
                 type="checkbox" 
-                checked={filters.protocolli.corrente}
-                onChange={(e) => handleFilterChange('protocolli', 'corrente', e.target.checked)}
-              /> Corrente
+                checked={filters.protocolli['5g']}
+                onChange={(e) => handleFilterChange('protocolli', '5g', e.target.checked)}
+              /> 5G
             </label>
             }
-            {showProtocolli &&
-            <label>
-              <input 
-                type="checkbox" 
-                checked={filters.protocolli.fasi}
-                onChange={(e) => handleFilterChange('protocolli', 'fasi', e.target.checked)}
-              /> Fasi
-            </label>
-            }
-            {showProtocolli &&
-            <label>
-              <input 
-                type="checkbox" 
-                checked={filters.protocolli.frequenza}
-                onChange={(e) => handleFilterChange('protocolli', 'frequenza', e.target.checked)}
-              /> Frequenza
-            </label>
-            }
-            {showProtocolli &&
-            <label>
-              <input 
-                type="checkbox" 
-                checked={filters.protocolli.meccanismoAutoprotezione}
-                onChange={(e) => handleFilterChange('protocolli', 'meccanismoAutoprotezione', e.target.checked)}
-              /> Meccanismo di autoprotezione
-            </label>
-            }
+           
           </div>
           <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowAnnoInst(!showAnnoInst)}>
+          <div className='filter-group-header' onClick={() => setShowAnnoInst(!showAnnoInst)}>
               <h3>Anno installazione</h3>
               { showAnnoInst ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div> 
@@ -545,68 +538,72 @@ function App() {
           <div className="clusters">
             <div className="cluster">
               <h3>MANCANTI</h3>
-              <p>72</p>
+              <p>{clusterStats.mancanti}</p>
             </div>
             <div className="cluster">
               <h3>CORRETTE AUTOMATICAMENTE</h3>
-              <p>20</p>
+              <p>{clusterStats.corrette}</p>
             </div>
             <div className="cluster">
               <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
-              <p>12</p>
+              <p>{clusterStats.anomalie}</p>
             </div>
             <div className="cluster">
               <h3>VALIDATE AUTOMATICAMENTE</h3>
-              <p>59.896</p>
+              <p>{clusterStats.validate}</p>
             </div>
           </div>
           <div className="measurements">
-            <h2>20 Misure Corrette Automaticamente</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th onClick={() => requestSort('Time')} className={sortConfig.key === 'Time' ? sortConfig.direction : ''}>
-                    Time {sortConfig.key === 'Time' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => requestSort('Misuratore')} className={sortConfig.key === 'Misuratore' ? sortConfig.direction : ''}>
-                    Misuratore {sortConfig.key === 'Misuratore' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => requestSort('Nodo')} className={sortConfig.key === 'Nodo' ? sortConfig.direction : ''}>
-                    Nodo {sortConfig.key === 'Nodo' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => requestSort('Frequenza')} className={sortConfig.key === 'Frequenza' ? sortConfig.direction : ''}>
-                    Frequenza {sortConfig.key === 'Frequenza' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => requestSort('Tensione')} className={sortConfig.key === 'Tensione' ? sortConfig.direction : ''}>
-                    Tensione {sortConfig.key === 'Tensione' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => requestSort('Corrente')} className={sortConfig.key === 'Corrente' ? sortConfig.direction : ''}>
-                    Corrente {sortConfig.key === 'Corrente' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => requestSort('PotenzaAttiva')} className={sortConfig.key === 'PotenzaAttiva' ? sortConfig.direction : ''}>
-                    Potenza Attiva {sortConfig.key === 'PotenzaAttiva' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-                  </th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.Time}</td>
-                    <td>{item.Misuratore}</td>
-                    <td>{item.Nodo}</td>
-                    <td>{item.Frequenza}</td>
-                    <td>{item.Tensione}</td>
-                    <td>{item.Corrente}</td>
-                    <td>{item.PotenzaAttiva}</td>
-                    <td>
-                      <button>Download</button>
-                      <button>Details</button>
-                    </td>
+            <h2>Misure</h2>
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th onClick={() => requestSort('Misuratore')}>Misuratore</th>
+                    <th onClick={() => requestSort('Nodo')}>Nodo</th>
+                    <th onClick={() => requestSort('Zona')}>Zona</th>
+                    <th onClick={() => requestSort('Livello_Tensione')}>Livello Tensione</th>
+                    <th onClick={() => requestSort('Modello_Misuratore')}>Modello</th>
+                    <th>Protocolli</th>
+                    <th onClick={() => requestSort('Anno_Installazione')}>Anno</th>
+                    <th onClick={() => requestSort('Fase')}>Fase</th>
+                    <th onClick={() => requestSort('Tensione')}>Tensione</th>
+                    <th onClick={() => requestSort('Corrente')}>Corrente</th>
+                    <th onClick={() => requestSort('Frequenza')}>Frequenza</th>
+                    <th onClick={() => requestSort('Potenza_Attiva')}>P. Attiva</th>
+                    <th onClick={() => requestSort('Potenza_Reattiva')}>P. Reattiva</th>
+                    <th onClick={() => requestSort('Potenza_Apparente')}>P. Apparente</th>
+                    <th onClick={() => requestSort('Timestamp')}>Timestamp</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentItems.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.Misuratore}</td>
+                      <td>{item.Nodo}</td>
+                      <td>{item.Zona}</td>
+                      <td>{item.Livello_Tensione}</td>
+                      <td>{item.Modello_Misuratore}</td>
+                      <td>{item.Protocolli_Supportati.join(", ")}</td>
+                      <td>{item.Anno_Installazione}</td>
+                      <td>{item.Fase}</td>
+                      <td>{item.Tensione.toFixed(3)}</td>
+                      <td>{item.Corrente.toFixed(3)}</td>
+                      <td>{item.Frequenza.toFixed(3)}</td>
+                      <td>{item.Potenza_Attiva.toFixed(3)}</td>
+                      <td>{item.Potenza_Reattiva.toFixed(3)}</td>
+                      <td>{item.Potenza_Apparente.toFixed(3)}</td>
+                      <td>{new Date(item.Timestamp).toLocaleString()}</td>
+                      <td>
+                        <button>Details</button>
+                        <button>Download</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <div className="pagination">
               <button onClick={prevPage}>&lt;</button>
               <span>{currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}</span>
