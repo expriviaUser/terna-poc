@@ -19,7 +19,7 @@ function App() {
   const [showProtocolli, setShowProtocolli] = useState(true);
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
-  const [selectedCard, setSelectedCard] = useState(1);
+  let [selectedCard, setSelectedCard] = useState(1);
   
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -38,8 +38,8 @@ function App() {
       sardegna: false,
 
     },
+    tens: false,
     tensione: {
-      prova: true,
       at: true,
       mt: true
     },
@@ -116,6 +116,12 @@ function App() {
     }
   }, [sortConfig]);
 
+  const setCard = (index) => {
+    setSelectedCard(index);
+    selectedCard = index;
+    filterData();
+  }
+
   const filterData = () => {
     let result = [...data];
     
@@ -131,14 +137,13 @@ function App() {
     }
     
     // Apply tensione filter based on Livello_Tensione field
-    const anyTensioneSelected = Object.values(filters.tensione).some(v => v);
-    if (anyTensioneSelected) {
+    
       result = result.filter(item => {
-        if (filters.tensione.at && item.Livello_Tensione === "AT") return true;
-        if (filters.tensione.mt && item.Livello_Tensione === "MT") return true;
+        if (filters.tens && item.Livello_Tensione === "AT") return true;
+        if (!filters.tens && item.Livello_Tensione === "MT") return true;
         return false;
       });
-    }
+    
     
     // Updated modelli filter to use Modello_Misuratore field
     const anyModelliSelected = Object.values(filters.modelli).some(v => v);
@@ -169,6 +174,16 @@ function App() {
       result = result.filter(item => 
         item.Anno_Installazione >= parseInt(filters.annoInstallazione)
       );
+    }
+
+    if (selectedCard) {
+      result = result.filter(item => {
+        if (selectedCard===1 && item.Cluster.Misure_Mancanti) return true;
+        if (selectedCard===2 && item.Cluster.Misure_Corrette_Automaticamente) return true;
+        if (selectedCard===3 && item.Cluster.Misure_Anomale) return true;
+        if (selectedCard===4 && item.Cluster.Misure_Validate_Automaticamente) return true;
+        return false;
+      });
     }
     
     setFilteredData(result);
@@ -213,12 +228,16 @@ function App() {
   
   // Handle filter changes
   const handleFilterChange = (filterType, filterValue, isChecked) => {
-    if (filterValue !== 'all') {
+    if (filterValue && filterValue !== 'all') {
       filters[filterType].all = false;
     } 
     setFilters(prevFilters => {
       const newFilters = { ...prevFilters };
-      newFilters[filterType][filterValue] = isChecked;
+      if (filterValue) {
+        newFilters[filterType][filterValue] = isChecked;
+      } else {
+        newFilters[filterType] = isChecked;
+      }
       return newFilters;
     });
   };
@@ -244,6 +263,7 @@ function App() {
         sardegna: false,
   
       },
+      tens: false,
       tensione: {
         at: false,
         mt: false
@@ -433,30 +453,15 @@ function App() {
               { showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
             {showTensione &&
-            <label>
-              <Form.Check
-              type='radio' // prettier-ignore
+            <label className='tensione'>
+              MT 
+              <Form.Switch // prettier-ignore
         id="custom-switch"
-        value={true}
-        label="AT"
-        checked={filters.tensione.at}
-        onSelect={(e) => {filters.tensione.mt = false; filters.tensione.at = true;}}
-                /* onChange={(e) => handleFilterChange('tensione', 'at', e.target.checked)} */
+        label="AT" 
+        checked={filters.tens}
+                onChange={(e) => handleFilterChange('tens', null, e.target.checked)/* {filters.tensione.at = !filters.tensione.at; filters.tensione.mt = !filters.tensione.mt;} */}
       />
        
-            </label>
-            }
-            {showTensione &&
-            <label>
-              <Form.Check
-              type='radio' // prettier-ignore
-        id="custom-switch"
-              value={false}
-        label="MT"
-        checked={filters.tensione.mt}
-        onSelect={(e) => {filters.tensione.mt = true; filters.tensione.at = false;}}
-                /* onChange={(e) => handleFilterChange('tensione', 'mt', e.target.checked)} */
-      />
             </label>
             }
           </div>
@@ -676,23 +681,28 @@ function App() {
           </div>
         </aside>
         <section className="content">
+          <div className="date-filter">
+            <div className="date-today">
+              Today: {new Date().toLocaleDateString()}
+            </div>
+          </div>
           <div className="clusters">
-            <div className={"cluster " + (selectedCard && selectedCard===1 ? 'active' : 'notActive')} onClick={() => setSelectedCard(1)}>
+            <div className={"cluster " + (selectedCard && selectedCard===1 ? 'active' : 'notActive')} onClick={() => {setCard(1)}}>
               <p>{clusterStats.mancanti}</p>
               <h3>MANCANTI</h3>
               <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
             </div>
-            <div className={"cluster " + (selectedCard && selectedCard===2 ? 'active' : 'notActive')} onClick={() => setSelectedCard(2)}>
+            <div className={"cluster " + (selectedCard && selectedCard===2 ? 'active' : 'notActive')} onClick={() => {setCard(2)}}>
               <p>{clusterStats.corrette}</p>
               <h3>CORRETTE AUTOMATICAMENTE</h3>
               <p>Misure che si discostano dal forecast (andamento standard) del +- 10%</p>
             </div>
-            <div className={"cluster " + (selectedCard && selectedCard===3 ? 'active' : 'notActive')} onClick={() => setSelectedCard(3)}>
+            <div className={"cluster " + (selectedCard && selectedCard===3 ? 'active' : 'notActive')} onClick={() => {setCard(3)}}>
               <p>{clusterStats.anomalie}</p>
               <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
               <p>Misuratori che hanno un livello di correzioni / mancate trasmissioni superiore al 50%</p>
             </div>
-            <div className={"cluster " + (selectedCard && selectedCard===4 ? 'active' : 'notActive')} onClick={() => setSelectedCard(4)}>
+            <div className={"cluster " + (selectedCard && selectedCard===4 ? 'active' : 'notActive')} onClick={() => {setCard(4)}}>
               <p>{clusterStats.validate}</p>
               <h3>VALIDATE AUTOMATICAMENTE</h3>
               <p>Tutte le misure reali coerenti con il forecast</p>
