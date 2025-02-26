@@ -4,6 +4,7 @@ import measurementsData from './data.json';
 import myLogo from "./assets/2loghi.svg";
 import profile from "./assets/frame-profilo.svg";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Form from 'react-bootstrap/Form';
 
 function App() {
   const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ function App() {
   });
   const [filters, setFilters] = useState({
     areas: {
+      all: false,
       nord: false,
       sud: false,
       centro: false,
@@ -33,16 +35,18 @@ function App() {
 
     },
     tensione: {
-      at: false,
-      mt: false
+      at: true,
+      mt: true
     },
     modelli: {
+      all: false,
       a: false,
       b: false,
       c: false,
       d: false
     },
     protocolli: {
+      all: false,
       g: false,
       ethernet: false,
       apiRestful: false,
@@ -51,6 +55,7 @@ function App() {
       meccanismoAutoprotezione: false
     },
     fornitore: {
+      all: false,
       furn1: false,
       furn2: false,
       furn3: false,
@@ -58,6 +63,7 @@ function App() {
       furn5: false,
     },
     state: {
+      all: false,
       online: false,
       offline: false,
       alert: false
@@ -190,6 +196,9 @@ function App() {
   
   // Handle filter changes
   const handleFilterChange = (filterType, filterValue, isChecked) => {
+    if (filterValue !== 'all') {
+      filters[filterType].all = false;
+    }
     setFilters(prevFilters => {
       const newFilters = { ...prevFilters };
       newFilters[filterType][filterValue] = isChecked;
@@ -207,6 +216,7 @@ function App() {
   const clearFilters = () => {
     setFilters({
       areas: {
+        all: false,
         nord: false,
         sud: false,
         centro: false,
@@ -222,12 +232,14 @@ function App() {
         mt: false
       },
       modelli: {
+        all: false,
         a: false,
         b: false,
         c: false,
         d: false
       },
       protocolli: {
+        all: false,
         g: false,
         ethernet: false,
         apiRestful: false,
@@ -236,6 +248,7 @@ function App() {
         meccanismoAutoprotezione: false
       },
       fornitore: {
+        all: false,
         furn1: false,
         furn2: false,
         furn3: false,
@@ -243,12 +256,64 @@ function App() {
         furn5: false,
       },
       state: {
+        all: false,
         online: false,
         offline: false,
         alert: false
       }
     });
   };
+  const clearAreas = () => {
+    filters.areas = {
+      all: true,
+      nord: false,
+      sud: false,
+      centro: false,
+      cnord: false,
+      csud: false,
+      calabria: false,
+      sicilia: false,
+      sardegna: false,
+    }
+  }
+  const clearModelli = () => {
+    filters.modelli = {
+      all: true,
+      a: false,
+      b: false,
+      c: false,
+      d: false
+    }
+  }
+  const clearProtocolli = () => {
+    filters.protocolli = {
+      all: true,
+      g: false,
+      ethernet: false,
+      apiRestful: false,
+      integrazioneCloud: false,
+      frequenza: false,
+      meccanismoAutoprotezione: false
+    }
+  }
+  const clearFornitore = () => {
+    filters.fornitore = {
+      all: true,
+      furn1: false,
+      furn2: false,
+      furn3: false,
+      furn4: false,
+      furn5: false,
+    }
+  }
+  const clearState = () => {
+    filters.state = {
+      all: true,
+      online: false,
+      offline: false,
+      alert: false
+    }
+  }
 
   return (
     <div className="App">
@@ -272,6 +337,14 @@ function App() {
               <h3>Area zonali</h3>
               { showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
+            { showAreas &&
+            <label>
+              <input 
+                type="checkbox" 
+                checked={filters.areas.all}
+                onChange={(e) => {handleFilterChange('areas', 'all', e.target.checked); clearAreas()}}
+              /> Tutti
+            </label>}
             { showAreas &&
             <label>
               <input 
@@ -305,9 +378,23 @@ function App() {
             { showAreas && <label>
               <input 
                 type="checkbox" 
-                checked={filters.areas.centro}
-                onChange={(e) => handleFilterChange('areas', 'centro', e.target.checked)}
-              /> Centro
+                checked={filters.areas.calabria}
+                onChange={(e) => handleFilterChange('areas', 'calabria', e.target.checked)}
+              /> Calabria
+            </label> }
+            { showAreas && <label>
+              <input 
+                type="checkbox" 
+                checked={filters.areas.Sicilia}
+                onChange={(e) => handleFilterChange('areas', 'Sicilia', e.target.checked)}
+              /> Sicilia
+            </label> }
+            { showAreas && <label>
+              <input 
+                type="checkbox" 
+                checked={filters.areas.sardegna}
+                onChange={(e) => handleFilterChange('areas', 'sardegna', e.target.checked)}
+              /> Sardegna
             </label> }
           </div>
           <div className="filter-group">
@@ -317,20 +404,23 @@ function App() {
             </div>
             {showTensione &&
             <label>
-              <input 
-                type="checkbox" 
-                checked={filters.tensione.at}
+              <Form.Switch // prettier-ignore
+        id="custom-switch"
+        label="AT"
+        checked={filters.tensione.at}
                 onChange={(e) => handleFilterChange('tensione', 'at', e.target.checked)}
-              /> AT
+      />
+       
             </label>
             }
             {showTensione &&
             <label>
-              <input 
-                type="checkbox" 
-                checked={filters.tensione.mt}
+              <Form.Switch // prettier-ignore
+        id="custom-switch"
+        label="MT"
+        checked={filters.tensione.mt}
                 onChange={(e) => handleFilterChange('tensione', 'mt', e.target.checked)}
-              /> MT
+      />
             </label>
             }
           </div>
