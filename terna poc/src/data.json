@@ -1,0 +1,274 @@
+{
+  "measurements": [
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-45",
+      "Nodo": "N-23",
+      "Frequenza": 53,
+      "Tensione": 72,
+      "Corrente": 88,
+      "PotenzaAttiva": 34
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-12",
+      "Nodo": "N-45",
+      "Frequenza": 49,
+      "Tensione": 65,
+      "Corrente": 92,
+      "PotenzaAttiva": 76
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-78",
+      "Nodo": "N-34",
+      "Frequenza": 50,
+      "Tensione": 78,
+      "Corrente": 45,
+      "PotenzaAttiva": 67
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-89",
+      "Nodo": "N-12",
+      "Frequenza": 51,
+      "Tensione": 82,
+      "Corrente": 63,
+      "PotenzaAttiva": 28
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-23",
+      "Nodo": "N-67",
+      "Frequenza": 47,
+      "Tensione": 93,
+      "Corrente": 59,
+      "PotenzaAttiva": 43
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-56",
+      "Nodo": "N-89",
+      "Frequenza": 52,
+      "Tensione": 68,
+      "Corrente": 75,
+      "PotenzaAttiva": 58
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-34",
+      "Nodo": "N-56",
+      "Frequenza": 48,
+      "Tensione": 71,
+      "Corrente": 82,
+      "PotenzaAttiva": 37
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-67",
+      "Nodo": "N-78",
+      "Frequenza": 50,
+      "Tensione": 77,
+      "Corrente": 66,
+      "PotenzaAttiva": 49
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-13",
+      "Nodo": "N-24",
+      "Frequenza": 49,
+      "Tensione": 84,
+      "Corrente": 71,
+      "PotenzaAttiva": 63
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-46",
+      "Nodo": "N-37",
+      "Frequenza": 51,
+      "Tensione": 86,
+      "Corrente": 54,
+      "PotenzaAttiva": 79
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-79",
+      "Nodo": "N-91",
+      "Frequenza": 53,
+      "Tensione": 69,
+      "Corrente": 77,
+      "PotenzaAttiva": 42
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-24",
+      "Nodo": "N-13",
+      "Frequenza": 47,
+      "Tensione": 75,
+      "Corrente": 89,
+      "PotenzaAttiva": 56
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-91",
+      "Nodo": "N-46",
+      "Frequenza": 52,
+      "Tensione": 66,
+      "Corrente": 48,
+      "PotenzaAttiva": 72
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-37",
+      "Nodo": "N-79",
+      "Frequenza": 50,
+      "Tensione": 94,
+      "Corrente": 61,
+      "PotenzaAttiva": 39
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-19",
+      "Nodo": "N-28",
+      "Frequenza": 48,
+      "Tensione": 73,
+      "Corrente": 83,
+      "PotenzaAttiva": 51
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-28",
+      "Nodo": "N-19",
+      "Frequenza": 51,
+      "Tensione": 67,
+      "Corrente": 91,
+      "PotenzaAttiva": 64
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-54",
+      "Nodo": "N-76",
+      "Frequenza": 49,
+      "Tensione": 81,
+      "Corrente": 57,
+      "PotenzaAttiva": 38
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-76",
+      "Nodo": "N-54",
+      "Frequenza": 53,
+      "Tensione": 70,
+      "Corrente": 78,
+      "PotenzaAttiva": 47
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-18",
+      "Nodo": "N-35",
+      "Frequenza": 50,
+      "Tensione": 79,
+      "Corrente": 69,
+      "PotenzaAttiva": 55
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-35",
+      "Nodo": "N-18",
+      "Frequenza": 47,
+      "Tensione": 87,
+      "Corrente": 52,
+      "PotenzaAttiva": 83
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-62",
+      "Nodo": "N-97",
+      "Frequenza": 51,
+      "Tensione": 92,
+      "Corrente": 74,
+      "PotenzaAttiva": 31
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-97",
+      "Nodo": "N-62",
+      "Frequenza": 48,
+      "Tensione": 74,
+      "Corrente": 86,
+      "PotenzaAttiva": 59
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-41",
+      "Nodo": "N-83",
+      "Frequenza": 52,
+      "Tensione": 80,
+      "Corrente": 50,
+      "PotenzaAttiva": 70
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-83",
+      "Nodo": "N-41",
+      "Frequenza": 49,
+      "Tensione": 95,
+      "Corrente": 67,
+      "PotenzaAttiva": 44
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-27",
+      "Nodo": "N-58",
+      "Frequenza": 51,
+      "Tensione": 76,
+      "Corrente": 84,
+      "PotenzaAttiva": 29
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-58",
+      "Nodo": "N-27",
+      "Frequenza": 47,
+      "Tensione": 85,
+      "Corrente": 62,
+      "PotenzaAttiva": 68
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-72",
+      "Nodo": "N-14",
+      "Frequenza": 53,
+      "Tensione": 64,
+      "Corrente": 79,
+      "PotenzaAttiva": 53
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-14",
+      "Nodo": "N-72",
+      "Frequenza": 49,
+      "Tensione": 90,
+      "Corrente": 55,
+      "PotenzaAttiva": 75
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-39",
+      "Nodo": "N-65",
+      "Frequenza": 50,
+      "Tensione": 83,
+      "Corrente": 73,
+      "PotenzaAttiva": 40
+    },
+    {
+      "Time": "12:00:00 AM 26/02/2025",
+      "Misuratore": "M-65",
+      "Nodo": "N-39",
+      "Frequenza": 52,
+      "Tensione": 88,
+      "Corrente": 60,
+      "PotenzaAttiva": 81
+    }
+  ]
+}

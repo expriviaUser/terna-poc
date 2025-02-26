@@ -1,0 +1,279 @@
+/* General styles */
+.App {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+header {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  padding: 1rem;
+}
+
+.App-header {
+  background-color: #282c34;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* Sidebar styles */
+.filters {
+  width: 20%;
+  padding: 1rem;
+  background-color: #f1f3f5;
+  border-right: 1px solid #dee2e6;
+}
+
+.filters h2 {
+  font-size: 1.25rem;
+}
+
+.filter-group {
+  margin-bottom: 1rem;
+}
+
+.filter-group h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+
+.filter-group input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.filter-group input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.filter-group button,
+.filters > button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.filter-group button:hover,
+.filters > button:hover {
+  background-color: #c82333;
+}
+
+/* Content styles */
+.content {
+  width: 60%;
+  padding: 1rem;
+}
+
+.clusters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.cluster {
+  background-color: #e9ecef;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  width: 23%;
+}
+
+.cluster h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cluster p {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.measurements {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.measurements h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.measurements table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.measurements th, .measurements td {
+  border: 1px solid #dee2e6;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.measurements th {
+  background-color: #f8f9fa;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.measurements th:hover {
+  background-color: #e2e6ea;
+}
+
+.measurements th.ascending::after,
+.measurements th.descending::after {
+  margin-left: 5px;
+  font-size: 0.75em;
+}
+
+.results-info {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+.measurements th {
+  background-color: #f8f9fa;
+}
+
+.measurements button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.measurements button:hover {
+  background-color: #0056b3;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+/* Inspector styles */
+.inspector {
+  width: 20%;
+  padding: 1rem;
+  background-color: #f1f3f5;
+  border-left: 1px solid #dee2e6;
+}
+
+.inspector h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.inspector button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.inspector button:hover {
+  background-color: #0056b3;
+}
+
+.map {
+  background-color: #e9ecef;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.characteristics {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.characteristics h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.characteristics ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.characteristics ul li {
+  margin-bottom: 0.25rem;
+}
+
+.App-link
