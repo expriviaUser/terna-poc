@@ -5,6 +5,8 @@ import myLogo from "./assets/2loghi.svg";
 import profile from "./assets/frame-profilo.svg";
 import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
 import Form from 'react-bootstrap/Form';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Misuratori from './Misuratori';
 
 function App() {
   const [data, setData] = useState([]);
@@ -17,6 +19,7 @@ function App() {
   const [showProtocolli, setShowProtocolli] = useState(true);
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
+  const [selectedCard, setSelectedCard] = useState(1);
   
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -330,6 +333,21 @@ function App() {
     <div className="App">
       <header className="App-header">
       <img src={myLogo} alt="Description" width="300" />
+      {/* <Router>
+      <nav>
+        <ul>
+          <li><Link to="/misuratori">Gestione Misuratori</Link></li>
+          <li><Link to="/">Validazione misure</Link></li>
+          <li><Link to="/reportistica">Reportistica</Link></li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path="/misuratori" element={<Misuratori />} />
+        <Route path="/" element={<App />} />
+        <Route path="/reportistica" element={<Reportistica />} />
+      </Routes>
+    </Router> */}
         <nav>
           <ul>
             <li>Gestione Misuratori</li>
@@ -652,22 +670,22 @@ function App() {
         </aside>
         <section className="content">
           <div className="clusters">
-            <div className="cluster">
+            <div className={"cluster " + (selectedCard && selectedCard===1 ? 'active' : 'notActive')} onClick={() => setSelectedCard(1)}>
               <p>{clusterStats.mancanti}</p>
               <h3>MANCANTI</h3>
               <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
             </div>
-            <div className="cluster">
+            <div className={"cluster " + (selectedCard && selectedCard===2 ? 'active' : 'notActive')} onClick={() => setSelectedCard(2)}>
               <p>{clusterStats.corrette}</p>
               <h3>CORRETTE AUTOMATICAMENTE</h3>
               <p>Misure che si discostano dal forecast (andamento standard) del +- 10%</p>
             </div>
-            <div className="cluster">
+            <div className={"cluster " + (selectedCard && selectedCard===3 ? 'active' : 'notActive')} onClick={() => setSelectedCard(3)}>
               <p>{clusterStats.anomalie}</p>
               <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
               <p>Misuratori che hanno un livello di correzioni / mancate trasmissioni superiore al 50%</p>
             </div>
-            <div className="cluster">
+            <div className={"cluster " + (selectedCard && selectedCard===4 ? 'active' : 'notActive')} onClick={() => setSelectedCard(4)}>
               <p>{clusterStats.validate}</p>
               <h3>VALIDATE AUTOMATICAMENTE</h3>
               <p>Tutte le misure reali coerenti con il forecast</p>
@@ -679,46 +697,46 @@ function App() {
               <table>
                 <thead>
                   <tr>
+                    <th onClick={() => requestSort('Timestamp')}>Timestamp</th>
                     <th onClick={() => requestSort('Misuratore')}>Misuratore</th>
                     <th onClick={() => requestSort('Nodo')}>Nodo</th>
-                    <th onClick={() => requestSort('Zona')}>Zona</th>
-                    <th onClick={() => requestSort('Livello_Tensione')}>Livello Tensione</th>
+                    {/* <th onClick={() => requestSort('Zona')}>Zona</th> */}
+                    <th onClick={() => requestSort('Frequenza')}>Frequenza</th>
+                    <th onClick={() => requestSort('Livello_Tensione')}>Tensione</th>
+                    <th onClick={() => requestSort('Corrente')}>Corrente</th>
+                    <th onClick={() => requestSort('Potenza_Attiva')}>P. Attiva</th>{/* 
                     <th onClick={() => requestSort('Modello_Misuratore')}>Modello</th>
                     <th>Protocolli</th>
                     <th onClick={() => requestSort('Anno_Installazione')}>Anno</th>
                     <th onClick={() => requestSort('Fase')}>Fase</th>
                     <th onClick={() => requestSort('Tensione')}>Tensione</th>
-                    <th onClick={() => requestSort('Corrente')}>Corrente</th>
-                    <th onClick={() => requestSort('Frequenza')}>Frequenza</th>
-                    <th onClick={() => requestSort('Potenza_Attiva')}>P. Attiva</th>
                     <th onClick={() => requestSort('Potenza_Reattiva')}>P. Reattiva</th>
                     <th onClick={() => requestSort('Potenza_Apparente')}>P. Apparente</th>
-                    <th onClick={() => requestSort('Timestamp')}>Timestamp</th>
-                    <th>Actions</th>
+                    <th>Actions</th> */}
                   </tr>
                 </thead>
                 <tbody>
                   {currentItems.map((item, index) => (
                     <tr key={index}>
+                      <td>{new Date(item.Timestamp).toLocaleString()}</td>
                       <td>{item.Misuratore}</td>
                       <td>{item.Nodo}</td>
-                      <td>{item.Zona}</td>
+                     {/*  <td>{item.Zona}</td> */}
+                      <td>{item.Frequenza.toFixed(3)}</td>
                       <td>{item.Livello_Tensione}</td>
+                      <td>{item.Corrente.toFixed(3)}</td>
+                      <td>{item.Potenza_Attiva.toFixed(3)}</td>{/* 
                       <td>{item.Modello_Misuratore}</td>
                       <td>{item.Protocolli_Supportati.join(", ")}</td>
                       <td>{item.Anno_Installazione}</td>
                       <td>{item.Fase}</td>
                       <td>{item.Tensione.toFixed(3)}</td>
-                      <td>{item.Corrente.toFixed(3)}</td>
-                      <td>{item.Frequenza.toFixed(3)}</td>
-                      <td>{item.Potenza_Attiva.toFixed(3)}</td>
                       <td>{item.Potenza_Reattiva.toFixed(3)}</td>
-                      <td>{item.Potenza_Apparente.toFixed(3)}</td>
-                      <td>{new Date(item.Timestamp).toLocaleString()}</td>
-                      <td>
+                      <td>{item.Potenza_Apparente.toFixed(3)}</td> */}
+                     {/*  <td>
                         <button>Details</button>
                         <button>Download</button>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

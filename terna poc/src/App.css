@@ -158,6 +158,10 @@ border: 0.902px solid #005CA9;
 background: #FFF;
 }
 
+.cluster.notActive {
+  opacity: 0.4;
+}
+
 .cluster h3 {
   color:  #005CA9;
   text-align: start;
