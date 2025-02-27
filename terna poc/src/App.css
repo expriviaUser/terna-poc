@@ -350,6 +350,11 @@ p {
   margin-bottom: 1rem;
 }
 
+.applied-filters {
+  display: flex;
+  gap: 8px;
+}
+
 .inspector-btns {
   display: flex;
   flex-direction: row;
