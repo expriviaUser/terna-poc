@@ -20,6 +20,36 @@ function App() {
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
   let [selectedCard, setSelectedCard] = useState(1);
+  let todayDate = new Intl.DateTimeFormat("it-IT", {
+    weekday: "long",  // Full day name (e.g., "Mercoledì")
+    year: "numeric",  // 4-digit year
+    month: "long",    // Full month name (e.g., "Febbraio")
+    day: "2-digit",   // 2-digit day
+    hour: "numeric",  // Hour in 12-hour format
+    minute: "2-digit", // 2-digit minute
+  }).format(new Date());
+  let countdown = "05:00";
+
+  useEffect(() => {
+    setTimeout(() => {
+      todayDate = new Intl.DateTimeFormat("it-IT", {
+        weekday: "long",  // Full day name (e.g., "Mercoledì")
+        year: "numeric",  // 4-digit year
+        month: "long",    // Full month name (e.g., "Febbraio")
+        day: "2-digit",   // 2-digit day
+        hour: "numeric",  // Hour in 12-hour format
+        minute: "2-digit", // 2-digit minute
+      }).format(new Date());
+      const [minutes, seconds] = countdown.split(':').map(Number);
+      let totalSeconds = minutes * 60 + seconds - 1;
+      const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+      const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
+      countdown = `${newMinutes}:${newSeconds}`;
+      
+    }, 100)
+
+  })
+  
   
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -683,7 +713,10 @@ function App() {
         <section className="content">
           <div className="date-filter">
             <div className="date-today">
-              Today: {new Date().toLocaleDateString()}
+              Today: {todayDate}
+            </div>
+            <div className="next-update">
+              Prossimo aggiornamento: {countdown}
             </div>
           </div>
           <div className="clusters">
