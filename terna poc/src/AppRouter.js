@@ -1,14 +1,16 @@
 import MisurazioniPage from "./App";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {ReportisticaPage} from "./ReportisticaPage";
+import {AppLayout} from "./AppLayout";
 
 export function AppRouter() {
     return <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<MisurazioniPage/>}/>
-            <Route path="/misure" element={<MisurazioniPage/>}/>
-            <Route path="/misuratore" element={<MisurazioniPage/>}/>
-            <Route path="/reportistica" element={<ReportisticaPage/>}/>
-        </Routes>
+        <AppLayout>
+            <Routes>
+                <Route path="/" element={<MisurazioniPage/>}/>
+                <Route path="/misuratore" element={<MisurazioniPage/>}/>
+                <Route path="/reportistica" element={<ReportisticaPage/>}/>
+            </Routes>
+        </AppLayout>
     </BrowserRouter>
 }

@@ -1,6 +1,7 @@
 import myLogo from "./assets/2loghi.svg";
 import profile from "./assets/frame-profilo.svg";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export function AppLayout (props) {
     return <div className="App">
@@ -23,9 +24,9 @@ export function AppLayout (props) {
     </Router> */}
             <nav>
                 <ul>
-                    <li>Gestione Misuratori</li>
-                    <li>Validazione misure</li>
-                    <li>Reportistica</li>
+                    <li><Link to="/misuratori">Gestione Misuratori</Link></li>
+                    <li><Link to="/">Validazione misure</Link></li>
+                    <li><Link to="/reportistica">Reportistica</Link></li>
                 </ul>
             </nav>
             <img src={profile} alt="Description" width="300" />
