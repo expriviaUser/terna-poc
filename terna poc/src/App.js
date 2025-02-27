@@ -30,25 +30,26 @@ function App() {
   }).format(new Date());
   let countdown = "05:00";
 
-  useEffect(() => {
-    setTimeout(() => {
-      todayDate = new Intl.DateTimeFormat("it-IT", {
-        weekday: "long",  // Full day name (e.g., "Mercoledì")
-        year: "numeric",  // 4-digit year
-        month: "long",    // Full month name (e.g., "Febbraio")
-        day: "2-digit",   // 2-digit day
-        hour: "numeric",  // Hour in 12-hour format
-        minute: "2-digit", // 2-digit minute
-      }).format(new Date());
-      const [minutes, seconds] = countdown.split(':').map(Number);
-      let totalSeconds = minutes * 60 + seconds - 1;
-      const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-      const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
-      countdown = `${newMinutes}:${newSeconds}`;
-      
-    }, 100)
+    useEffect(() => {
+      const interval = setInterval(() => {
+        todayDate = new Intl.DateTimeFormat("it-IT", {
+          weekday: "long",  // Full day name (e.g., "Mercoledì")
+          year: "numeric",  // 4-digit year
+          month: "long",    // Full month name (e.g., "Febbraio")
+          day: "2-digit",   // 2-digit day
+          hour: "numeric",  // Hour in 12-hour format
+          minute: "2-digit", // 2-digit minute
+        }).format(new Date());
+        const [minutes, seconds] = countdown.split(':').map(Number);
+        let totalSeconds = minutes * 60 + seconds - 1;
+        const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
+        countdown = `${newMinutes}:${newSeconds}`;
+      }, 1000);
 
-  })
+      return () => clearInterval(interval);
+    }, []);
+
   
   
   const [sortConfig, setSortConfig] = useState({

@@ -54,11 +54,9 @@ main {
 /* Sidebar styles */
 .filters {
   width: 20%;
-  height: calc(100vh - 100px);
   padding: 1rem;
   background-color: #fff;
   border-right: 1px solid #dee2e6;
-  overflow: auto;
 }
 
 .filters h2 {
