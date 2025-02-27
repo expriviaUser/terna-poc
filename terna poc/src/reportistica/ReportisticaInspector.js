@@ -1,18 +1,9 @@
-import {useParams} from "react-router-dom";
-import React, {useMemo} from "react";
-import {reports} from "./reports";
+import React from "react";
 import './ReportsInspector.css';
-import { Button } from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import pdf from "../assets/pdf.jpg";
 
 export function ReportisticaInspector(props) {
-    const {id} = useParams();
-    const data = useMemo(() => reports.find(report => report.id === id), [id]);
-
-    if (data == null) {
-        return null
-    }
-
     return (
         <div className='inspector-reports'>
             <div className="inspector-title">

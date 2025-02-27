@@ -54,3 +54,54 @@
     letter-spacing: 0.5px;
     color: #005CA9;
 }
+
+.mieiReports {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px
+}
+
+.mioReport {
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #DDDDDD;
+    box-shadow: 0px 4px 4px 0px #0000001A;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mioReport.active {
+    border: 1px solid #005CA9
+}
+
+.mioReport-name {
+    font-family: Oswald;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 36px;
+    letter-spacing: 0.5px;
+    color: #005CA9;
+    text-transform: uppercase;
+}
+
+.mioReport-date {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0px;
+
+}
+
+.mioReport-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.mioReport-prompt {
+
+}
