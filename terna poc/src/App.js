@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import measurementsData from './data.json';
+import measurementsData2 from './data.json';
 import myLogo from "./assets/2loghi.svg";
 import profile from "./assets/frame-profilo.svg";
 import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
@@ -138,9 +139,27 @@ function App() {
         Cluster: device.Cluster
       };
     });
+    const transformedData2 = measurementsData2.misuratori.map(device => {
+      const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Fase: device.Fase,
+        ...latestMeasurement2,
+        Cluster: device.Cluster
+      };
+    });
+
+    const randomNum = Math.random() < 0.5 ? 0 : 1;
     
-    setData(transformedData);
-    setFilteredData(transformedData);
+    setData(randomNum === 0 ? transformedData : transformedData2);
+    setFilteredData(randomNum === 0 ? transformedData : transformedData2);
   }, []);
 
   useEffect(() => {
