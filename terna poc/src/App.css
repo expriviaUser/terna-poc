@@ -128,6 +128,11 @@ main {
   cursor: pointer;
 }
 
+tr.selected {
+  background-color: #005CA9;
+  color: #fff;
+}
+
 .filter-group button,
 .filters > button {
   background-color: transparent;

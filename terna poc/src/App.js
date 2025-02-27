@@ -19,6 +19,8 @@ function App() {
   const [showProtocolli, setShowProtocolli] = useState(true);
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   let [selectedCard, setSelectedCard] = useState(1);
   let todayDate = new Intl.DateTimeFormat("it-IT", {
     weekday: "long",  // Full day name (e.g., "Mercoledì")
@@ -29,6 +31,11 @@ function App() {
     minute: "2-digit", // 2-digit minute
   }).format(new Date());
   let countdown = "05:00";
+
+  const onSelectRow = (index, item) => {
+    setSelectedRow(index);
+    setSelectedItem(item);
+  }
 
     const [currentDate, setCurrentDate] = useState(todayDate);
     const [currentCountdown, setCurrentCountdown] = useState(countdown);
@@ -797,15 +804,15 @@ function App() {
                 </thead>
                 <tbody>
                   {currentItems.map((item, index) => (
-                    <tr key={index}>
-                      <td>{new Date(item.Timestamp).toLocaleString()}</td>
-                      <td>{item.Misuratore}</td>
-                      <td>{item.Nodo}</td>
+                    <tr key={index} onClick={() => onSelectRow(index, item)} className={selectedRow === index ? 'selected' : ''}>
+                      <td >{new Date(item.Timestamp).toLocaleString()}</td>
+                      <td >{item.Misuratore}</td>
+                      <td >{item.Nodo}</td>
                      {/*  <td>{item.Zona}</td> */}
-                      <td>{item.Frequenza.toFixed(3)}</td>
-                      <td>{item.Livello_Tensione}</td>
-                      <td>{item.Corrente.toFixed(3)}</td>
-                      <td>{item.Potenza_Attiva.toFixed(3)}</td>{/* 
+                      <td >{item.Frequenza.toFixed(3)}</td>
+                      <td >{item.Livello_Tensione}</td>
+                      <td >{item.Corrente.toFixed(3)}</td>
+                      <td >{item.Potenza_Attiva.toFixed(3)}</td>{/* 
                       <td>{item.Modello_Misuratore}</td>
                       <td>{item.Protocolli_Supportati.join(", ")}</td>
                       <td>{item.Anno_Installazione}</td>
