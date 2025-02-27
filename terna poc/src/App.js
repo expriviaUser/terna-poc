@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Button } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import './App.css';
-import myLogo from "./assets/2loghi.svg";
-import profile from "./assets/frame-profilo.svg";
+import { default as measurementsData } from './complete1.json';
+import { default as measurementsData2 } from './complete2.json';
 import GraphModule from './components/GraphModule';
 import MapModule from './components/MapModule';
-import { default as measurementsData, default as measurementsData2 } from './data.json';
 
 function App() {
   const [data, setData] = useState([]);
@@ -857,10 +856,10 @@ function App() {
                       <td >{item.Misuratore}</td>
                       <td >{item.Nodo}</td>
                       {/*  <td>{item.Zona}</td> */}
-                      <td >{item.Frequenza.toFixed(3)}</td>
+                      <td >{item.Frequenza ? item.Frequenza?.toFixed(3) : ''}</td>
                       <td >{item.Livello_Tensione}</td>
-                      <td >{item.Corrente.toFixed(3)}</td>
-                      <td >{item.Potenza_Attiva.toFixed(3)}</td>{/*
+                      <td >{item.Corrente ? item.Corrente.toFixed(3) : ''}</td>
+                      <td >{item.Potenza_Attiva ? item.Potenza_Attiva.toFixed(3) : ''}</td>{/*
                       <td>{item.Modello_Misuratore}</td>
                       <td>{item.Protocolli_Supportati.join(", ")}</td>
                       <td>{item.Anno_Installazione}</td>

@@ -192,7 +192,8 @@ background: #FFF;
 }
 
 .header-table {
-  text-align: start
+  text-align: start;
+  margin-bottom: 24px;
 }
 
 .header-table h2 {
@@ -424,6 +425,21 @@ background:  #FFF;
   justify-content: start;
   border-top: 1px solid #dee2e6;  
   margin-top: 12px;
+}
+
+.details {
+  text-align: start;
+}
+
+.inspector-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.inspector-details h3 {
+  text-align: start;
 }
 
 .inspector-manutenzioni .title-aside-section {

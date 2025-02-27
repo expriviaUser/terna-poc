@@ -6,6 +6,7 @@ import './App.css';
 import myImage from "./assets/graph.svg";
 import { default as measurementsData } from './complete1.json';
 import { default as measurementsData2 } from './complete2.json';
+import GraphModule from './components/GraphModule';
 
 function Misuratori() {
   const [data, setData] = useState([]);
@@ -19,8 +20,33 @@ function Misuratori() {
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
   const [selectedRow, setSelectedRow] = useState(null);
-  const [manutenzioni, setManutenzioni] = useState([]);
-  const [sostituzioni, setSostituzioni] = useState([]);
+  const [groupedNodo, setGroupedNodo] = useState([]);
+  /*  useEffect(() => {
+    getManutenzioni();
+  }, [manutenzioni]); */
+  const getManutenzioni = () => {
+    const man = [];
+    filteredData.forEach((item, index) => {
+      if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') {
+        man.push(item);
+      }
+    })
+    return man;
+  };
+  /* useEffect(() => {
+    getSostituzioni();
+  }, [sostituzioni]); */
+  const getSostituzioni = () => {
+    const sost = [];
+    filteredData.forEach((item, index) => {
+      if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Sostituzione') {
+        sost.push(item);
+      }
+    })
+    return sost;
+  };
+  const [manutenzioni, setManutenzioni] = useState(getManutenzioni());
+  const [sostituzioni, setSostituzioni] = useState(getSostituzioni());
   const [selectedItem, setSelectedItem] = useState(null);
   //const [clusterStats, setClusterStats] = useState(null);
   let [selectedCard, setSelectedCard] = useState(0);
@@ -35,9 +61,31 @@ function Misuratori() {
   let countdown = "05:00";
 
   const onSelectRow = (index, item) => {
+    if (selectedRow === index) {
+      setSelectedRow(null);
+      setSelectedItem(null);
+      return;
+    }
     setSelectedRow(index);
     setSelectedItem(item);
   }
+
+  const groupByNodo = () => {
+
+    const groupedByNodo = filteredData.reduce((acc, item) => {
+      if (!acc[item.Nodo]) {
+        acc[item.Nodo] = [];
+      }
+      acc[item.Nodo].push(item);
+      return acc;
+    }, {});
+    console.log(groupedByNodo);
+    setGroupedNodo(groupedByNodo);
+
+  }
+
+
+
 
   const [currentDate, setCurrentDate] = useState(todayDate);
   const [currentCountdown, setCurrentCountdown] = useState(countdown);
@@ -108,12 +156,16 @@ function Misuratori() {
           return stats;
         }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
+        groupByNodo();
+
         return;
       }
       let totalSeconds = minutes * 60 + seconds - 1;
       const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
       const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
       setCurrentCountdown(`${newMinutes}:${newSeconds}`);
+      setManutenzioni(getManutenzioni());
+      setSostituzioni(getSostituzioni());
     }, 1000);
 
     return () => clearInterval(interval);
@@ -126,30 +178,7 @@ function Misuratori() {
     direction: 'ascending'
   });
 
-  useEffect(() => {
-    getManutenzioni();
-  }, [manutenzioni]);
-  const getManutenzioni = () => {
-    const man = [];
-    filteredData.forEach((item, index) => {
-      if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') {
-        man.push(item);
-      }
-    })
-    setManutenzioni(man);
-  };
-  useEffect(() => {
-    getSostituzioni();
-  }, [sostituzioni]);
-  const getSostituzioni = () => {
-    const sost = [];
-    filteredData.forEach((item, index) => {
-      if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Sostituzione') {
-        sost.push(item);
-      }
-    })
-    setSostituzioni(sost);
-  };
+
 
   const [filters, setFilters] = useState({
     areas: {
@@ -243,6 +272,9 @@ function Misuratori() {
 
     setData(randomNum === 0 ? transformedData : transformedData2);
     setFilteredData(randomNum === 0 ? transformedData : transformedData2);
+    setManutenzioni(getManutenzioni());
+    setSostituzioni(getSostituzioni());
+    groupByNodo();
   }, []);
 
   useEffect(() => {
@@ -342,6 +374,8 @@ function Misuratori() {
     }
 
     setFilteredData(result);
+    setManutenzioni(getManutenzioni());
+    setSostituzioni(getSostituzioni());
     setCurrentPage(1); // Reset to first page when filters change
   };
 
@@ -854,6 +888,21 @@ function Misuratori() {
           </div>
         </div>
         <div className="measurements">
+        <div className='header-table'>
+              <h2>{selectedCard===1 ? clusterStats.alert : selectedCard===2 ? clusterStats.offline : selectedCard===3 ? clusterStats.manutenzione : selectedCard===4 ? clusterStats.online : ''} {selectedCard===1 ? "alert" : selectedCard===2 ? "offline" : selectedCard===3 ? "in manutenzione" : selectedCard===4 ? "online" : ''}</h2>
+              {
+                  selectedCard===1 && <p>Sono stati rilevati {clusterStats.alert} misuratori con valori mancanti o fuori scala</p>
+              }
+              {
+                  selectedCard===2 && <p>Sono stati rilevati {clusterStats.offline} misuratori offline</p>
+              }
+              {
+                  selectedCard===3 && <p>Sono stati rilevati {clusterStats.manutenzione} misuratori in manutenzione</p>
+              }
+              {
+                  selectedCard===4 && <p>Sono stati rilevati {clusterStats.online} misuratori online</p>
+              }
+            </div>
           <div className="table-container">
             <table>
               <thead>
@@ -891,21 +940,30 @@ function Misuratori() {
         </div>
       </section>
       <aside className="inspector">
-        <h2>Inspector</h2>
+        <h2>{selectedItem ? `Matricola ${selectedItem.Modello_Misuratore}-${selectedItem.Misuratore}` : 'Inspector'}</h2>
         <div className="inspector-btns">
           <Button>Crea Report</Button>
           <Button>Apri segnalazione</Button>
         </div>
-        
+        {!selectedItem &&
           <div className="inspector-manutenzioni">
             <span className="title-aside-section">Nodi in manutenzione</span>
-            <span >Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
+            <span style={{ textAlign: "left" }}>Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
             <div className="manutenzioni">
-              {}
+              {groupedNodo.length &&
+                Object.keys(groupedNodo)?.map((nodo, index) => {
+                  return groupedNodo[nodo]?.length && groupedNodo[nodo].map((node, idx) => {
+                    return <div key={index}>
+                      <h3>{node.Zona}</h3>
+                    </div>
+                  })
+                })
+              }
             </div>
           </div>
-       
-        {manutenzioni.length > 0 &&
+        }
+
+        {!selectedItem && manutenzioni.length > 0 &&
           <div className="inspector-manutenzioni">
             <span className="title-aside-section">Manutenzioni Pianificate</span>
             <div className="manutenzioni">
@@ -928,7 +986,7 @@ function Misuratori() {
             </div>
           </div>
         }
-        {sostituzioni.length > 0 &&
+        {!selectedItem && sostituzioni.length > 0 &&
           <div className="inspector-manutenzioni">
             <span className="title-aside-section">Attività di sostituzione</span>
             <div className="manutenzioni">
@@ -950,6 +1008,29 @@ function Misuratori() {
               ))}
             </div>
           </div>
+        }
+
+        {selectedItem &&
+          <div className="inspector-details">
+            <h3>Dettaglio</h3>
+            <div className="details">
+              <div className="detail">
+                Modello {selectedItem.Modello_Misuratore}
+              </div>
+              <div className="detail">
+                Tensione {selectedItem.Livello_Tensione}
+              </div>
+              <div className="detail">
+                <b>Protocolli supportati: </b> {selectedItem.Protocolli_Supportati.join(', ')}
+              </div>
+            </div>
+          </div>
+        }
+        {selectedItem && selectedItem.Grandezze && selectedItem.Grandezze.length > 0 &&
+          <div className="inspector-details">
+            <h3>Misure</h3>
+            <GraphModule selectedItem={filteredData} item={selectedItem}/>
+        </div>
         }
       </aside>
     </main>
