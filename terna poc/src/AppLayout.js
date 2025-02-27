@@ -24,7 +24,7 @@ export function AppLayout (props) {
     </Router> */}
             <nav>
                 <ul className="nav">
-                    <li className="nav-item"><NavLink className='nav-link' to="/misuratori">Gestione Misuratori</NavLink></li>
+                    <li className="nav-item"><NavLink className='nav-link' to="/misuratore">Gestione Misuratori</NavLink></li>
                     <li className="nav-item"><NavLink className='nav-link' to="/">Validazione misure</NavLink></li>
                     <li className="nav-item"><NavLink className='nav-link' to="/reportistica">Reportistica</NavLink></li>
                 </ul>

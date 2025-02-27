@@ -1,0 +1,1696 @@
+{
+  "misuratori": [
+    {
+      "Misuratore": "12345",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.34,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": true,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12346",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "B",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.35,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12347",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "C",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.36,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12348",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "D",
+      "Protocolli_Supportati": [
+        "5G",
+        "Interfaccia GSM"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.37,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12349",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.38,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12350",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "B",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.39,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": true,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12351",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "C",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.4,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12352",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "D",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.41,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12353",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.42,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12354",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "B",
+      "Protocolli_Supportati": [
+        "5G",
+        "Interfaccia GSM"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.43,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12355",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "C",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.44,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": true,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12356",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "D",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.45,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12357",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.46,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12358",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "B",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.47,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12359",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "C",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.48,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12360",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "D",
+      "Protocolli_Supportati": [
+        "5G",
+        "Interfaccia GSM"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.49,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": true,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12361",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.5,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12362",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "B",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.51,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12363",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "C",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.52,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12364",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "D",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.53,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": false,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12365",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.54,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": true,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12366",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "B",
+      "Protocolli_Supportati": [
+        "5G",
+        "Interfaccia GSM"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.55,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12367",
+      "Nodo": "Nodo_Zona_Centro",
+      "Zona": "Centro",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "C",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.56,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12368",
+      "Nodo": "Nodo_Zona_Sud",
+      "Zona": "Sud",
+      "Livello_Tensione": "MT",
+      "Modello_Misuratore": "D",
+      "Protocolli_Supportati": [
+        "5G"
+      ],
+      "Anno_Installazione": 2024,
+      "Prezzo_Unitario": 12.57,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": 1.234,
+          "Corrente": 2.345,
+          "Frequenza": 3.456,
+          "Potenza_Attiva": 4.567,
+          "Potenza_Reattiva": 5.678,
+          "Potenza_Apparente": 6.789,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": 1.238,
+          "Corrente": 2.349,
+          "Frequenza": 3.46,
+          "Potenza_Attiva": 4.571,
+          "Potenza_Reattiva": 5.682,
+          "Potenza_Apparente": 6.793,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": false,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    },
+    {
+      "Misuratore": "12369",
+      "Nodo": "Nodo_Zona_Nord",
+      "Zona": "Nord",
+      "Livello_Tensione": "AT",
+      "Modello_Misuratore": "A",
+      "Protocolli_Supportati": [
+        "Interfaccia GSM",
+        "4G"
+      ],
+      "Anno_Installazione": 2023,
+      "Prezzo_Unitario": 12.58,
+      "Fase": 3,
+      "Grandezze": [
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:10:00Z"
+        },
+        {
+          "Tensione": 1.235,
+          "Corrente": 2.346,
+          "Frequenza": 3.457,
+          "Potenza_Attiva": 4.568,
+          "Potenza_Reattiva": 5.679,
+          "Potenza_Apparente": 6.79,
+          "Timestamp": "2025-02-26T16:11:00Z"
+        },
+        {
+          "Tensione": 1.236,
+          "Corrente": 2.347,
+          "Frequenza": 3.458,
+          "Potenza_Attiva": 4.569,
+          "Potenza_Reattiva": 5.68,
+          "Potenza_Apparente": 6.791,
+          "Timestamp": "2025-02-26T16:12:00Z"
+        },
+        {
+          "Tensione": 1.237,
+          "Corrente": 2.348,
+          "Frequenza": 3.459,
+          "Potenza_Attiva": 4.57,
+          "Potenza_Reattiva": 5.681,
+          "Potenza_Apparente": 6.792,
+          "Timestamp": "2025-02-26T16:13:00Z"
+        },
+        {
+          "Tensione": null,
+          "Corrente": null,
+          "Frequenza": null,
+          "Potenza_Attiva": null,
+          "Potenza_Reattiva": null,
+          "Potenza_Apparente": null,
+          "Timestamp": "2025-02-26T16:14:00Z"
+        }
+      ],
+      "Cluster": {
+        "Misure_Validate_Automaticamente": true,
+        "Misure_Mancanti": true,
+        "Misure_Corrette_Automaticamente": true,
+        "Misure_Anomale": false,
+        "Soglia": 10
+      }
+    }
+  ]
+}

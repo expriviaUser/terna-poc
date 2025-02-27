@@ -786,7 +786,7 @@ function App() {
 
             </div>
           </div>
-          <h3 className='page-title'>Overview Misuratori</h3>
+          <h3 className='page-title'>Cluster individuati</h3>
           <div className="applied-filters">
 
           </div>

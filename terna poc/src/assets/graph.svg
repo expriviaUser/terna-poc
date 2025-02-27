@@ -1,0 +1,12 @@
+<svg width="229" height="54" viewBox="0 0 229 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Line Graph 1">
+<g id="Graph lines">
+<path id="Line" d="M228.361 46.6537H0.361699" stroke="#E4E4E4" stroke-opacity="0.4" stroke-width="0.429134" stroke-linecap="square"/>
+<path id="Line_2" d="M228.361 30.7758H0.361699" stroke="#E4E4E4" stroke-opacity="0.4" stroke-width="0.429134" stroke-linecap="square"/>
+<path id="Line_3" d="M228.36 14.8979H0.361211" stroke="#E4E4E4" stroke-opacity="0.4" stroke-width="0.429134" stroke-linecap="square"/>
+</g>
+<g id="Graph lines_2">
+<path id="Graph Blue Outline" d="M0.361084 4.45972L26.4823 13.7976C27.4432 14.1411 28.4951 14.131 29.4491 13.769L50.9529 5.61063C52.7477 4.92971 54.7763 5.52352 55.9207 7.06474L84.5443 45.6166C86.2042 47.8522 89.5208 47.9395 91.296 45.7942L113.311 19.1894C114.757 17.4428 117.311 17.1217 119.144 18.4563L134.652 29.7504C136.271 30.9293 138.49 30.8319 139.999 29.5157L151.587 19.4098C152.244 18.8365 153.06 18.4772 153.927 18.3796L173.663 16.1575C174.11 16.1072 174.545 15.9871 174.955 15.8016L199.159 4.82966C199.698 4.58566 200.281 4.45548 200.872 4.44727L228.361 4.06531" stroke="#9E6600" stroke-width="1.49644" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

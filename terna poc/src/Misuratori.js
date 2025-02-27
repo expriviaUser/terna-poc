@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import measurementsData from './data.json';
-import myLogo from "./assets/2loghi.svg";
-import profile from "./assets/frame-profilo.svg";
 import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import { Button } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import App from './App';
+import './App.css';
+import myImage from "./assets/graph.svg";
+import { default as measurementsData } from './complete1.json';
+import { default as measurementsData2 } from './complete2.json';
 
 function Misuratori() {
   const [data, setData] = useState([]);
@@ -19,11 +18,139 @@ function Misuratori() {
   const [showProtocolli, setShowProtocolli] = useState(true);
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
-  
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [manutenzioni, setManutenzioni] = useState([]);
+  const [sostituzioni, setSostituzioni] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  //const [clusterStats, setClusterStats] = useState(null);
+  let [selectedCard, setSelectedCard] = useState(0);
+  let todayDate = new Intl.DateTimeFormat("it-IT", {
+    weekday: "long",  // Full day name (e.g., "Mercoledì")
+    year: "numeric",  // 4-digit year
+    month: "long",    // Full month name (e.g., "Febbraio")
+    day: "2-digit",   // 2-digit day
+    hour: "numeric",  // Hour in 12-hour format
+    minute: "2-digit", // 2-digit minute
+  }).format(new Date());
+  let countdown = "05:00";
+
+  const onSelectRow = (index, item) => {
+    setSelectedRow(index);
+    setSelectedItem(item);
+  }
+
+  const [currentDate, setCurrentDate] = useState(todayDate);
+  const [currentCountdown, setCurrentCountdown] = useState(countdown);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newDate = new Intl.DateTimeFormat("it-IT", {
+        weekday: "long",  // Full day name (e.g., "Mercoledì")
+        year: "numeric",  // 4-digit year
+        month: "long",    // Full month name (e.g., "Febbraio")
+        day: "2-digit",   // 2-digit day
+        hour: "numeric",  // Hour in 12-hour format
+        minute: "2-digit", // 2-digit minute
+      }).format(new Date());
+      setCurrentDate(newDate);
+
+      const [minutes, seconds] = currentCountdown.split(':').map(Number);
+      if (minutes === 0 && seconds === 0) {
+        setCurrentCountdown('05:00');
+        setSelectedCard(0);
+        const transformedData = measurementsData.misuratori.map(device => {
+          const latestMeasurement = device.Grandezze[device.Grandezze.length - 1];
+          return {
+            Misuratore: device.Misuratore,
+            Nodo: device.Nodo,
+            Zona: device.Zona,
+            Livello_Tensione: device.Livello_Tensione,
+            Modello_Misuratore: device.Modello_Misuratore,
+            Protocolli_Supportati: device.Protocolli_Supportati,
+            Anno_Installazione: device.Anno_Installazione,
+            Prezzo_Unitario: device.Prezzo_Unitario,
+            Operazioni_Pianificate: device.Operazioni_Pianificate,
+            Fase: device.Fase,
+            ...latestMeasurement,
+            ...device,
+            Cluster: device.Cluster
+          };
+        });
+        const transformedData2 = measurementsData2.misuratori.map(device => {
+          const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+          return {
+            Misuratore: device.Misuratore,
+            Nodo: device.Nodo,
+            Zona: device.Zona,
+            Livello_Tensione: device.Livello_Tensione,
+            Modello_Misuratore: device.Modello_Misuratore,
+            Protocolli_Supportati: device.Protocolli_Supportati,
+            Anno_Installazione: device.Anno_Installazione,
+            Prezzo_Unitario: device.Prezzo_Unitario,
+            Operazioni_Pianificate: device.Operazioni_Pianificate,
+            Fase: device.Fase,
+            ...latestMeasurement2,
+            ...device,
+            Cluster: device.Cluster
+          };
+        });
+
+        const randomNum = Math.random() < 0.5 ? 0 : 1;
+
+        setData(randomNum === 0 ? transformedData : transformedData2);
+        setFilteredData(randomNum === 0 ? transformedData : transformedData2);
+
+        clusterStats = data.reduce((stats, item) => {
+          if (item.Stato === 'online') stats.online++;
+          if (item.Stato === 'offline') stats.offline++;
+          if (item.Stato === 'alert') stats.alert++;
+          if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') stats.manutenzione++;
+          return stats;
+        }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
+
+        return;
+      }
+      let totalSeconds = minutes * 60 + seconds - 1;
+      const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+      const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
+      setCurrentCountdown(`${newMinutes}:${newSeconds}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [currentCountdown]);
+
+
+
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: 'ascending'
   });
+
+  useEffect(() => {
+    getManutenzioni();
+  }, [manutenzioni]);
+  const getManutenzioni = () => {
+    const man = [];
+    filteredData.forEach((item, index) => {
+      if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') {
+        man.push(item);
+      }
+    })
+    setManutenzioni(man);
+  };
+  useEffect(() => {
+    getSostituzioni();
+  }, [sostituzioni]);
+  const getSostituzioni = () => {
+    const sost = [];
+    filteredData.forEach((item, index) => {
+      if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Sostituzione') {
+        sost.push(item);
+      }
+    })
+    setSostituzioni(sost);
+  };
+
   const [filters, setFilters] = useState({
     areas: {
       all: false,
@@ -37,6 +164,7 @@ function Misuratori() {
       sardegna: false,
 
     },
+    tens: false,
     tensione: {
       at: true,
       mt: true
@@ -71,6 +199,7 @@ function Misuratori() {
     }
   });
 
+
   useEffect(() => {
     // Transform the data to flatten the latest measurement with device info
     const transformedData = measurementsData.misuratori.map(device => {
@@ -84,14 +213,36 @@ function Misuratori() {
         Protocolli_Supportati: device.Protocolli_Supportati,
         Anno_Installazione: device.Anno_Installazione,
         Prezzo_Unitario: device.Prezzo_Unitario,
+        Operazioni_Pianificate: device.Operazioni_Pianificate,
         Fase: device.Fase,
         ...latestMeasurement,
+        ...device,
         Cluster: device.Cluster
       };
     });
-    
-    setData(transformedData);
-    setFilteredData(transformedData);
+    const transformedData2 = measurementsData2.misuratori.map(device => {
+      const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Operazioni_Pianificate: device.Operazioni_Pianificate,
+        Fase: device.Fase,
+        ...latestMeasurement2,
+        ...device,
+        Cluster: device.Cluster
+      };
+    });
+
+    const randomNum = Math.random() < 0.5 ? 0 : 1;
+
+    setData(randomNum === 0 ? transformedData : transformedData2);
+    setFilteredData(randomNum === 0 ? transformedData : transformedData2);
   }, []);
 
   useEffect(() => {
@@ -114,9 +265,21 @@ function Misuratori() {
     }
   }, [sortConfig]);
 
+  const setCard = (index) => {
+    if (selectedCard === index) {
+      setSelectedCard(0);
+      selectedCard = 0;
+      filterData();
+      return;
+    }
+    setSelectedCard(index);
+    selectedCard = index;
+    filterData();
+  }
+
   const filterData = () => {
     let result = [...data];
-    
+
     // Apply area filter based on Zona field
     const anyAreaSelected = Object.values(filters.areas).some(v => v);
     if (anyAreaSelected) {
@@ -127,17 +290,16 @@ function Misuratori() {
         return false;
       });
     }
-    
+
     // Apply tensione filter based on Livello_Tensione field
-    const anyTensioneSelected = Object.values(filters.tensione).some(v => v);
-    if (anyTensioneSelected) {
-      result = result.filter(item => {
-        if (filters.tensione.at && item.Livello_Tensione === "AT") return true;
-        if (filters.tensione.mt && item.Livello_Tensione === "MT") return true;
-        return false;
-      });
-    }
-    
+
+    result = result.filter(item => {
+      if (filters.tens && item.Livello_Tensione === "AT") return true;
+      if (!filters.tens && item.Livello_Tensione === "MT") return true;
+      return false;
+    });
+
+
     // Updated modelli filter to use Modello_Misuratore field
     const anyModelliSelected = Object.values(filters.modelli).some(v => v);
     if (anyModelliSelected) {
@@ -149,7 +311,7 @@ function Misuratori() {
         return false;
       });
     }
-    
+
     // Apply protocolli filters based on Protocolli_Supportati array
     const anyProtocolliSelected = Object.values(filters.protocolli).some(v => v);
     if (anyProtocolliSelected) {
@@ -161,26 +323,39 @@ function Misuratori() {
         return false;
       });
     }
-    
+
     // Apply anno installazione filter
     if (filters.annoInstallazione) {
-      result = result.filter(item => 
+      result = result.filter(item =>
         item.Anno_Installazione >= parseInt(filters.annoInstallazione)
       );
     }
-    
+
+    if (selectedCard > 0) {
+      result = result.filter(item => {
+        if (selectedCard === 1 && item.Stato === 'alert') return true;
+        if (selectedCard === 2 && item.Stato === 'offline') return true;
+        if (selectedCard === 3 && item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') return true;
+        if (selectedCard === 4 && item.Stato === 'online') return true;
+        return false;
+      });
+    }
+
     setFilteredData(result);
     setCurrentPage(1); // Reset to first page when filters change
   };
 
   // Calculate cluster statistics
-  const clusterStats = data.reduce((stats, item) => {
-    if (item.Cluster.Misure_Mancanti) stats.mancanti++;
-    if (item.Cluster.Misure_Corrette_Automaticamente) stats.corrette++;
-    if (item.Cluster.Misure_Anomale) stats.anomalie++;
-    if (item.Cluster.Misure_Validate_Automaticamente) stats.validate++;
+  let clusterStats = data.reduce((stats, item) => {
+    if (item.Stato === 'online') stats.online++;
+    if (item.Stato === 'offline') stats.offline++;
+    if (item.Stato === 'alert') stats.alert++;
+    if (item.Operazioni_Pianificate && item.Operazioni_Pianificate.Operazione === 'Manutenzione') stats.manutenzione++;
     return stats;
-  }, { mancanti: 0, corrette: 0, anomalie: 0, validate: 0 });
+  }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
+
+
+
 
   // Get current items for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -193,13 +368,13 @@ function Misuratori() {
       setCurrentPage(currentPage + 1);
     }
   };
-  
+
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-  
+
   // Handle sorting
   const requestSort = (key) => {
     let direction = 'ascending';
@@ -208,26 +383,30 @@ function Misuratori() {
     }
     setSortConfig({ key, direction });
   };
-  
+
   // Handle filter changes
   const handleFilterChange = (filterType, filterValue, isChecked) => {
-    if (filterValue !== 'all') {
+    if (filterValue && filterValue !== 'all') {
       filters[filterType].all = false;
-    } 
+    }
     setFilters(prevFilters => {
       const newFilters = { ...prevFilters };
-      newFilters[filterType][filterValue] = isChecked;
+      if (filterValue) {
+        newFilters[filterType][filterValue] = isChecked;
+      } else {
+        newFilters[filterType] = isChecked;
+      }
       return newFilters;
     });
   };
-  
+
   const handleAnnoInstallazioneChange = (value) => {
     setFilters(prevFilters => ({
       ...prevFilters,
       annoInstallazione: value
     }));
   };
-  
+
   const clearFilters = () => {
     setFilters({
       areas: {
@@ -240,8 +419,9 @@ function Misuratori() {
         calabria: false,
         sicilia: false,
         sardegna: false,
-  
+
       },
+      tens: false,
       tensione: {
         at: false,
         mt: false
@@ -329,419 +509,450 @@ function Misuratori() {
   }
 
   return (
-      <main>
-        <aside className="filters">
-          <h2>Filtri applicati</h2>
-          <button onClick={clearFilters}>Cancella filtri <CircleX size={18}/></button>
-          <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
-              <h3>Area zonali</h3>
-              { showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
-            </div>
-            { showAreas &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.areas.all}
-                      onChange={(e) => {handleFilterChange('areas', 'all', e.target.checked); clearAreas()}}
-                  /> Tutti
-                </label>}
-            { showAreas &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.areas.nord}
-                      onChange={(e) => handleFilterChange('areas', 'nord', e.target.checked)}
-                  /> Nord
-                </label>}
-            { showAreas &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.areas.cnord}
-                      onChange={(e) => handleFilterChange('areas', 'cnord', e.target.checked)}
-                  /> CNord
-                </label>}
-            { showAreas && <label>
-              <input
-                  type="checkbox"
-                  checked={filters.areas.sud}
-                  onChange={(e) => handleFilterChange('areas', 'sud', e.target.checked)}
-              /> Sud
-            </label> }
-            { showAreas && <label>
-              <input
-                  type="checkbox"
-                  checked={filters.areas.csud}
-                  onChange={(e) => handleFilterChange('areas', 'csud', e.target.checked)}
-              /> CSud
-            </label> }
-            { showAreas && <label>
-              <input
-                  type="checkbox"
-                  checked={filters.areas.calabria}
-                  onChange={(e) => handleFilterChange('areas', 'calabria', e.target.checked)}
-              /> Calabria
-            </label> }
-            { showAreas && <label>
-              <input
-                  type="checkbox"
-                  checked={filters.areas.Sicilia}
-                  onChange={(e) => handleFilterChange('areas', 'Sicilia', e.target.checked)}
-              /> Sicilia
-            </label> }
-            { showAreas && <label>
-              <input
-                  type="checkbox"
-                  checked={filters.areas.sardegna}
-                  onChange={(e) => handleFilterChange('areas', 'sardegna', e.target.checked)}
-              /> Sardegna
-            </label> }
+    <main>
+      <aside className="filters">
+        <h2>Filtri applicati</h2>
+        <button onClick={clearFilters}>Cancella filtri <CircleX size={18} /></button>
+        <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
+            <h3>Area zonali</h3>
+            {showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
           </div>
-          <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowTensione(!showTensione)}>
-              <h3>Tensione</h3>
-              { showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
-            </div>
-            {showTensione &&
-                <label>
-                  <Form.Switch // prettier-ignore
-                      id="custom-switch"
-                      label="AT"
-                      checked={filters.tensione.at}
-                      onChange={(e) => handleFilterChange('tensione', 'at', e.target.checked)}
-                  />
+          {showAreas &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.areas.all}
+                onChange={(e) => { handleFilterChange('areas', 'all', e.target.checked); clearAreas() }}
+              /> Tutti
+            </label>}
+          {showAreas &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.areas.nord}
+                onChange={(e) => handleFilterChange('areas', 'nord', e.target.checked)}
+              /> Nord
+            </label>}
+          {showAreas &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.areas.cnord}
+                onChange={(e) => handleFilterChange('areas', 'cnord', e.target.checked)}
+              /> CNord
+            </label>}
+          {showAreas && <label>
+            <input
+              type="checkbox"
+              checked={filters.areas.sud}
+              onChange={(e) => handleFilterChange('areas', 'sud', e.target.checked)}
+            /> Sud
+          </label>}
+          {showAreas && <label>
+            <input
+              type="checkbox"
+              checked={filters.areas.csud}
+              onChange={(e) => handleFilterChange('areas', 'csud', e.target.checked)}
+            /> CSud
+          </label>}
+          {showAreas && <label>
+            <input
+              type="checkbox"
+              checked={filters.areas.calabria}
+              onChange={(e) => handleFilterChange('areas', 'calabria', e.target.checked)}
+            /> Calabria
+          </label>}
+          {showAreas && <label>
+            <input
+              type="checkbox"
+              checked={filters.areas.Sicilia}
+              onChange={(e) => handleFilterChange('areas', 'Sicilia', e.target.checked)}
+            /> Sicilia
+          </label>}
+          {showAreas && <label>
+            <input
+              type="checkbox"
+              checked={filters.areas.sardegna}
+              onChange={(e) => handleFilterChange('areas', 'sardegna', e.target.checked)}
+            /> Sardegna
+          </label>}
+        </div>
+        <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowTensione(!showTensione)}>
+            <h3>Tensione</h3>
+            {showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+          </div>
+          {showTensione &&
+            <label className='tensione'>
+              MT
+              <Form.Switch // prettier-ignore
+                id="custom-switch"
+                label="AT"
+                checked={filters.tens}
+                onChange={(e) => handleFilterChange('tens', null, e.target.checked)/* {filters.tensione.at = !filters.tensione.at; filters.tensione.mt = !filters.tensione.mt;} */}
+              />
 
-                </label>
-            }
-            {showTensione &&
-                <label>
-                  <Form.Switch // prettier-ignore
-                      id="custom-switch"
-                      label="MT"
-                      checked={filters.tensione.mt}
-                      onChange={(e) => handleFilterChange('tensione', 'mt', e.target.checked)}
-                  />
-                </label>
-            }
+            </label>
+          }
+        </div>
+        <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowModelli(!showModelli)}>
+            <h3>Modelli</h3>
+            {showModelli ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
           </div>
-          <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowModelli(!showModelli)}>
-              <h3>Modelli</h3>
-              { showModelli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
-            </div>
-            {showModelli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.modelli.all}
-                      onChange={(e) => {handleFilterChange('modelli', 'all', e.target.checked); clearModelli()}}
-                  /> Tutti
-                </label>
-            }
-            {showModelli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.modelli.a}
-                      onChange={(e) => handleFilterChange('modelli', 'a', e.target.checked)}
-                  /> A
-                </label>
-            }
-            {showModelli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.modelli.b}
-                      onChange={(e) => handleFilterChange('modelli', 'b', e.target.checked)}
-                  /> B
-                </label>
-            }
-            {showModelli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.modelli.c}
-                      onChange={(e) => handleFilterChange('modelli', 'c', e.target.checked)}
-                  /> C
-                </label>
-            }
-            {showModelli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.modelli.d}
-                      onChange={(e) => handleFilterChange('modelli', 'd', e.target.checked)}
-                  /> D
-                </label>
-            }
+          {showModelli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.modelli.all}
+                onChange={(e) => { handleFilterChange('modelli', 'all', e.target.checked); clearModelli() }}
+              /> Tutti
+            </label>
+          }
+          {showModelli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.modelli.a}
+                onChange={(e) => handleFilterChange('modelli', 'a', e.target.checked)}
+              /> A
+            </label>
+          }
+          {showModelli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.modelli.b}
+                onChange={(e) => handleFilterChange('modelli', 'b', e.target.checked)}
+              /> B
+            </label>
+          }
+          {showModelli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.modelli.c}
+                onChange={(e) => handleFilterChange('modelli', 'c', e.target.checked)}
+              /> C
+            </label>
+          }
+          {showModelli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.modelli.d}
+                onChange={(e) => handleFilterChange('modelli', 'd', e.target.checked)}
+              /> D
+            </label>
+          }
+        </div>
+        <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowProtocolli(!showProtocolli)}>
+            <h3>Protocolli</h3>
+            {showProtocolli ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
           </div>
-          <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowProtocolli(!showProtocolli)}>
-              <h3>Protocolli</h3>
-              { showProtocolli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
+          {showProtocolli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.protocolli.all}
+                onChange={(e) => { handleFilterChange('protocolli', 'gsm', e.target.checked); clearProtocolli() }}
+              /> Tutti
+            </label>
+          }
+          {showProtocolli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.protocolli.gsm}
+                onChange={(e) => handleFilterChange('protocolli', 'gsm', e.target.checked)}
+              /> GSM
+            </label>
+          }
+          {showProtocolli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.protocolli['g']}
+                onChange={(e) => handleFilterChange('protocolli', 'g', e.target.checked)}
+              /> 4G/5G
+            </label>
+          }
+          {showProtocolli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.protocolli.ethernet}
+                onChange={(e) => handleFilterChange('protocolli', 'ethernet', e.target.checked)}
+              /> Ethernet
+            </label>
+          }
+          {showProtocolli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.protocolli.apiRestful}
+                onChange={(e) => handleFilterChange('protocolli', 'apiRestful', e.target.checked)}
+              /> API RESTful
+            </label>
+          }
+          {showProtocolli &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.protocolli.integrazioneCloud}
+                onChange={(e) => handleFilterChange('protocolli', 'integrazioneCloud', e.target.checked)}
+              /> Integrazione cloud via HTTP/HTTPS
+            </label>
+          }
+
+        </div>
+        <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowFurn(!showFurn)}>
+            <h3>Fornitore</h3>
+            {showFurn ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+          </div>
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.all}
+                onChange={(e) => { handleFilterChange('fornitore', 'all', e.target.checked); clearFornitore() }}
+              /> Tutti
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.furn1}
+                onChange={(e) => handleFilterChange('fornitore', 'furn1', e.target.checked)}
+              /> Fornitore 1
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.furn2}
+                onChange={(e) => handleFilterChange('fornitore', 'furn2', e.target.checked)}
+              /> Fornitore 2
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.furn3}
+                onChange={(e) => handleFilterChange('fornitore', 'furn3', e.target.checked)}
+              /> Fornitore 3
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.furn4}
+                onChange={(e) => handleFilterChange('fornitore', 'furn4', e.target.checked)}
+              /> Fornitore 4
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.furn5}
+                onChange={(e) => handleFilterChange('fornitore', 'furn5', e.target.checked)}
+              /> Fornitore 5
+            </label>
+          }
+        </div>
+        <div className="filter-group">
+          <div className='filter-group-header' onClick={() => setShowState(!showState)}>
+            <h3>Stato</h3>
+            {showState ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+          </div>
+          {showState &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.fornitore.all}
+                onChange={(e) => { handleFilterChange('fornitore', 'all', e.target.checked); clearState() }}
+              /> Tutti
+            </label>
+          }
+          {showState &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.state.online}
+                onChange={(e) => handleFilterChange('state', 'online', e.target.checked)}
+              /> Online
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.state.offline}
+                onChange={(e) => handleFilterChange('state', 'offline', e.target.checked)}
+              /> Offline
+            </label>
+          }
+          {showFurn &&
+            <label>
+              <input
+                type="checkbox"
+                checked={filters.state.alert}
+                onChange={(e) => handleFilterChange('state', 'alert', e.target.checked)}
+              /> Alert
+            </label>
+          }
+        </div>
+      </aside>
+      <section className="content">
+        {/* <StaticExample /> */}
+        <div className="date-filter">
+          <div className='date-left'>
+            <div className="date-today">
+              Today: {todayDate}
             </div>
-            {showProtocolli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.protocolli.all}
-                      onChange={(e) => {handleFilterChange('protocolli', 'gsm', e.target.checked); clearProtocolli()}}
-                  /> Tutti
-                </label>
-            }
-            {showProtocolli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.protocolli.gsm}
-                      onChange={(e) => handleFilterChange('protocolli', 'gsm', e.target.checked)}
-                  /> GSM
-                </label>
-            }
-            {showProtocolli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.protocolli['g']}
-                      onChange={(e) => handleFilterChange('protocolli', 'g', e.target.checked)}
-                  /> 4G/5G
-                </label>
-            }
-            {showProtocolli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.protocolli.ethernet}
-                      onChange={(e) => handleFilterChange('protocolli', 'ethernet', e.target.checked)}
-                  /> Ethernet
-                </label>
-            }
-            {showProtocolli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.protocolli.apiRestful}
-                      onChange={(e) => handleFilterChange('protocolli', 'apiRestful', e.target.checked)}
-                  /> API RESTful
-                </label>
-            }
-            {showProtocolli &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.protocolli.integrazioneCloud}
-                      onChange={(e) => handleFilterChange('protocolli', 'integrazioneCloud', e.target.checked)}
-                  /> Integrazione cloud via HTTP/HTTPS
-                </label>
-            }
+            <div className="next-update">
+              Prossimo aggiornamento: {currentCountdown}
+            </div>
+          </div>
+          <div className="select-date">
 
           </div>
-          <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowFurn(!showFurn)}>
-              <h3>Fornitore</h3>
-              { showFurn ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
-            </div>
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.all}
-                      onChange={(e) => {handleFilterChange('fornitore', 'all', e.target.checked); clearFornitore()}}
-                  /> Tutti
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.furn1}
-                      onChange={(e) => handleFilterChange('fornitore', 'furn1', e.target.checked)}
-                  /> Fornitore 1
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.furn2}
-                      onChange={(e) => handleFilterChange('fornitore', 'furn2', e.target.checked)}
-                  /> Fornitore 2
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.furn3}
-                      onChange={(e) => handleFilterChange('fornitore', 'furn3', e.target.checked)}
-                  /> Fornitore 3
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.furn4}
-                      onChange={(e) => handleFilterChange('fornitore', 'furn4', e.target.checked)}
-                  /> Fornitore 4
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.furn5}
-                      onChange={(e) => handleFilterChange('fornitore', 'furn5', e.target.checked)}
-                  /> Fornitore 5
-                </label>
-            }
+        </div>
+        <h3 className='page-title'>Gestione Misuratori</h3>
+        <div className="applied-filters">
+
+        </div>
+        <h4 className='page-title'>Overview</h4>
+        <div className="clusters">
+          <div className={"cluster " + (selectedCard && selectedCard === 1 ? 'active' : 'notActive')} onClick={() => { setCard(1) }}>
+            <p>{clusterStats.alert}</p>
+            <h3>Alert</h3>
+            <img src={myImage} alt="Description" width="100%" />
           </div>
-          <div className="filter-group">
-            <div className='filter-group-header' onClick={() => setShowState(!showState)}>
-              <h3>Stato</h3>
-              { showState ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
-            </div>
-            {showState &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.fornitore.all}
-                      onChange={(e) => {handleFilterChange('fornitore', 'all', e.target.checked); clearState()}}
-                  /> Tutti
-                </label>
-            }
-            {showState &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.state.online}
-                      onChange={(e) => handleFilterChange('state', 'online', e.target.checked)}
-                  /> Online
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.state.offline}
-                      onChange={(e) => handleFilterChange('state', 'offline', e.target.checked)}
-                  /> Offline
-                </label>
-            }
-            {showFurn &&
-                <label>
-                  <input
-                      type="checkbox"
-                      checked={filters.state.alert}
-                      onChange={(e) => handleFilterChange('state', 'alert', e.target.checked)}
-                  /> Alert
-                </label>
-            }
+          <div className={"cluster " + (selectedCard && selectedCard === 2 ? 'active' : 'notActive')} onClick={() => { setCard(2) }}>
+            <p>{clusterStats.offline}</p>
+            <h3>Offline</h3>
+            <img src={myImage} alt="Description" width="100%" />
           </div>
-        </aside>
-        <section className="content">
-          <div className="clusters">
-            <div className="cluster">
-              <p>{clusterStats.mancanti}</p>
-              <h3>MANCANTI</h3>
-              <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
-            </div>
-            <div className="cluster">
-              <p>{clusterStats.corrette}</p>
-              <h3>CORRETTE AUTOMATICAMENTE</h3>
-              <p>Misure che si discostano dal forecast (andamento standard) del +- 10%</p>
-            </div>
-            <div className="cluster">
-              <p>{clusterStats.anomalie}</p>
-              <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
-              <p>Misuratori che hanno un livello di correzioni / mancate trasmissioni superiore al 50%</p>
-            </div>
-            <div className="cluster">
-              <p>{clusterStats.validate}</p>
-              <h3>VALIDATE AUTOMATICAMENTE</h3>
-              <p>Tutte le misure reali coerenti con il forecast</p>
-            </div>
+          <div className={"cluster " + (selectedCard && selectedCard === 3 ? 'active' : 'notActive')} onClick={() => { setCard(3) }}>
+            <p>{clusterStats.manutenzione}</p>
+            <h3>In Manutezione</h3>
+            <img src={myImage} alt="Description" width="100%" />
           </div>
-          <div className="measurements">
-            <h2>Misure</h2>
-            <div className="table-container">
-              <table>
-                <thead>
+          <div className={"cluster " + (selectedCard && selectedCard === 4 ? 'active' : 'notActive')} onClick={() => { setCard(4) }}>
+            <p>{clusterStats.online}</p>
+            <h3>Online</h3>
+            <img src={myImage} alt="Description" width="100%" />
+          </div>
+        </div>
+        <div className="measurements">
+          <div className="table-container">
+            <table>
+              <thead>
                 <tr>
-                  <th onClick={() => requestSort('Timestamp')}>Timestamp</th>
-                  <th onClick={() => requestSort('Misuratore')}>Misuratore</th>
+                  <th onClick={() => requestSort('Misuratore')}>Matricola / Modello</th>
+                  <th onClick={() => requestSort('Zona')}>Zona</th>
                   <th onClick={() => requestSort('Nodo')}>Nodo</th>
-                  {/* <th onClick={() => requestSort('Zona')}>Zona</th> */}
-                  <th onClick={() => requestSort('Frequenza')}>Frequenza</th>
-                  <th onClick={() => requestSort('Livello_Tensione')}>Tensione</th>
-                  <th onClick={() => requestSort('Corrente')}>Corrente</th>
-                  <th onClick={() => requestSort('Potenza_Attiva')}>P. Attiva</th>{/*
-                    <th onClick={() => requestSort('Modello_Misuratore')}>Modello</th>
-                    <th>Protocolli</th>
-                    <th onClick={() => requestSort('Anno_Installazione')}>Anno</th>
-                    <th onClick={() => requestSort('Fase')}>Fase</th>
-                    <th onClick={() => requestSort('Tensione')}>Tensione</th>
-                    <th onClick={() => requestSort('Potenza_Reattiva')}>P. Reattiva</th>
-                    <th onClick={() => requestSort('Potenza_Apparente')}>P. Apparente</th>
-                    <th>Actions</th> */}
+                  <th onClick={() => requestSort('Stato')}>Stato</th>
+                  <th onClick={() => requestSort('Timestamp')}>Ultimo Agg</th>
+                  <th onClick={() => requestSort('Operazioni_Pianificate')}>Pianificaz interv</th>
                 </tr>
-                </thead>
-                <tbody>
+              </thead>
+              <tbody>
                 {currentItems.map((item, index) => (
-                    <tr key={index}>
-                      <td>{new Date(item.Timestamp).toLocaleString()}</td>
-                      <td>{item.Misuratore}</td>
-                      <td>{item.Nodo}</td>
-                      {/*  <td>{item.Zona}</td> */}
-                      <td>{item.Frequenza.toFixed(3)}</td>
-                      <td>{item.Livello_Tensione}</td>
-                      <td>{item.Corrente.toFixed(3)}</td>
-                      <td>{item.Potenza_Attiva.toFixed(3)}</td>{/*
-                      <td>{item.Modello_Misuratore}</td>
-                      <td>{item.Protocolli_Supportati.join(", ")}</td>
-                      <td>{item.Anno_Installazione}</td>
-                      <td>{item.Fase}</td>
-                      <td>{item.Tensione.toFixed(3)}</td>
-                      <td>{item.Potenza_Reattiva.toFixed(3)}</td>
-                      <td>{item.Potenza_Apparente.toFixed(3)}</td> */}
-                      {/*  <td>
-                        <button>Details</button>
-                        <button>Download</button>
-                      </td> */}
-                    </tr>
+                  <tr key={index} onClick={() => onSelectRow(index, item)} className={selectedRow === index ? 'selected' : ''}>
+                    <td >{item.Misuratore}</td>
+                    <td >{item.Zona}</td>
+                    <td >{item.Nodo}</td>
+                    <td >{item.Stato}</td>
+                    <td >{new Date(item.Timestamp).toLocaleString()}</td>
+                    <td >{item.Operazioni_Pianificate?.Operazione}</td>
+                  </tr>
                 ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="pagination">
-              <button onClick={prevPage}>&lt;</button>
-              <span>{currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}</span>
-              <button onClick={nextPage}>&gt;</button>
-            </div>
-            <div className="results-info">
-              Showing {currentItems.length} of {filteredData.length} results
+              </tbody>
+            </table>
+          </div>
+          <div className="pagination">
+            <button onClick={prevPage}>&lt;</button>
+            <span>{currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}</span>
+            <button onClick={nextPage}>&gt;</button>
+          </div>
+          <div className="results-info">
+            Showing {currentItems.length} of {filteredData.length} results
+          </div>
+        </div>
+      </section>
+      <aside className="inspector">
+        <h2>Inspector</h2>
+        <div className="inspector-btns">
+          <Button>Crea Report</Button>
+          <Button>Apri segnalazione</Button>
+        </div>
+        
+          <div className="inspector-manutenzioni">
+            <span className="title-aside-section">Nodi in manutenzione</span>
+            <span >Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
+            <div className="manutenzioni">
+              {}
             </div>
           </div>
-        </section>
-        <aside className="inspector">
-          <h2>Inspector</h2>
-          <button>Crea Report</button>
-          <button>Apri segnalazione</button>
-          <div className="map">
-            {/* Map image or component */}
+       
+        {manutenzioni.length > 0 &&
+          <div className="inspector-manutenzioni">
+            <span className="title-aside-section">Manutenzioni Pianificate</span>
+            <div className="manutenzioni">
+              {manutenzioni.map((manutenzione, index) => (
+                <div key={index} className="manutenzione">
+                  <div>
+                    <p><b>{manutenzione.Operazioni_Pianificate.Operazione}</b></p>
+                    <p>{new Intl.DateTimeFormat("it-IT", {
+                      year: "numeric",  // 4-digit year
+                      month: "numeric",    // Full month name (e.g., "Febbraio")
+                      day: "2-digit",   // 2-digit day
+                    }).format(new Date(manutenzione.Operazioni_Pianificate.Data))}
+                    </p>
+                  </div>
+                  <div>
+                    <p>Model {manutenzione.Modello_Misuratore}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="characteristics">
-            <h3>Caratteristiche misuratori</h3>
-            <ul>
-              <li>14) Model A</li>
-              <li>26) Model B</li>
-              <li>3) Model D</li>
-            </ul>
+        }
+        {sostituzioni.length > 0 &&
+          <div className="inspector-manutenzioni">
+            <span className="title-aside-section">Attività di sostituzione</span>
+            <div className="manutenzioni">
+              {sostituzioni.map((sost, index) => (
+                <div key={index} className="manutenzione">
+                  <div>
+                    <p><b>{sost.Operazioni_Pianificate.Operazione}</b></p>
+                    <p>{new Intl.DateTimeFormat("it-IT", {
+                      year: "numeric",  // 4-digit year
+                      month: "numeric",    // Full month name (e.g., "Febbraio")
+                      day: "2-digit",   // 2-digit day
+                    }).format(new Date(sost.Operazioni_Pianificate.Data))}
+                    </p>
+                  </div>
+                  <div>
+                    <p>Model {sost.Modello_Misuratore}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </aside>
-      </main>
-
+        }
+      </aside>
+    </main>
   );
 }
 

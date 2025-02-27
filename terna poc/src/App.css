@@ -346,8 +346,27 @@ p {
 .inspector {
   width: 30%;
   padding: 1rem;
-  background-color: #f1f3f5;
+  background-color: #ffffff;
   border-left: 1px solid #dee2e6;
+}
+
+.manutenzioni {
+  display: flex;
+  flex-direction: column;
+padding: 7px 20px;
+justify-content: space-between;
+align-items: center;
+align-self: stretch;
+border-radius: 8px;
+background: rgba(0, 92, 169, 0.05);
+}
+
+.manutenzione {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .inspector h2 {
@@ -397,6 +416,26 @@ background:  #FFF;
   cursor: pointer;
   margin-bottom: 1rem;
 }*/
+
+.inspector-manutenzioni {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: start;
+  border-top: 1px solid #dee2e6;  
+  margin-top: 12px;
+}
+
+.inspector-manutenzioni .title-aside-section {
+  padding: 10px 20px ;
+  color: var(--Primary-Anthracite, #2F2F2F);
+  text-align: start;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: 30px; /* 214.286% */
+letter-spacing: 0.5px;
+}
 
 .inspector button:hover {
   background-color: #0056b3;
