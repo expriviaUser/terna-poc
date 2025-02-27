@@ -70,9 +70,8 @@ function Misuratori() {
     setSelectedItem(item);
   }
 
-  const groupByNodo = () => {
-
-    const groupedByNodo = filteredData.reduce((acc, item) => {
+  const groupByNodo = (data) => {
+    const groupedByNodo = data.reduce((acc, item) => {
       if (!acc[item.Nodo]) {
         acc[item.Nodo] = [];
       }
@@ -81,7 +80,6 @@ function Misuratori() {
     }, {});
     console.log(groupedByNodo);
     setGroupedNodo(groupedByNodo);
-
   }
 
 
@@ -145,8 +143,9 @@ function Misuratori() {
 
         const randomNum = Math.random() < 0.5 ? 0 : 1;
 
-        setData(randomNum === 0 ? transformedData : transformedData2);
-        setFilteredData(randomNum === 0 ? transformedData : transformedData2);
+        const data = randomNum === 0 ? transformedData : transformedData2;
+        setData(data);
+        setFilteredData(data);
 
         clusterStats = data.reduce((stats, item) => {
           if (item.Stato === 'online') stats.online++;
@@ -156,7 +155,7 @@ function Misuratori() {
           return stats;
         }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
-        groupByNodo();
+        groupByNodo(data);
 
         return;
       }
@@ -270,11 +269,12 @@ function Misuratori() {
 
     const randomNum = Math.random() < 0.5 ? 0 : 1;
 
-    setData(randomNum === 0 ? transformedData : transformedData2);
-    setFilteredData(randomNum === 0 ? transformedData : transformedData2);
+    const data = randomNum === 0 ? transformedData : transformedData2;
+    setData(data);
+    setFilteredData(data);
     setManutenzioni(getManutenzioni());
     setSostituzioni(getSostituzioni());
-    groupByNodo();
+    groupByNodo(data);
   }, []);
 
   useEffect(() => {
@@ -950,9 +950,9 @@ function Misuratori() {
             <span className="title-aside-section">Nodi in manutenzione</span>
             <span style={{ textAlign: "left" }}>Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
             <div className="manutenzioni">
-              {Object.keys(groupedNodo)?.map((nodo, index) => {
-                  return groupedNodo[nodo]?.length && groupedNodo[nodo].map((node, idx) => {
-                    return <div key={index}>
+              {Object.entries(groupedNodo)?.map(([key, value], i) => {
+                return value?.map((node, j) => {
+                    return <div key={`${i}-${j}`}>
                       <h3>{node.Zona}</h3>
                     </div>
                   })
