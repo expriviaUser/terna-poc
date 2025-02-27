@@ -7,7 +7,9 @@ import profile from "./assets/frame-profilo.svg";
 import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
 import Form from 'react-bootstrap/Form';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Misuratori from './Misuratori';
+import { Button, ButtonGroup } from "react-bootstrap";
+import MapModule from './components/MapModule';
+import GraphModule from './components/GraphModule';
 
 function App() {
   const [data, setData] = useState([]);
@@ -22,7 +24,7 @@ function App() {
   const [showState, setShowState] = useState(true);
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [clusterStats, setClusterStats] = useState(null);
+  //const [clusterStats, setClusterStats] = useState(null);
   let [selectedCard, setSelectedCard] = useState(1);
   let todayDate = new Intl.DateTimeFormat("it-IT", {
     weekday: "long",  // Full day name (e.g., "Mercoledì")
@@ -266,6 +268,9 @@ function App() {
     if (item.Cluster.Misure_Validate_Automaticamente) stats.validate++;
     return stats;
   }, { mancanti: 0, corrette: 0, anomalie: 0, validate: 0 });
+
+  
+  
 
   // Get current items for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -866,12 +871,12 @@ function App() {
         <aside className="inspector">
           <h2>Inspector</h2>
           <div className="inspector-btns">
-            <button>Crea Report</button>
-            <button>Apri segnalazione</button>
+            <Button>Crea Report</Button>
+            <Button>Apri segnalazione</Button>
           </div>
-          <div className="map">
-            {/* Map image or component */}
-          </div>
+            {/* <MapModule selectedItem={filteredData}/> */}
+            <GraphModule selectedItem={filteredData}/>
+          
           <div className="characteristics">
             <h3>Caratteristiche misuratori</h3>
             <ul>
