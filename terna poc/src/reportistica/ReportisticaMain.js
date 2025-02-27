@@ -1,4 +1,4 @@
-import {Link, NavLink, Navigate, useParams} from "react-router-dom";
+import {Navigate, NavLink, useParams} from "react-router-dom";
 import React, {useMemo} from "react";
 import {reports} from "./reports";
 import {Countdown} from "../components/Countdown";
@@ -65,4 +65,3 @@ export function ReportisticaMain() {
         </div>
     )
 }
-
