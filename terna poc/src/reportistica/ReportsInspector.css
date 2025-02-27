@@ -5,7 +5,7 @@
 }
 
 .inspector-title {
-    /*font-family: Oswald;*/
+    font-family: Oswald, sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 30px;
@@ -35,7 +35,7 @@
     border-top: 1px solid #00000033;
     border-bottom: 1px solid #00000033;
 
-    /*font-family: Oswald;*/
+    font-family: Oswald, sans-serif;
     font-weight: 500;
     font-size: 24px;
     line-height: 36px;
