@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import React, {useMemo} from "react";
 import {reports} from "./reports";
 import {Countdown} from "../components/Countdown";
@@ -8,6 +8,10 @@ import '../App.css';
 export function ReportisticaMain() {
     const {id} = useParams();
     const data = useMemo(() => reports.find(report => report.id === id), [id]);
+
+    if (data == null) {
+        return <Navigate to={`/reportistica/${reports[0].id}`}/>
+    }
 
     return (
         <section className="content content-reports">
