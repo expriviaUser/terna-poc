@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import { Button } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 import './App.css';
-import measurementsData from './data.json';
-import measurementsData2 from './data.json';
 import myLogo from "./assets/2loghi.svg";
 import profile from "./assets/frame-profilo.svg";
-import { ChevronDown, ChevronUp, CircleX } from "lucide-react";
-import Form from 'react-bootstrap/Form';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Button, ButtonGroup } from "react-bootstrap";
-import MapModule from './components/MapModule';
 import GraphModule from './components/GraphModule';
+import MapModule from './components/MapModule';
+import { default as measurementsData, default as measurementsData2 } from './data.json';
 
 function App() {
   const [data, setData] = useState([]);
@@ -59,6 +57,53 @@ function App() {
       const [minutes, seconds] = currentCountdown.split(':').map(Number);
       if (minutes === 0 && seconds === 0) {
         setCurrentCountdown('05:00');
+        setSelectedCard(1);
+        const transformedData = measurementsData.misuratori.map(device => {
+          const latestMeasurement = device.Grandezze[device.Grandezze.length - 1];
+          return {
+            Misuratore: device.Misuratore,
+            Nodo: device.Nodo,
+            Zona: device.Zona,
+            Livello_Tensione: device.Livello_Tensione,
+            Modello_Misuratore: device.Modello_Misuratore,
+            Protocolli_Supportati: device.Protocolli_Supportati,
+            Anno_Installazione: device.Anno_Installazione,
+            Prezzo_Unitario: device.Prezzo_Unitario,
+            Fase: device.Fase,
+            ...latestMeasurement,
+            Cluster: device.Cluster
+          };
+        });
+        const transformedData2 = measurementsData2.misuratori.map(device => {
+          const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+          return {
+            Misuratore: device.Misuratore,
+            Nodo: device.Nodo,
+            Zona: device.Zona,
+            Livello_Tensione: device.Livello_Tensione,
+            Modello_Misuratore: device.Modello_Misuratore,
+            Protocolli_Supportati: device.Protocolli_Supportati,
+            Anno_Installazione: device.Anno_Installazione,
+            Prezzo_Unitario: device.Prezzo_Unitario,
+            Fase: device.Fase,
+            ...latestMeasurement2,
+            Cluster: device.Cluster
+          };
+        });
+    
+        const randomNum = Math.random() < 0.5 ? 0 : 1;
+    
+        setData(randomNum === 0 ? transformedData : transformedData2);
+        setFilteredData(randomNum === 0 ? transformedData : transformedData2);
+
+        clusterStats = data.reduce((stats, item) => {
+          if (item.Cluster.Misure_Mancanti) stats.mancanti++;
+          if (item.Cluster.Misure_Corrette_Automaticamente) stats.corrette++;
+          if (item.Cluster.Misure_Anomale) stats.anomalie++;
+          if (item.Cluster.Misure_Validate_Automaticamente) stats.validate++;
+          return stats;
+        }, { mancanti: 0, corrette: 0, anomalie: 0, validate: 0 });
+
         return;
       }
       let totalSeconds = minutes * 60 + seconds - 1;
@@ -261,7 +306,7 @@ function App() {
   };
 
   // Calculate cluster statistics
-  const clusterStats = data.reduce((stats, item) => {
+  let clusterStats = data.reduce((stats, item) => {
     if (item.Cluster.Misure_Mancanti) stats.mancanti++;
     if (item.Cluster.Misure_Corrette_Automaticamente) stats.corrette++;
     if (item.Cluster.Misure_Anomale) stats.anomalie++;
@@ -427,21 +472,21 @@ function App() {
       <main>
         <aside className="filters">
           <h2>Filtri applicati</h2>
-          <button onClick={clearFilters}>Cancella filtri <CircleX size={18} /></button>
+          <button onClick={clearFilters}>Cancella filtri <CircleX size={18}/></button>
           <div className="filter-group">
             <div className='filter-group-header' onClick={() => setShowAreas(!showAreas)}>
               <h3>Area zonali</h3>
-              {showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+              { showAreas ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
-            {showAreas &&
+            { showAreas &&
                 <label>
                   <input
                       type="checkbox"
                       checked={filters.areas.all}
-                      onChange={(e) => { handleFilterChange('areas', 'all', e.target.checked); clearAreas() }}
+                      onChange={(e) => {handleFilterChange('areas', 'all', e.target.checked); clearAreas()}}
                   /> Tutti
                 </label>}
-            {showAreas &&
+            { showAreas &&
                 <label>
                   <input
                       type="checkbox"
@@ -449,7 +494,7 @@ function App() {
                       onChange={(e) => handleFilterChange('areas', 'nord', e.target.checked)}
                   /> Nord
                 </label>}
-            {showAreas &&
+            { showAreas &&
                 <label>
                   <input
                       type="checkbox"
@@ -457,46 +502,46 @@ function App() {
                       onChange={(e) => handleFilterChange('areas', 'cnord', e.target.checked)}
                   /> CNord
                 </label>}
-            {showAreas && <label>
+            { showAreas && <label>
               <input
                   type="checkbox"
                   checked={filters.areas.sud}
                   onChange={(e) => handleFilterChange('areas', 'sud', e.target.checked)}
               /> Sud
-            </label>}
-            {showAreas && <label>
+            </label> }
+            { showAreas && <label>
               <input
                   type="checkbox"
                   checked={filters.areas.csud}
                   onChange={(e) => handleFilterChange('areas', 'csud', e.target.checked)}
               /> CSud
-            </label>}
-            {showAreas && <label>
+            </label> }
+            { showAreas && <label>
               <input
                   type="checkbox"
                   checked={filters.areas.calabria}
                   onChange={(e) => handleFilterChange('areas', 'calabria', e.target.checked)}
               /> Calabria
-            </label>}
-            {showAreas && <label>
+            </label> }
+            { showAreas && <label>
               <input
                   type="checkbox"
                   checked={filters.areas.Sicilia}
                   onChange={(e) => handleFilterChange('areas', 'Sicilia', e.target.checked)}
               /> Sicilia
-            </label>}
-            {showAreas && <label>
+            </label> }
+            { showAreas && <label>
               <input
                   type="checkbox"
                   checked={filters.areas.sardegna}
                   onChange={(e) => handleFilterChange('areas', 'sardegna', e.target.checked)}
               /> Sardegna
-            </label>}
+            </label> }
           </div>
           <div className="filter-group">
             <div className='filter-group-header' onClick={() => setShowTensione(!showTensione)}>
               <h3>Tensione</h3>
-              {showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+              { showTensione ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
             {showTensione &&
                 <label className='tensione'>
@@ -514,14 +559,14 @@ function App() {
           <div className="filter-group">
             <div className='filter-group-header' onClick={() => setShowModelli(!showModelli)}>
               <h3>Modelli</h3>
-              {showModelli ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+              { showModelli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
             {showModelli &&
                 <label>
                   <input
                       type="checkbox"
                       checked={filters.modelli.all}
-                      onChange={(e) => { handleFilterChange('modelli', 'all', e.target.checked); clearModelli() }}
+                      onChange={(e) => {handleFilterChange('modelli', 'all', e.target.checked); clearModelli()}}
                   /> Tutti
                 </label>
             }
@@ -565,14 +610,14 @@ function App() {
           <div className="filter-group">
             <div className='filter-group-header' onClick={() => setShowProtocolli(!showProtocolli)}>
               <h3>Protocolli</h3>
-              {showProtocolli ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+              { showProtocolli ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
             {showProtocolli &&
                 <label>
                   <input
                       type="checkbox"
                       checked={filters.protocolli.all}
-                      onChange={(e) => { handleFilterChange('protocolli', 'gsm', e.target.checked); clearProtocolli() }}
+                      onChange={(e) => {handleFilterChange('protocolli', 'gsm', e.target.checked); clearProtocolli()}}
                   /> Tutti
                 </label>
             }
@@ -626,14 +671,14 @@ function App() {
           <div className="filter-group">
             <div className='filter-group-header' onClick={() => setShowFurn(!showFurn)}>
               <h3>Fornitore</h3>
-              {showFurn ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+              { showFurn ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
             {showFurn &&
                 <label>
                   <input
                       type="checkbox"
                       checked={filters.fornitore.all}
-                      onChange={(e) => { handleFilterChange('fornitore', 'all', e.target.checked); clearFornitore() }}
+                      onChange={(e) => {handleFilterChange('fornitore', 'all', e.target.checked); clearFornitore()}}
                   /> Tutti
                 </label>
             }
@@ -686,14 +731,14 @@ function App() {
           <div className="filter-group">
             <div className='filter-group-header' onClick={() => setShowState(!showState)}>
               <h3>Stato</h3>
-              {showState ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+              { showState ? <ChevronDown size={24} /> : <ChevronUp size={24} /> }
             </div>
             {showState &&
                 <label>
                   <input
                       type="checkbox"
                       checked={filters.fornitore.all}
-                      onChange={(e) => { handleFilterChange('fornitore', 'all', e.target.checked); clearState() }}
+                      onChange={(e) => {handleFilterChange('fornitore', 'all', e.target.checked); clearState()}}
                   /> Tutti
                 </label>
             }
@@ -727,6 +772,7 @@ function App() {
           </div>
         </aside>
         <section className="content">
+          {/* <StaticExample /> */}
           <div className="date-filter">
             <div className='date-left'>
               <div className="date-today">
@@ -742,25 +788,25 @@ function App() {
           </div>
           <h3 className='page-title'>Overview Misuratori</h3>
           <div className="applied-filters">
-            { }
+
           </div>
           <div className="clusters">
-            <div className={"cluster " + (selectedCard && selectedCard === 1 ? 'active' : 'notActive')} onClick={() => { setCard(1) }}>
+            <div className={"cluster " + (selectedCard && selectedCard===1 ? 'active' : 'notActive')} onClick={() => {setCard(1)}}>
               <p>{clusterStats.mancanti}</p>
               <h3>MANCANTI</h3>
               <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
             </div>
-            <div className={"cluster " + (selectedCard && selectedCard === 2 ? 'active' : 'notActive')} onClick={() => { setCard(2) }}>
+            <div className={"cluster " + (selectedCard && selectedCard===2 ? 'active' : 'notActive')} onClick={() => {setCard(2)}}>
               <p>{clusterStats.corrette}</p>
               <h3>CORRETTE AUTOMATICAMENTE</h3>
               <p>Misure che si discostano dal forecast (andamento standard) del +- 10%</p>
             </div>
-            <div className={"cluster " + (selectedCard && selectedCard === 3 ? 'active' : 'notActive')} onClick={() => { setCard(3) }}>
+            <div className={"cluster " + (selectedCard && selectedCard===3 ? 'active' : 'notActive')} onClick={() => {setCard(3)}}>
               <p>{clusterStats.anomalie}</p>
               <h3>MISURE DERIVATE DA MISURATORI CON PROBABILI ANOMALIE</h3>
               <p>Misuratori che hanno un livello di correzioni / mancate trasmissioni superiore al 50%</p>
             </div>
-            <div className={"cluster " + (selectedCard && selectedCard === 4 ? 'active' : 'notActive')} onClick={() => { setCard(4) }}>
+            <div className={"cluster " + (selectedCard && selectedCard===4 ? 'active' : 'notActive')} onClick={() => {setCard(4)}}>
               <p>{clusterStats.validate}</p>
               <h3>VALIDATE AUTOMATICAMENTE</h3>
               <p>Tutte le misure reali coerenti con il forecast</p>
@@ -768,18 +814,18 @@ function App() {
           </div>
           <div className="measurements">
             <div className='header-table'>
-              <h2>{selectedCard === 1 ? clusterStats.mancanti : selectedCard === 2 ? clusterStats.corrette : selectedCard === 3 ? clusterStats.anomalie : selectedCard === 4 ? clusterStats.validate : ''} Misure {selectedCard === 1 ? "mancanti" : selectedCard === 2 ? "corrette automaticamente" : selectedCard === 3 ? "derivate da misuratori con probabili anomalie" : selectedCard === 4 ? "validate automaticamente" : ''}</h2>
+              <h2>{selectedCard===1 ? clusterStats.mancanti : selectedCard===2 ? clusterStats.corrette : selectedCard===3 ? clusterStats.anomalie : selectedCard===4 ? clusterStats.validate : ''} Misure {selectedCard===1 ? "mancanti" : selectedCard===2 ? "corrette automaticamente" : selectedCard===3 ? "derivate da misuratori con probabili anomalie" : selectedCard===4 ? "validate automaticamente" : ''}</h2>
               {
-                  selectedCard === 1 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+                  selectedCard===1 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
               }
               {
-                  selectedCard === 2 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+                  selectedCard===2 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
               }
               {
-                  selectedCard === 3 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+                  selectedCard===3 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
               }
               {
-                  selectedCard === 4 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
+                  selectedCard===4 && <p>Misure calcolate dal sistema utilizzando l'algoritmo XY</p>
               }
             </div>
             <div className="table-container">
@@ -848,7 +894,7 @@ function App() {
             <Button>Apri segnalazione</Button>
           </div>
           <MapModule selectedItem={filteredData}/>
-          <GraphModule selectedItem={filteredData}/>
+          <GraphModule selectedItem={filteredData} item={selectedItem}/>
 
           <div className="characteristics">
             <h3>Caratteristiche misuratori</h3>
