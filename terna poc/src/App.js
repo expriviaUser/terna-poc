@@ -841,8 +841,10 @@ function App() {
         </section>
         <aside className="inspector">
           <h2>Inspector</h2>
+          <div className="inspector-btns">
           <button>Crea Report</button>
           <button>Apri segnalazione</button>
+          </div>
           <div className="map">
             {/* Map image or component */}
           </div>
