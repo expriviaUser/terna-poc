@@ -29,10 +29,12 @@
 }
 
 .report {
+    display: flex;
+    align-items: flex-start;
     text-decoration: none;
     color: inherit;
     border-radius: 16px;
-    gap: 40px;
+    gap: 16px;
     padding: 16px;
     border: 1px solid #00000033;
     background: white;
@@ -53,6 +55,7 @@
     /*line-height: 36px;*/
     letter-spacing: 0.5px;
     color: #005CA9;
+    margin-bottom: 4px;
 }
 
 .mieiReports {
