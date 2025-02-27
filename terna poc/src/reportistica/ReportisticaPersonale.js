@@ -5,13 +5,11 @@ import './Reports.css';
 import '../App.css';
 import {mieiReports} from "./reports";
 import {ReportisticaInspector} from "./ReportisticaInspector";
+import {Button, Form, InputGroup} from "react-bootstrap";
 
 export function ReportisticaPersonale() {
     const {reportId} = useParams();
-
     const report = mieiReports[reportId];
-    console.log(report);
-
 
     return (
         <div className="container-reports">
@@ -21,6 +19,7 @@ export function ReportisticaPersonale() {
             <section className="container-reports-flex">
                 <section className="content-reports">
                     <h3 className='page-title'>I miei Report</h3>
+                    <RepHeader/>
                     <div className='mieiReports'>
                         {mieiReports.map((report, id) => (
                             <NavLink key={id} className={'mioReport'} to={`/reportistica/OWN/${id}`}>
@@ -39,11 +38,27 @@ export function ReportisticaPersonale() {
                             </NavLink>
                         ))}
                     </div>
-
-
                 </section>
                 {report && <ReportisticaInspector report={report}/>}
             </section>
         </div>
     )
+}
+
+
+function RepHeader(props) {
+    return <div className='row'>
+        <div className='col-md-9'>
+            <InputGroup className="mb-3">
+                <Form.Control
+                    placeholder="Cerca"
+                />
+            </InputGroup>
+
+        </div>
+        <div className='col-md-3'>
+            <Button>Nuovo report +</Button>
+        </div>
+
+    </div>
 }
