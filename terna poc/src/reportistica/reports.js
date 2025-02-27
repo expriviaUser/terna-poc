@@ -56,7 +56,7 @@ export const mieiReports = [
         prompt: 'Mostrami tutte le misure in Alert degli ultimi 6 mesi'
     },
     {
-        name: 'Nome report',
+        name: 'Nome report 0',
         date: '12/02/2024',
         filters: [
             'Aree zonali: Sud',
@@ -68,4 +68,18 @@ export const mieiReports = [
     }
 ]
 
-
+let reportN = 1
+export function aggiungiMioReport() {
+    mieiReports.push({
+            name: `Nome report ${reportN++}`,
+            date: new Date().toLocaleDateString(),
+            filters: [
+                'Aree zonali: Sud',
+                'Tensione: MT',
+                'Modelli: A',
+                'Protocolli: Tensione'
+            ],
+            prompt: 'Mostrami tutte le misure in Alert degli ultimi 6 mesi'
+        }
+    )
+}

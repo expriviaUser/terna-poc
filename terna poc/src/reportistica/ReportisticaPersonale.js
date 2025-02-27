@@ -1,25 +1,46 @@
 import {NavLink, useParams} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import {Countdown} from "../components/Countdown";
 import './Reports.css';
 import '../App.css';
-import {mieiReports} from "./reports";
+import {aggiungiMioReport, mieiReports} from "./reports";
 import {ReportisticaInspector} from "./ReportisticaInspector";
-import {Button, Form, InputGroup} from "react-bootstrap";
+import {Button, Form, InputGroup, Row} from "react-bootstrap";
+import {AddReportModal} from "./AddReportModal";
 
 export function ReportisticaPersonale() {
     const {reportId} = useParams();
     const report = mieiReports[reportId];
+    const [modalShow, setModalShow] = useState(false);
 
     return (
         <div className="container-reports">
+            <AddReportModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                onSubmit={() => {
+                    aggiungiMioReport();
+                    setModalShow(false);
+                }}
+            />
             <div className="date-filter">
                 <Countdown onRefresh={console.log}/>
             </div>
             <section className="container-reports-flex">
                 <section className="content-reports">
                     <h3 className='page-title'>I miei Report</h3>
-                    <RepHeader/>
+                    <Row>
+                        <div className='col-md-9'>
+                            <InputGroup className="mb-3">
+                                <Form.Control
+                                    placeholder="Cerca"
+                                />
+                            </InputGroup>
+                        </div>
+                        <div className='col-md-3'>
+                            <Button onClick={() => setModalShow(true)}>Nuovo report +</Button>
+                        </div>
+                    </Row>
                     <div className='mieiReports'>
                         {mieiReports.map((report, id) => (
                             <NavLink key={id} className={'mioReport'} to={`/reportistica/OWN/${id}`}>
@@ -43,22 +64,4 @@ export function ReportisticaPersonale() {
             </section>
         </div>
     )
-}
-
-
-function RepHeader(props) {
-    return <div className='row'>
-        <div className='col-md-9'>
-            <InputGroup className="mb-3">
-                <Form.Control
-                    placeholder="Cerca"
-                />
-            </InputGroup>
-
-        </div>
-        <div className='col-md-3'>
-            <Button>Nuovo report +</Button>
-        </div>
-
-    </div>
 }
