@@ -20,7 +20,7 @@ function Misuratori() {
   const [showFurn, setShowFurn] = useState(true);
   const [showState, setShowState] = useState(true);
   const [selectedRow, setSelectedRow] = useState(null);
-  const [groupedNodo, setGroupedNodo] = useState([]);
+  const [groupedNodo, setGroupedNodo] = useState({});
   /*  useEffect(() => {
     getManutenzioni();
   }, [manutenzioni]); */
@@ -950,8 +950,7 @@ function Misuratori() {
             <span className="title-aside-section">Nodi in manutenzione</span>
             <span style={{ textAlign: "left" }}>Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
             <div className="manutenzioni">
-              {groupedNodo.length &&
-                Object.keys(groupedNodo)?.map((nodo, index) => {
+              {Object.keys(groupedNodo)?.map((nodo, index) => {
                   return groupedNodo[nodo]?.length && groupedNodo[nodo].map((node, idx) => {
                     return <div key={index}>
                       <h3>{node.Zona}</h3>
