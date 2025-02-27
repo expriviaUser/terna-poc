@@ -4,15 +4,15 @@ import {reports} from "./reports";
 import {Link} from "react-router-dom";
 
 export function ReportisticaSide() {
-
     return <aside className="filters">
         <h2>Elenco report</h2>
         <FilterGroup title='Preset (modelli)'>
-            <ul>
+            <div className="list-group">
                 {reports.map(report => {
-                    return <li key={report.name}><Link to={`/reportistica/${report.id}`}>{report.name}</Link></li>;
+                    // TODO add active
+                    return <Link className="list-group-item list-group-item-action" to={`/reportistica/${report.id}`}>{report.name}</Link>;
                 })}
-            </ul>
+            </div>
         </FilterGroup>
     </aside>
 }

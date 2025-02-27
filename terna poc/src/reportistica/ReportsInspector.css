@@ -1,0 +1,45 @@
+.inspector-reports {
+    display: flex;
+    flex: 1 1 45%;
+    flex-direction: column;
+}
+
+.inspector-title {
+    /*font-family: Oswald;*/
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #00000033;
+    text-align: center;
+
+    padding: 10px 20px;
+    gap: 10px;
+}
+
+.inspector-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #00000033;
+    justify-content: flex-end;
+
+    padding: 10px 20px;
+    gap: 10px;
+
+}
+
+.inspector-footer {
+    padding: 16px 24px;
+    display: flex;
+    gap: 40px;
+    border-top: 1px solid #00000033;
+    border-bottom: 1px solid #00000033;
+
+    /*font-family: Oswald;*/
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.5px;
+    color: #005CA9;
+
+}

@@ -8,14 +8,9 @@
 }
 
 .content-reports {
+    flex: 1 1 55%;
     border-right: 1px solid #00000033;
     padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.inspector-reports {
     display: flex;
     flex-direction: column;
     gap: 24px;
