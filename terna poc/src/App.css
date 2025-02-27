@@ -360,6 +360,19 @@ p {
   gap: 8px;
 }
 
+.filter {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #005CA9;
+  border-radius: 80px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 11.2px;
+  line-height: 11.2px;
+  letter-spacing: 0.8px;
+}
+
 .inspector-btns {
   display: flex;
   flex-direction: row;

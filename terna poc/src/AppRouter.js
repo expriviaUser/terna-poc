@@ -9,6 +9,7 @@ export function AppRouter() {
             <Routes>
                 <Route path="/" element={<MisurazioniPage/>}/>
                 <Route path="/misuratore" element={<MisurazioniPage/>}/>
+                <Route path="/reportistica/:id" element={<ReportisticaPage/>}/>
                 <Route path="/reportistica" element={<ReportisticaPage/>}/>
             </Routes>
         </AppLayout>
