@@ -43,6 +43,13 @@ export const reports = [
     }
 ]
 
+reports.push({...reports[1], name: 'Preset 02' })
+reports.push({...reports[1], name: 'Preset 03' })
+reports.push({...reports[1], name: 'Preset 04' })
+reports.push({...reports[1], name: 'Preset 05' })
+reports.push({...reports[1], name: 'Preset 06' })
+reports.push({...reports[1], name: 'Preset 07' })
+
 export const mieiReports = [
     {
         name: 'report Misuratori 12012025',
