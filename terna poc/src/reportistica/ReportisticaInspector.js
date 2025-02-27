@@ -5,7 +5,7 @@ import './ReportsInspector.css';
 import { Button } from "react-bootstrap";
 import pdf from "../assets/pdf.jpg";
 
-export function ReportisticaInspector() {
+export function ReportisticaInspector(props) {
     const {id} = useParams();
     const data = useMemo(() => reports.find(report => report.id === id), [id]);
 
@@ -25,7 +25,7 @@ export function ReportisticaInspector() {
             </div>
             <img src={pdf} alt='pdf' />
             <div className="inspector-footer">
-                Spike febbraio
+                {props.report.name}
             </div>
         </div>
     )

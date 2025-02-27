@@ -29,6 +29,8 @@
 }
 
 .report {
+    text-decoration: none;
+    color: inherit;
     border-radius: 16px;
     gap: 40px;
     padding: 16px;
@@ -36,6 +38,10 @@
     background: white;
     min-width: 200px;
     text-align: left;
+}
+
+.report.active {
+    border: 1px solid #005CA9;
 
 }
 
@@ -47,8 +53,4 @@
     /*line-height: 36px;*/
     letter-spacing: 0.5px;
     color: #005CA9;
-}
-
-.report-selected {
-    border: 1px solid #005CA9;
 }

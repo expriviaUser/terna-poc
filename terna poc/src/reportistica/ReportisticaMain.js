@@ -1,4 +1,4 @@
-import {Navigate, useParams} from "react-router-dom";
+import {Link, NavLink, Navigate, useParams} from "react-router-dom";
 import React, {useMemo} from "react";
 import {reports} from "./reports";
 import {Countdown} from "../components/Countdown";
@@ -7,11 +7,16 @@ import '../App.css';
 import {ReportisticaInspector} from "./ReportisticaInspector";
 
 export function ReportisticaMain() {
-    const {id} = useParams();
+    const {id, reportId} = useParams();
     const data = useMemo(() => reports.find(report => report.id === id), [id]);
 
     if (data == null) {
-        return <Navigate to={`/reportistica/${reports[0].id}`}/>
+        return <Navigate to={`/reportistica/${reports[0].id}/0`}/>
+    }
+
+    const report = data.reports[reportId];
+    if (report == null) {
+        return <Navigate to={`/reportistica/${id}/0`}/>
     }
 
     return (
@@ -47,15 +52,15 @@ export function ReportisticaMain() {
                         <h5>Report</h5>
                         <div className="reports">
                             {data.reports.map((report, index) => (
-                                <button key={index} className="report">
+                                <NavLink to={`/reportistica/${data.id}/${index}`} key={index} className="report">
                                     <div className='report-title'>{report.name}</div>
                                     <div className='report-date'>{report.date}</div>
-                                </button>
+                                </NavLink>
                             ))}
                         </div>
                     </div>
                 </section>
-                <ReportisticaInspector/>
+                {report && <ReportisticaInspector report={report}/>}
             </section>
         </div>
     )
