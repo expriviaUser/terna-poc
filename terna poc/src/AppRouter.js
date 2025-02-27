@@ -1,6 +1,6 @@
 import MisurazioniPage from "./App";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {ReportisticaPage} from "./ReportisticaPage";
+import {ReportisticaPage} from "./reportistica/ReportisticaPage";
 import {AppLayout} from "./AppLayout";
 
 export function AppRouter() {
