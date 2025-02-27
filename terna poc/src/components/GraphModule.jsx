@@ -36,34 +36,38 @@ const CustomDot = (props) => {
   if (payload.value === null) {
     return null; 
   }
-
-
+  
+  
   const isHighlighted = payload.value <= threshold;
   return (
     <circle
-      cx={cx}
-      cy={cy}
-      r={isHighlighted ? 8 : 4}
-      fill="green"
+    cx={cx}
+    cy={cy}
+    r={isHighlighted ? 8 : 4}
+    fill="green"
       stroke={isHighlighted ? "red" : "none"}
       strokeWidth={isHighlighted ? 2 : 0}
-    />
-  );
+      />
+    );
 };
 
 const GraphModule = ({selectedItem}) => {
+  const [isFullScreen,setFullScreen] = useState(false);
+  
   const [selectedMetric, setSelectedMetric] = useState("Frequenza");
   const chartRef = useRef(null);
   const data = extractData(selectedMetric,selectedItem);
-
+  
   const toggleFullscreen = () => {
     if (chartRef.current) {
       if (!document.fullscreenElement) {
         chartRef.current.requestFullscreen().catch(err => {
           console.error("Fullscreen error:", err);
         });
+        setFullScreen(true);
       } else {
         document.exitFullscreen();
+        setFullScreen(false);
       }
     }
   };
@@ -81,7 +85,7 @@ const GraphModule = ({selectedItem}) => {
           <Button size="sm" variant={selectedMetric === "Tensione" ? "primary" : "secondary"} onClick={() => setSelectedMetric("Tensione")}>Tensione</Button>
           <Button size="sm" variant={selectedMetric === "Corrente" ? "primary" : "secondary"} onClick={() => setSelectedMetric("Corrente")}>Corrente</Button>
         </ButtonGroup>
-        <Button size="sm" variant="outline-dark" onClick={toggleFullscreen}>Toggle Fullscreen</Button>
+        <Button size="sm" variant="outline-dark" onClick={toggleFullscreen}>{isFullScreen? 'Exit': 'Enter'} Fullscreen</Button>
       </div>
 
       <ResponsiveContainer width="100%" height={400}>

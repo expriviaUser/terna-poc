@@ -874,7 +874,7 @@ function App() {
             <Button>Crea Report</Button>
             <Button>Apri segnalazione</Button>
           </div>
-            {/* <MapModule selectedItem={filteredData}/> */}
+            <MapModule selectedItem={filteredData}/>
             <GraphModule selectedItem={filteredData}/>
           
           <div className="characteristics">

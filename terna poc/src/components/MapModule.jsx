@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
+
+const MapModule = ({selectedItem}) => {
+  const [isFullScreen,setFullScreen] = useState(false);
+  const chartRef = useRef(null);
+
+  const toggleFullscreen = () => {
+    if (chartRef.current) {
+      if (!document.fullscreenElement) {
+        chartRef.current.requestFullscreen().catch(err => {
+          console.error("Fullscreen error:", err);
+        });
+        setFullScreen(true);
+      } else {
+        document.exitFullscreen();
+        setFullScreen(false);
+      }
+    }
+  };
+
+
+  
 const italyCenter = [42.0, 12.5]; // Centro approssimativo dell'Italia
-const zoomLevel = 6; // Livello di zoom
+const zoomLevel = 5; // Livello di zoom
 
 // Punti nodali (coordinate casuali per rappresentare nodi sulla mappa)
 const nodes = [
@@ -17,18 +39,27 @@ const nodes = [
   { id: 8, name: "Cagliari", coords: [39.2238, 9.1217] },
 ];
 
-const MapModule = ({selectedItem}) => {
-  return (
-    <>
-    <MapContainer center={italyCenter} zoom={zoomLevel} style={{ height: "500px", width: "100%" }}>
+
+
+  return <>
+    {selectedItem && selectedItem.length ? <>
+
+    {/* DEBUG:   {JSON.stringify(selectedItem)} */}
+     
+    <div ref={chartRef} className="characteristics" id="graphLine">
+      <div className="text-right  button-group-graph">
+        <Button size="sm" variant="outline-dark" onClick={toggleFullscreen}>{isFullScreen ? 'Exit':'Enter'} Fullscreen</Button>
+      </div>
+
+      <MapContainer center={italyCenter} zoom={zoomLevel} style={{ height: "500px", width: "100%" }}>
       {/* Layer stilizzato (ad esempio, OpenStreetMap con stile HOT) */}
       <TileLayer
-        url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
-        attribution="&copy; OpenStreetMap contributors"
+        url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+        attribution="&copy; <a href='https://carto.com/'>CARTO</a>"
       />
 
       {/* Marker circolari rossi */}
-      {/*nodes.map((node) => (
+      {nodes.map((node) => (
         <CircleMarker
           key={node.id}
           center={node.coords}
@@ -43,10 +74,14 @@ const MapModule = ({selectedItem}) => {
             <br /> Nodo strategico
           </Popup>
         </CircleMarker>
-      ))*/}
+      ))}
     </MapContainer>
+      
+    </div>
+      </>:<>
+        {/* No Data Selected */}
+      </>}
     </>
-  );
 };
 
 export default MapModule;

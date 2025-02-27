@@ -417,3 +417,11 @@ background:  #FFF;
   padding: 2px;
   line-height: 14px;
 }
+
+.text-right{ 
+  text-align: right !important;
+}
+
+.leaflet-control-attribution.leaflet-control {
+  display: none !important;
+}
