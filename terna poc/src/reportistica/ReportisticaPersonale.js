@@ -7,6 +7,7 @@ import {aggiungiMioReport, mieiReports} from "./reports";
 import {ReportisticaInspector} from "./ReportisticaInspector";
 import {Button, Form, InputGroup, Row} from "react-bootstrap";
 import {AddReportModal} from "./AddReportModal";
+import star from '../assets/star.svg'
 
 export function ReportisticaPersonale() {
     const {reportId} = useParams();
@@ -54,7 +55,11 @@ export function ReportisticaPersonale() {
                                     ))}
                                 </div>
                                 <div className="mioReport-prompt">
-                                    {report.prompt}
+                                    <img src={star}/>
+                                    <div>
+                                        <b>PROMPT</b>
+                                        <div>{report.prompt}</div>
+                                    </div>
                                 </div>
                             </NavLink>
                         ))}
@@ -65,3 +70,4 @@ export function ReportisticaPersonale() {
         </div>
     )
 }
+
