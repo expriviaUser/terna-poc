@@ -51,6 +51,26 @@ main {
   color: white;
 }
 
+.page-title {
+  text-align: start;
+}
+
+.date-filter {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  background: #F8F8F8;
+  padding:20px;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.date-filter .date-left {
+  text-align: start;
+}
+
+
+
 /* Sidebar styles */
 .filters {
   width: 20%;

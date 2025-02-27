@@ -30,25 +30,34 @@ function App() {
   }).format(new Date());
   let countdown = "05:00";
 
+    const [currentDate, setCurrentDate] = useState(todayDate);
+    const [currentCountdown, setCurrentCountdown] = useState(countdown);
+
     useEffect(() => {
       const interval = setInterval(() => {
-        todayDate = new Intl.DateTimeFormat("it-IT", {
-          weekday: "long",  // Full day name (e.g., "Mercoledì")
-          year: "numeric",  // 4-digit year
-          month: "long",    // Full month name (e.g., "Febbraio")
-          day: "2-digit",   // 2-digit day
-          hour: "numeric",  // Hour in 12-hour format
-          minute: "2-digit", // 2-digit minute
-        }).format(new Date());
-        const [minutes, seconds] = countdown.split(':').map(Number);
-        let totalSeconds = minutes * 60 + seconds - 1;
-        const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-        const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
-        countdown = `${newMinutes}:${newSeconds}`;
+      const newDate = new Intl.DateTimeFormat("it-IT", {
+        weekday: "long",  // Full day name (e.g., "Mercoledì")
+        year: "numeric",  // 4-digit year
+        month: "long",    // Full month name (e.g., "Febbraio")
+        day: "2-digit",   // 2-digit day
+        hour: "numeric",  // Hour in 12-hour format
+        minute: "2-digit", // 2-digit minute
+      }).format(new Date());
+      setCurrentDate(newDate);
+
+      const [minutes, seconds] = currentCountdown.split(':').map(Number);
+      if (minutes === 0 && seconds === 0) {
+        setCurrentCountdown('05:00');
+        return;
+      }
+      let totalSeconds = minutes * 60 + seconds - 1;
+      const newMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+      const newSeconds = (totalSeconds % 60).toString().padStart(2, '0');
+      setCurrentCountdown(`${newMinutes}:${newSeconds}`);
       }, 1000);
 
       return () => clearInterval(interval);
-    }, []);
+    }, [currentCountdown]);
 
   
   
@@ -713,13 +722,19 @@ function App() {
         </aside>
         <section className="content">
           <div className="date-filter">
-            <div className="date-today">
-              Today: {todayDate}
+            <div className='date-left'>
+              <div className="date-today">
+                Today: {todayDate}
+              </div>
+              <div className="next-update">
+                Prossimo aggiornamento: {currentCountdown}
+              </div>
             </div>
-            <div className="next-update">
-              Prossimo aggiornamento: {countdown}
+            <div className="select-date">
+
             </div>
           </div>
+          <h3 className='page-title'>Overview Misuratori</h3>
           <div className="clusters">
             <div className={"cluster " + (selectedCard && selectedCard===1 ? 'active' : 'notActive')} onClick={() => {setCard(1)}}>
               <p>{clusterStats.mancanti}</p>
