@@ -373,6 +373,14 @@ p {
   letter-spacing: 0.8px;
 }
 
+.prompt {
+  border-radius: 16px;
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  border: 1px solid #949494
+}
+
 .inspector-btns {
   display: flex;
   flex-direction: row;
