@@ -4,6 +4,7 @@ import {reports} from "./reports";
 import {Countdown} from "../components/Countdown";
 import './Reports.css';
 import '../App.css';
+import {ReportisticaInspector} from "./ReportisticaInspector";
 
 export function ReportisticaMain() {
     const {id} = useParams();
@@ -14,43 +15,49 @@ export function ReportisticaMain() {
     }
 
     return (
-        <section className="content content-reports">
+        <div className="container-reports">
             <div className="date-filter">
                 <Countdown onRefresh={console.log}/>
             </div>
-            <h3 className='page-title'><b>Preset:</b> {data.name}</h3>
+            <section className="container-reports-flex">
+                <section className="content-reports">
+                    <h3 className='page-title'><b>Preset:</b> {data.name}</h3>
 
-            <div className="content-reports-child">
-                <h5>Filtri applicati</h5>
-                <div className="applied-filters">
-                    {data.filters.map(filter => (
-                        <button key={filter} className="filter">{filter}</button>
-                    ))}
-                </div>
-            </div>
-
-            <div className="content-reports-child">
-                <h5>Prompt applicati</h5>
-                <div className="applied-filters">
-                    <div>
-                        {data.prompts.map(prompt => (
-                            <div key={prompt} className="prompt">{prompt}</div>
-                        ))}
+                    <div className="content-reports-child">
+                        <h5>Filtri applicati</h5>
+                        <div className="applied-filters">
+                            {data.filters.map(filter => (
+                                <button key={filter} className="filter">{filter}</button>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div className="content-reports-child">
-                <h5>Report</h5>
-                <div className="reports">
-                    {data.reports.map((report, index) => (
-                        <button key={index} className="report">
-                            <div className='report-title'>{report.name}</div>
-                            <div className='report-date'>{report.date}</div>
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </section>
+                    <div className="content-reports-child">
+                        <h5>Prompt applicati</h5>
+                        <div className="applied-filters">
+                            <div>
+                                {data.prompts.map(prompt => (
+                                    <div key={prompt} className="prompt">{prompt}</div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="content-reports-child">
+                        <h5>Report</h5>
+                        <div className="reports">
+                            {data.reports.map((report, index) => (
+                                <button key={index} className="report">
+                                    <div className='report-title'>{report.name}</div>
+                                    <div className='report-date'>{report.date}</div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+                <ReportisticaInspector/>
+            </section>
+        </div>
     )
 }
+

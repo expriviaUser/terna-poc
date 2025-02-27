@@ -1,10 +1,24 @@
+.container-reports {
+    width: 83%;
+    text-align: left;
+}
+
+.container-reports-flex {
+    display: flex;
+}
+
 .content-reports {
-    width: 64%;
-    padding: 1rem;
+    border-right: 1px solid #00000033;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    text-align: left;
+}
+
+.inspector-reports {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .content-reports-child {
