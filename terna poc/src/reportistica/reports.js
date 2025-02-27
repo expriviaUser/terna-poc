@@ -8,9 +8,7 @@ export const reports = [
             'Modelli: D',
             'Protocolli: Tutti'
         ],
-        prompts: [
-            'Mostrami tutte le misure in Alert degli ultimi 3 mesi'
-        ],
+        prompt: 'Mostrami tutte le misure in Alert degli ultimi 6 mesi',
         reports: [
             {
                 name: 'spike Febbraio',
@@ -31,9 +29,7 @@ export const reports = [
             'Modelli: A',
             'Protocolli: Tensione'
         ],
-        prompts: [
-            'Mostrami tutte le misure in Alert degli ultimi 6 mesi'
-        ],
+        prompt: 'Mostrami tutte le misure in Alert degli ultimi 6 mesi',
         reports: [
             {
                 name: 'spike Gennaio',
@@ -46,4 +42,30 @@ export const reports = [
         ]
     }
 ]
+
+export const mieiReports = [
+    {
+        name: 'report Misuratori 12012025',
+        date: '12/02/2024',
+        filters: [
+            'Aree zonali: Nord',
+            'Tensione: AT',
+            'Modelli: D',
+            'Protocolli: Tutti'
+        ],
+        prompt: 'Mostrami tutte le misure in Alert degli ultimi 6 mesi'
+    },
+    {
+        name: 'Nome report',
+        date: '12/02/2024',
+        filters: [
+            'Aree zonali: Sud',
+            'Tensione: MT',
+            'Modelli: A',
+            'Protocolli: Tensione'
+        ],
+        prompt: 'Mostrami tutte le misure in Alert degli ultimi 6 mesi'
+    }
+]
+
 

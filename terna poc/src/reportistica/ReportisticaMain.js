@@ -40,11 +40,7 @@ export function ReportisticaMain() {
                     <div className="content-reports-child">
                         <h5>Prompt applicati</h5>
                         <div className="applied-filters">
-                            <div>
-                                {data.prompts.map(prompt => (
-                                    <div key={prompt} className="prompt">{prompt}</div>
-                                ))}
-                            </div>
+                            <div className="prompt">{data.prompt}</div>
                         </div>
                     </div>
 

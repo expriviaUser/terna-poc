@@ -13,5 +13,6 @@ export function ReportisticaSide() {
                 })}
             </div>
         </FilterGroup>
+        <NavLink className="list-group-item list-group-item-action" to={`/reportistica/OWN`}>I miei report</NavLink>
     </aside>
 }
