@@ -483,12 +483,14 @@ letter-spacing: 0.5px;
 .characteristics h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
+  text-align: start;
 }
 
 .characteristics ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: start;
 }
 
 .characteristics ul li {
