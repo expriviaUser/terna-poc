@@ -162,7 +162,7 @@ function Misuratori() {
           };
         });
 
-        if (minutesDropDown === 15) {
+        /* if (minutesDropDown === 15) {
           const mergeArrays = (...arrays) => {
             return arrays.flat().reduce((acc, obj) => {
               const existing = acc.find(item => item.id === obj.id);
@@ -187,7 +187,7 @@ function Misuratori() {
           }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
           groupByNodo(data);
-        } else {
+        } else { */
           const randomNum = Math.random() < 0.5 ? 0 : 1;
   
           const data = randomNum === 0 ? transformedData : transformedData2;
@@ -202,7 +202,7 @@ function Misuratori() {
           }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
   
           groupByNodo(data);
-         }
+        /*  } */
 
 
 
@@ -277,7 +277,7 @@ function Misuratori() {
       };
     });
 
-    if (e === 15) {
+    /* if (e === 15) {
       const mergeArrays = (...arrays) => {
         return arrays.flat().reduce((acc, obj) => {
           const existing = acc.find(item => item.id === obj.id);
@@ -302,7 +302,7 @@ function Misuratori() {
       }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
       groupByNodo(data);
-    } else {
+    } else { */
       const randomNum = Math.random() < 0.5 ? 0 : 1;
 
       const data = randomNum === 0 ? transformedData : transformedData2;
@@ -317,7 +317,7 @@ function Misuratori() {
       }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
       groupByNodo(data);
-     }
+     /* } */
   }
 
 
@@ -484,7 +484,7 @@ function Misuratori() {
       };
     });
 
-    if (minutesDropDown === 15) {
+    /* if (minutesDropDown === 15) {
       const mergeArrays = (...arrays) => {
         return arrays.flat().reduce((acc, obj) => {
           const existing = acc.find(item => item.id === obj.id);
@@ -503,7 +503,7 @@ function Misuratori() {
       setManutenzioni(getManutenzioni());
       setSostituzioni(getSostituzioni());
       groupByNodo(data);
-    } else {
+    } else { */
       const randomNum = Math.random() < 0.5 ? 0 : 1;
 
       const data = randomNum === 0 ? transformedData : transformedData2;
@@ -512,7 +512,7 @@ function Misuratori() {
       setManutenzioni(getManutenzioni());
       setSostituzioni(getSostituzioni());
       groupByNodo(data);
-     }
+     /* } */
 
    
   }, []);
