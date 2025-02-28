@@ -7,6 +7,7 @@ import myImage from "./assets/graph.svg";
 import { default as measurementsData } from './complete1.json';
 import { default as measurementsData2 } from './complete2.json';
 import GraphModule from './components/GraphModule';
+import ProgressBarLabel from "./ProgressBar";
 
 function Misuratori() {
   const [data, setData] = useState([]);
@@ -75,7 +76,8 @@ function Misuratori() {
       if (!acc[item.Nodo]) {
         acc[item.Nodo] = [];
       }
-      acc[item.Nodo].push(item);
+      if (item.Operazioni_Pianificate?.Operazione === 'Manutenzione')
+        acc[item.Nodo].push(item);
       return acc;
     }, {});
     console.log(groupedByNodo);
@@ -224,6 +226,54 @@ function Misuratori() {
       online: false,
       offline: false,
       alert: false
+    }
+  });
+  
+  const [filtersLabel] = useState({
+    areas: {
+      all: 'Aree zonali: tutte',
+      nord: 'Nord',
+      sud: 'Sud',
+      centro: 'Centro',
+      cnord: 'CNord',
+      csud: 'CSud',
+      calabria: 'Calabria',
+      sicilia: 'Sicilia',
+      sardegna: 'Sardegna',
+
+    },
+    tens: 'Tensione',
+    tensione: {
+      at: "Tensione: AT",
+      mt: "Tensione: MT"
+    },
+    modelli: {
+      all: 'Modelli: tutti',
+      a: "Modello A",
+      b: "Modello B",
+      c: "Modello C",
+      d: "Modello D"
+    },
+    protocolli: {
+      all: "Potocolli: tutti",
+      g: "4G/5G",
+      ethernet: "Ethernet",
+      apiRestful: "API RESTful",
+      integrazioneCloud: "Integrazione cloud via HTTP/HTTPS"
+    },
+    fornitore: {
+      all: false,
+      furn1: false,
+      furn2: false,
+      furn3: false,
+      furn4: false,
+      furn5: false,
+    },
+    state: {
+      all: "Stato: tutti",
+      online: "Stato: online",
+      offline: "Stato: offline",
+      alert: "Stato: alert"
     }
   });
 
@@ -861,9 +911,17 @@ function Misuratori() {
           </div>
         </div>
         <h3 className='page-title'>Gestione Misuratori</h3>
-        <div className="applied-filters">
+        <div className="content-reports-child">
+                        <h5>Filtri applicati</h5>
+                        <div className="applied-filters">
+                            {Object.keys(filters).map(filter => {
+                               {typeof filters[filter] === 'object' && Object.keys(filters[filter]).map(f => {
+                                    return filters[filter][f] && <button key={filter} className="filter">{filtersLabel[filter]}</button>
+                                })}
 
-        </div>
+})}
+                        </div>
+                    </div>
         <h4 className='page-title'>Overview</h4>
         <div className="clusters">
           <div className={"cluster " + (selectedCard && selectedCard === 1 ? 'active' : 'notActive')} onClick={() => { setCard(1) }}>
@@ -952,9 +1010,10 @@ function Misuratori() {
             <div className="manutenzioni">
               {Object.entries(groupedNodo)?.map(([key, value], i) => {
                 return value?.map((node, j) => {
-                    return <div key={`${i}-${j}`}>
-                      <h3>{node.Zona}</h3>
-                    </div>
+                  return <div key={`${i}-${j}`}>
+                    <h3>{node.Zona}</h3>
+                    <ProgressBarLabel now={(groupedNodo[key].length / data.length) * 100} />
+                  </div>
                   })
                 })
               }
