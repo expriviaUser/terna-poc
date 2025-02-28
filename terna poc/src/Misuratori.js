@@ -6,9 +6,10 @@ import './App.css';
 import myImage from "./assets/graph.svg";
 import { default as measurementsData } from './complete1.json';
 import { default as measurementsData2 } from './complete2.json';
+import { default as measurementsData3 } from './complete3.json';
 import GraphModule from './components/GraphModule';
 import ProgressBarLabel from "./ProgressBar";
-import {DropdownMenu} from "./components/DropdownMenu";
+import { DropdownMenu } from "./components/DropdownMenu";
 
 function Misuratori() {
   const [data, setData] = useState([]);
@@ -141,22 +142,68 @@ function Misuratori() {
             Cluster: device.Cluster
           };
         });
+        const transformedData3 = measurementsData3.misuratori.map(device => {
+          const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+          return {
+            Misuratore: device.Misuratore,
+            Nodo: device.Nodo,
+            Zona: device.Zona,
+            Livello_Tensione: device.Livello_Tensione,
+            Modello_Misuratore: device.Modello_Misuratore,
+            Protocolli_Supportati: device.Protocolli_Supportati,
+            Anno_Installazione: device.Anno_Installazione,
+            Prezzo_Unitario: device.Prezzo_Unitario,
+            Operazioni_Pianificate: device.Operazioni_Pianificate,
+            Fase: device.Fase,
+            ...latestMeasurement2,
+            ...device,
+            Cluster: device.Cluster
+          };
+        });
 
-        const randomNum = Math.random() < 0.5 ? 0 : 1;
+        if (minutesDropDown === 15) {
+          const mergeArrays = (...arrays) => {
+            return arrays.flat().reduce((acc, obj) => {
+              const existing = acc.find(item => item.id === obj.id);
+              if (existing) {
+                existing.value += obj.value; // Merge logic (sum values)
+              } else {
+                acc.push({ ...obj });
+              }
+              return acc;
+            }, []);
+          };
+          const data = mergeArrays(transformedData, transformedData2, transformedData3);
+          setData(data);
+          setFilteredData(data);
 
-        const data = randomNum === 0 ? transformedData : transformedData2;
-        setData(data);
-        setFilteredData(data);
+          clusterStats = data.reduce((stats, item) => {
+            if (item.Stato === 'online') stats.online++;
+            if (item.Stato === 'offline') stats.offline++;
+            if (item.Stato === 'alert') stats.alert++;
+            if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') stats.manutenzione++;
+            return stats;
+          }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
-        clusterStats = data.reduce((stats, item) => {
-          if (item.Stato === 'online') stats.online++;
-          if (item.Stato === 'offline') stats.offline++;
-          if (item.Stato === 'alert') stats.alert++;
-          if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') stats.manutenzione++;
-          return stats;
-        }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
+          groupByNodo(data);
+        } else {
+          const randomNum = Math.random() < 0.5 ? 0 : 1;
+  
+          const data = randomNum === 0 ? transformedData : transformedData2;
+          setData(data);
+          setFilteredData(data);
+          clusterStats = data.reduce((stats, item) => {
+            if (item.Stato === 'online') stats.online++;
+            if (item.Stato === 'offline') stats.offline++;
+            if (item.Stato === 'alert') stats.alert++;
+            if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') stats.manutenzione++;
+            return stats;
+          }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
+  
+          groupByNodo(data);
+         }
 
-        groupByNodo(data);
+
 
         return;
       }
@@ -170,6 +217,107 @@ function Misuratori() {
 
     return () => clearInterval(interval);
   }, [currentCountdown]);
+
+
+  const reloadData = (e) => {
+    setMinutesDropDown(e);
+    const transformedData = measurementsData.misuratori.map(device => {
+      const latestMeasurement = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Operazioni_Pianificate: device.Operazioni_Pianificate,
+        Fase: device.Fase,
+        ...latestMeasurement,
+        ...device,
+        Cluster: device.Cluster
+      };
+    });
+    const transformedData2 = measurementsData2.misuratori.map(device => {
+      const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Operazioni_Pianificate: device.Operazioni_Pianificate,
+        Fase: device.Fase,
+        ...latestMeasurement2,
+        ...device,
+        Cluster: device.Cluster
+      };
+    });
+    const transformedData3 = measurementsData3.misuratori.map(device => {
+      const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Operazioni_Pianificate: device.Operazioni_Pianificate,
+        Fase: device.Fase,
+        ...latestMeasurement2,
+        ...device,
+        Cluster: device.Cluster
+      };
+    });
+
+    if (e === 15) {
+      const mergeArrays = (...arrays) => {
+        return arrays.flat().reduce((acc, obj) => {
+          const existing = acc.find(item => item.id === obj.id);
+          if (existing) {
+            existing.value += obj.value; // Merge logic (sum values)
+          } else {
+            acc.push({ ...obj });
+          }
+          return acc;
+        }, []);
+      };
+      const data = mergeArrays(transformedData, transformedData2, transformedData3);
+      setData(data);
+      setFilteredData(data);
+
+      clusterStats = data.reduce((stats, item) => {
+        if (item.Stato === 'online') stats.online++;
+        if (item.Stato === 'offline') stats.offline++;
+        if (item.Stato === 'alert') stats.alert++;
+        if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') stats.manutenzione++;
+        return stats;
+      }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
+
+      groupByNodo(data);
+    } else {
+      const randomNum = Math.random() < 0.5 ? 0 : 1;
+
+      const data = randomNum === 0 ? transformedData : transformedData2;
+      setData(data);
+      setFilteredData(data);
+      clusterStats = data.reduce((stats, item) => {
+        if (item.Stato === 'online') stats.online++;
+        if (item.Stato === 'offline') stats.offline++;
+        if (item.Stato === 'alert') stats.alert++;
+        if (item.Operazioni_Pianificate && item.Operazioni_Pianificate?.Operazione === 'Manutenzione') stats.manutenzione++;
+        return stats;
+      }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
+
+      groupByNodo(data);
+     }
+  }
 
 
 
@@ -227,7 +375,7 @@ function Misuratori() {
       alert: false
     }
   });
-  
+
   const [filtersLabel] = useState({
     areas: {
       all: 'Aree zonali: tutte',
@@ -315,15 +463,56 @@ function Misuratori() {
         Cluster: device.Cluster
       };
     });
+    const transformedData3 = measurementsData3.misuratori.map(device => {
+      const latestMeasurement2 = device.Grandezze[device.Grandezze.length - 1];
+      return {
+        Misuratore: device.Misuratore,
+        Nodo: device.Nodo,
+        Zona: device.Zona,
+        Livello_Tensione: device.Livello_Tensione,
+        Modello_Misuratore: device.Modello_Misuratore,
+        Protocolli_Supportati: device.Protocolli_Supportati,
+        Anno_Installazione: device.Anno_Installazione,
+        Prezzo_Unitario: device.Prezzo_Unitario,
+        Operazioni_Pianificate: device.Operazioni_Pianificate,
+        Fase: device.Fase,
+        ...latestMeasurement2,
+        ...device,
+        Cluster: device.Cluster
+      };
+    });
 
-    const randomNum = Math.random() < 0.5 ? 0 : 1;
+    if (minutesDropDown === 15) {
+      const mergeArrays = (...arrays) => {
+        return arrays.flat().reduce((acc, obj) => {
+          const existing = acc.find(item => item.id === obj.id);
+          if (existing) {
+            existing.value += obj.value; // Merge logic (sum values)
+          } else {
+            acc.push({ ...obj });
+          }
+          return acc;
+        }, []);
+      };
+      const data = mergeArrays(transformedData, transformedData2, transformedData3);
+      
+      setData(data);
+      setFilteredData(data);
+      setManutenzioni(getManutenzioni());
+      setSostituzioni(getSostituzioni());
+      groupByNodo(data);
+    } else {
+      const randomNum = Math.random() < 0.5 ? 0 : 1;
 
-    const data = randomNum === 0 ? transformedData : transformedData2;
-    setData(data);
-    setFilteredData(data);
-    setManutenzioni(getManutenzioni());
-    setSostituzioni(getSostituzioni());
-    groupByNodo(data);
+      const data = randomNum === 0 ? transformedData : transformedData2;
+      setData(data);
+      setFilteredData(data);
+      setManutenzioni(getManutenzioni());
+      setSostituzioni(getSostituzioni());
+      groupByNodo(data);
+     }
+
+   
   }, []);
 
   useEffect(() => {
@@ -908,16 +1097,18 @@ function Misuratori() {
         </div>
         <h3 className='page-title'>Gestione Misuratori</h3>
         <div className="content-reports-child">
-                        <h5>Filtri applicati</h5>
-                        <div className="applied-filters">
-                            {Object.keys(filters).map(filter => {
-                               {typeof filters[filter] === 'object' && Object.keys(filters[filter]).map(f => {
-                                    return filters[filter][f] && <button key={filter} className="filter">{filtersLabel[filter]}</button>
-                                })}
+          <h5>Filtri applicati</h5>
+          <div className="applied-filters">
+            {Object.keys(filters).map(filter => {
+              {
+                typeof filters[filter] === 'object' && Object.keys(filters[filter]).map(f => {
+                  return filters[filter][f] && <button key={filter} className="filter">{filtersLabel[filter]}</button>
+                })
+              }
 
-})}
-                        </div>
-                    </div>
+            })}
+          </div>
+        </div>
         <h4 className='page-title'>Overview</h4>
         <div className="clusters">
           <div className={"cluster " + (selectedCard && selectedCard === 1 ? 'active' : 'notActive')} onClick={() => { setCard(1) }}>
@@ -937,26 +1128,26 @@ function Misuratori() {
           </div>
           <div className={"cluster " + (selectedCard && selectedCard === 4 ? 'active' : 'notActive')} onClick={() => { setCard(4) }}>
             <p>{clusterStats.online}</p>
-            <h3>Online</h3>
+            <h3>Funzionanti</h3>
             <img src={myImage} alt="Description" width="100%" />
           </div>
         </div>
         <div className="measurements">
-        <div className='header-table'>
-              <h2>{selectedCard===1 ? clusterStats.alert : selectedCard===2 ? clusterStats.offline : selectedCard===3 ? clusterStats.manutenzione : selectedCard===4 ? clusterStats.online : ''} {selectedCard===1 ? "alert" : selectedCard===2 ? "offline" : selectedCard===3 ? "in manutenzione" : selectedCard===4 ? "online" : ''}</h2>
-              {
-                  selectedCard===1 && <p>Sono stati rilevati {clusterStats.alert} misuratori con valori mancanti o fuori scala</p>
-              }
-              {
-                  selectedCard===2 && <p>Sono stati rilevati {clusterStats.offline} misuratori offline</p>
-              }
-              {
-                  selectedCard===3 && <p>Sono stati rilevati {clusterStats.manutenzione} misuratori in manutenzione</p>
-              }
-              {
-                  selectedCard===4 && <p>Sono stati rilevati {clusterStats.online} misuratori online</p>
-              }
-            </div>
+          <div className='header-table'>
+            <h2>{selectedCard === 1 ? clusterStats.alert : selectedCard === 2 ? clusterStats.offline : selectedCard === 3 ? clusterStats.manutenzione : selectedCard === 4 ? clusterStats.online : ''} {selectedCard === 1 ? "alert" : selectedCard === 2 ? "offline" : selectedCard === 3 ? "in manutenzione" : selectedCard === 4 ? "online" : ''}</h2>
+            {
+              selectedCard === 1 && <p>Sono stati rilevati {clusterStats.alert} misuratori con valori mancanti o fuori scala</p>
+            }
+            {
+              selectedCard === 2 && <p>Sono stati rilevati {clusterStats.offline} misuratori offline</p>
+            }
+            {
+              selectedCard === 3 && <p>Sono stati rilevati {clusterStats.manutenzione} misuratori in manutenzione</p>
+            }
+            {
+              selectedCard === 4 && <p>Sono stati rilevati {clusterStats.online} misuratori online</p>
+            }
+          </div>
           <div className="table-container">
             <table>
               <thead>
@@ -1004,15 +1195,27 @@ function Misuratori() {
             <span className="title-aside-section">Nodi in manutenzione</span>
             <span style={{ textAlign: "left" }}>Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
             <div className="manutenzioni">
-              {Object.entries(groupedNodo)?.map(([key, value], i) => {
-                return value?.map((node, j) => {
-                  return <div key={`${i}-${j}`}>
-                    <h3>{node.Zona}</h3>
-                    <ProgressBarLabel now={(groupedNodo[key].length / data.length) * 100} />
+              <div style={{ marginTop: "16px", display: "flex", flexDirection: "column" }}>
+                <h4 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Nord</h4>
+                <ProgressBarLabel now={40} variant={"success"} />
+              </div>
+              <div style={{ marginTop: "16px", display: "flex", flexDirection: "column" }}>
+                <h4 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Centro</h4>
+                <ProgressBarLabel now={25} variant={"warning"} />
+                <span style={{ textAlign: "right", width: "100%", marginTop: "12px" }}>In ritardo</span>
+              </div>
+              <div style={{ marginTop: "16px", display: "flex", flexDirection: "column" }}>
+                <h4 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Sud</h4>
+                <ProgressBarLabel now={55} variant={"danger"} />
+                <span style={{ textAlign: "right", width: "100%", marginTop: "12px" }}>Attività ferma</span>
+              </div>
+              {/* {Object.entries(groupedNodo)?.map(([key, value], i) => {
+                  return <div key={`${Math.floor(Math.random() * 100) + 1}`}>
+                    <h4>Manutenzione nodo: {key}</h4>
+                    <ProgressBarLabel now={Math.floor(Math.random() * 100) + 1} variant={["success", "warning", "danger"][Math.floor(Math.random() * ["success", "warning", "danger"].length)]} />
                   </div>
-                  })
                 })
-              }
+              } */}
             </div>
           </div>
         }
@@ -1083,8 +1286,8 @@ function Misuratori() {
         {selectedItem && selectedItem.Grandezze && selectedItem.Grandezze.length > 0 &&
           <div className="inspector-details">
             <h3>Misure</h3>
-            <GraphModule selectedItem={filteredData} item={selectedItem}/>
-        </div>
+            <GraphModule selectedItem={selectedItem.Grandezze} item={selectedItem} />
+          </div>
         }
       </aside>
     </main>

@@ -356,10 +356,17 @@ p {
   flex-direction: column;
 padding: 7px 20px;
 justify-content: space-between;
-align-items: center;
+align-items: left;
 align-self: stretch;
 border-radius: 8px;
 background: rgba(0, 92, 169, 0.05);
+}
+
+.progress  {
+  width: 75%;
+  background: #E9ECEF;
+  height: 25px;
+  font-size: large;
 }
 
 .manutenzione {
