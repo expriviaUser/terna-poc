@@ -9,7 +9,8 @@ import { default as measurementsData2 } from './complete2.json';
 import { default as measurementsData3 } from './complete3.json';
 import GraphModule from './components/GraphModule';
 import ProgressBarLabel from "./ProgressBar";
-import { DropdownMenu } from "./components/DropdownMenu";
+import {DropdownMenu} from "./components/DropdownMenu";
+import {PromptInput} from "./components/PromptInput";
 
 function Misuratori() {
   const [data, setData] = useState([]);
@@ -373,7 +374,8 @@ function Misuratori() {
       online: false,
       offline: false,
       alert: false
-    }
+    },
+    prompt: false
   });
 
   const [filtersLabel] = useState({
@@ -550,6 +552,13 @@ function Misuratori() {
   const filterData = () => {
     let result = [...data];
 
+    if (filters.prompt) {
+      // TODO ho messo la prima riga ma non so se va bene
+      result = result.slice(0,1);
+      setFilteredData(result);
+      return
+    }
+
     // Apply area filter based on Zona field
     const anyAreaSelected = Object.values(filters.areas).some(v => v);
     if (anyAreaSelected) {
@@ -725,7 +734,8 @@ function Misuratori() {
         online: false,
         offline: false,
         alert: false
-      }
+      },
+      prompt: false
     });
   };
   const clearAreas = () => {
@@ -779,6 +789,14 @@ function Misuratori() {
       alert: false
     }
   }
+
+  const handlePromptClick = () => {
+    setMinutesDropDown(15)
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      prompt: true,
+    }));
+  };
 
   return (
     <main>
@@ -1183,6 +1201,7 @@ function Misuratori() {
             Showing {currentItems.length} of {filteredData.length} results
           </div>
         </div>
+        <PromptInput onClick={handlePromptClick}/>
       </section>
       <aside className="inspector">
         <h2>{selectedItem ? `Matricola ${selectedItem.Modello_Misuratore}-${selectedItem.Misuratore}` : 'Inspector'}</h2>
