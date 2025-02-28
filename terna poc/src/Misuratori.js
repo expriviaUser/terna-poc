@@ -162,19 +162,11 @@ function Misuratori() {
           };
         });
 
-        /* if (minutesDropDown === 15) {
-          const mergeArrays = (...arrays) => {
-            return arrays.flat().reduce((acc, obj) => {
-              const existing = acc.find(item => item.id === obj.id);
-              if (existing) {
-                existing.value += obj.value; // Merge logic (sum values)
-              } else {
-                acc.push({ ...obj });
-              }
-              return acc;
-            }, []);
-          };
-          const data = mergeArrays(transformedData, transformedData2, transformedData3);
+        if (minutesDropDown === 15) {
+          const data = transformedData.map(el => {return {
+            ...el,
+            Grandezze: el.Grandezze.concat(transformedData2.find(e => e.Misuratore === el.Misuratore).Grandezze).concat(transformedData3.find(e => e.Misuratore === el.Misuratore).Grandezze)
+          }});
           setData(data);
           setFilteredData(data);
 
@@ -187,7 +179,7 @@ function Misuratori() {
           }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
           groupByNodo(data);
-        } else { */
+        } else {
           const randomNum = Math.random() < 0.5 ? 0 : 1;
   
           const data = randomNum === 0 ? transformedData : transformedData2;
@@ -202,7 +194,7 @@ function Misuratori() {
           }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
   
           groupByNodo(data);
-        /*  } */
+         }
 
 
 
@@ -222,6 +214,9 @@ function Misuratori() {
 
   const reloadData = (e) => {
     setMinutesDropDown(e);
+    setSelectedItem(null);
+    setSelectedRow(null);
+    setCard(0);
     const transformedData = measurementsData.misuratori.map(device => {
       const latestMeasurement = device.Grandezze[device.Grandezze.length - 1];
       return {
@@ -277,19 +272,11 @@ function Misuratori() {
       };
     });
 
-    /* if (e === 15) {
-      const mergeArrays = (...arrays) => {
-        return arrays.flat().reduce((acc, obj) => {
-          const existing = acc.find(item => item.id === obj.id);
-          if (existing) {
-            existing.value += obj.value; // Merge logic (sum values)
-          } else {
-            acc.push({ ...obj });
-          }
-          return acc;
-        }, []);
-      };
-      const data = mergeArrays(transformedData, transformedData2, transformedData3);
+    if (e === 15) {
+      const data = transformedData.map(el => {return {
+        ...el,
+        Grandezze: el.Grandezze.concat(transformedData2.find(e => e.Misuratore === el.Misuratore).Grandezze).concat(transformedData3.find(e => e.Misuratore === el.Misuratore).Grandezze)
+      }});
       setData(data);
       setFilteredData(data);
 
@@ -302,7 +289,7 @@ function Misuratori() {
       }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
       groupByNodo(data);
-    } else { */
+    } else {
       const randomNum = Math.random() < 0.5 ? 0 : 1;
 
       const data = randomNum === 0 ? transformedData : transformedData2;
@@ -317,7 +304,7 @@ function Misuratori() {
       }, { alert: 0, offline: 0, manutenzione: 0, online: 0 });
 
       groupByNodo(data);
-     /* } */
+     }
   }
 
 
@@ -484,26 +471,18 @@ function Misuratori() {
       };
     });
 
-    /* if (minutesDropDown === 15) {
-      const mergeArrays = (...arrays) => {
-        return arrays.flat().reduce((acc, obj) => {
-          const existing = acc.find(item => item.id === obj.id);
-          if (existing) {
-            existing.value += obj.value; // Merge logic (sum values)
-          } else {
-            acc.push({ ...obj });
-          }
-          return acc;
-        }, []);
-      };
-      const data = mergeArrays(transformedData, transformedData2, transformedData3);
+    if (minutesDropDown === 15) {
+      const data = transformedData.map(el => {return {
+        ...el,
+        Grandezze: el.Grandezze.concat(transformedData2.find(e => e.Misuratore === el.Misuratore).Grandezze).concat(transformedData3.find(e => e.Misuratore === el.Misuratore).Grandezze)
+      }});
       
       setData(data);
       setFilteredData(data);
       setManutenzioni(getManutenzioni());
       setSostituzioni(getSostituzioni());
       groupByNodo(data);
-    } else { */
+    } else {
       const randomNum = Math.random() < 0.5 ? 0 : 1;
 
       const data = randomNum === 0 ? transformedData : transformedData2;
@@ -512,7 +491,7 @@ function Misuratori() {
       setManutenzioni(getManutenzioni());
       setSostituzioni(getSostituzioni());
       groupByNodo(data);
-     /* } */
+     }
 
    
   }, []);
@@ -1110,7 +1089,7 @@ function Misuratori() {
             </div>
           </div>
           <div className="select-date">
-            <DropdownMenu value={minutesDropDown} onSelect={setMinutesDropDown}>{todayDate}</DropdownMenu>
+            <DropdownMenu value={minutesDropDown} onSelect={reloadData}>{todayDate}</DropdownMenu>
           </div>
         </div>
         <h3 className='page-title'>Gestione Misuratori</h3>
