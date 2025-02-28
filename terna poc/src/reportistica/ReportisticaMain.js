@@ -23,9 +23,7 @@ export function ReportisticaMain() {
 
     return (
         <div className="container-reports">
-            <div className="date-filter">
-                <Countdown onRefresh={console.log}/>
-            </div>
+            <Countdown onRefresh={console.log}/>
             <section className="container-reports-flex">
                 <section className="content-reports">
                     <h3 className='page-title'><b>Preset:</b> {data.name}</h3>

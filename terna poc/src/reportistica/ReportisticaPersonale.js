@@ -24,9 +24,7 @@ export function ReportisticaPersonale() {
                     setModalShow(false);
                 }}
             />
-            <div className="date-filter">
-                <Countdown onRefresh={console.log}/>
-            </div>
+            <Countdown onRefresh={console.log}/>
             <section className="container-reports-flex">
                 <section className="content-reports">
                     <h3 className='page-title'>I miei Report</h3>

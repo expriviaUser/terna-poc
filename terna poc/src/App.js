@@ -7,6 +7,7 @@ import { default as measurementsData } from './complete1.json';
 import { default as measurementsData2 } from './complete2.json';
 import GraphModule from './components/GraphModule';
 import MapModule from './components/MapModule';
+import {DropdownMenu} from "./components/DropdownMenu";
 
 function App() {
   const [data, setData] = useState([]);
@@ -38,6 +39,7 @@ function App() {
     setSelectedItem(item);
   }
 
+  const [minutesDropDown, setMinutesDropDown] = useState(15);
   const [currentDate, setCurrentDate] = useState(todayDate);
   const [currentCountdown, setCurrentCountdown] = useState(countdown);
 
@@ -774,15 +776,12 @@ function App() {
           {/* <StaticExample /> */}
           <div className="date-filter">
             <div className='date-left'>
-              <div className="date-today">
-                Today: {todayDate}
-              </div>
               <div className="next-update">
                 Prossimo aggiornamento: {currentCountdown}
               </div>
             </div>
             <div className="select-date">
-
+              <DropdownMenu value={minutesDropDown} onSelect={setMinutesDropDown}>{todayDate}</DropdownMenu>
             </div>
           </div>
           <h3 className='page-title'>Cluster individuati</h3>

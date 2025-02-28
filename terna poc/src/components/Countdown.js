@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {DropdownMenu} from "./DropdownMenu";
 
 export function Countdown(props) {
     const todayDate = new Intl.DateTimeFormat("it-IT", {
@@ -10,6 +11,7 @@ export function Countdown(props) {
         minute: "2-digit", // 2-digit minute
     }).format(new Date());
 
+    const [minutesDropDown, setMinutesDropDown] = useState(15);
     const [currentDate, setCurrentDate] = useState(todayDate);
     const [currentCountdown, setCurrentCountdown] = useState("05:00");
 
@@ -40,13 +42,16 @@ export function Countdown(props) {
         return () => clearInterval(interval);
     }, [currentCountdown])
 
-    return <div className='date-left'>
-        <div className="date-today">
-            Today: {currentDate}
+    return <div className="date-filter">
+        <div className='date-left'>
+            <div className="next-update">
+                Prossimo aggiornamento: {currentCountdown}
+            </div>
         </div>
-        <div className="next-update">
-            Prossimo aggiornamento: {currentCountdown}
+        <div className="select-date">
+            <DropdownMenu value={minutesDropDown} onSelect={setMinutesDropDown}>{todayDate}</DropdownMenu>
         </div>
     </div>
+
 
 }
