@@ -1,12 +1,12 @@
 import MisurazioniPage from "./App";
 import Misuratori from "./Misuratori";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 import {ReportisticaPage} from "./reportistica/ReportisticaPage";
 import {AppLayout} from "./AppLayout";
 import {LoginPage} from "./LoginPage";
 
 export function AppRouter() {
-    return <BrowserRouter>
+    return <HashRouter>
         <AppLayout>
             <Routes>
                 <Route path="/" element={<LoginPage/>}/>
@@ -16,5 +16,5 @@ export function AppRouter() {
                 <Route path="/reportistica" element={<ReportisticaPage/>}/>
             </Routes>
         </AppLayout>
-    </BrowserRouter>
+    </HashRouter>
 }

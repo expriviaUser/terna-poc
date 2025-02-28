@@ -1,6 +1,6 @@
 .inspector-reports {
     display: flex;
-    flex: 1 1 45%;
+    flex: 1 1 25%;
     flex-direction: column;
 }
 
@@ -26,6 +26,11 @@
     padding: 10px 20px;
     gap: 10px;
 
+}
+
+.inspector-pdf {
+    height: calc(100vh - 140px);
+    overflow-y: auto;
 }
 
 .inspector-footer {

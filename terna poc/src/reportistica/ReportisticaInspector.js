@@ -1,7 +1,7 @@
 import React from "react";
 import './ReportsInspector.css';
 import {Button} from "react-bootstrap";
-import pdf from "../assets/pdf.jpg";
+import pdf from "../assets/pdf.png";
 
 export function ReportisticaInspector(props) {
     return (
@@ -14,7 +14,9 @@ export function ReportisticaInspector(props) {
                 <Button variant='outline-primary'>MODIFICA</Button>
                 <Button variant='outline-primary'>POWER BI</Button>
             </div>
+            <div className='inspector-pdf'>
             <img src={pdf} alt='pdf' />
+            </div>
             <div className="inspector-footer">
                 {props.report.name}
             </div>

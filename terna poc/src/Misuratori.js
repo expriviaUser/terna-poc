@@ -533,7 +533,9 @@ function Misuratori() {
 
     if (filters.prompt) {
       // TODO ho messo la prima riga ma non so se va bene
-      result = result.slice(0,1);
+      result = [result.find(f => {
+        return f.Misuratore === '12368'
+      })];
       setFilteredData(result);
       return
     }
