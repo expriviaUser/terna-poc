@@ -226,7 +226,8 @@ function Misuratori() {
       online: false,
       offline: false,
       alert: false
-    }
+    },
+    prompt: false
   });
   
   const [filtersLabel] = useState({
@@ -361,6 +362,13 @@ function Misuratori() {
 
   const filterData = () => {
     let result = [...data];
+
+    if (filters.prompt) {
+      // TODO ho messo la prima riga ma non so se va bene
+      result = result.slice(0,1);
+      setFilteredData(result);
+      return
+    }
 
     // Apply area filter based on Zona field
     const anyAreaSelected = Object.values(filters.areas).some(v => v);
@@ -537,7 +545,8 @@ function Misuratori() {
         online: false,
         offline: false,
         alert: false
-      }
+      },
+      prompt: false
     });
   };
   const clearAreas = () => {
@@ -591,6 +600,14 @@ function Misuratori() {
       alert: false
     }
   }
+
+  const handlePromptClick = () => {
+    setMinutesDropDown(15)
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      prompt: true,
+    }));
+  };
 
   return (
     <main>
@@ -993,7 +1010,7 @@ function Misuratori() {
             Showing {currentItems.length} of {filteredData.length} results
           </div>
         </div>
-        <PromptInput onClick={() => console.log("PROMPT INVIATO!")}/>
+        <PromptInput onClick={handlePromptClick}/>
       </section>
       <aside className="inspector">
         <h2>{selectedItem ? `Matricola ${selectedItem.Modello_Misuratore}-${selectedItem.Misuratore}` : 'Inspector'}</h2>
