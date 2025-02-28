@@ -396,7 +396,7 @@ background: rgba(0, 92, 169, 0.05);
 .prompt {
   border-radius: 16px;
   display: flex;
-  gap: 30px;
+  gap: 12px;
   padding: 20px;
   border: 1px solid #949494
 }

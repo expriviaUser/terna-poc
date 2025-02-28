@@ -5,6 +5,8 @@ import {Countdown} from "../components/Countdown";
 import './Reports.css';
 import '../App.css';
 import {ReportisticaInspector} from "./ReportisticaInspector";
+import star from "../assets/star.svg";
+import pdf from "../assets/pdficon.svg";
 
 export function ReportisticaMain() {
     const {id, reportId} = useParams();
@@ -40,7 +42,9 @@ export function ReportisticaMain() {
                     <div className="content-reports-child">
                         <h5>Prompt applicati</h5>
                         <div className="applied-filters">
-                            <div className="prompt">{data.prompt}</div>
+                            <div className="prompt">
+                                <img src={star}/>
+                                {data.prompt}</div>
                         </div>
                     </div>
 
@@ -49,8 +53,11 @@ export function ReportisticaMain() {
                         <div className="reports">
                             {data.reports.map((report, index) => (
                                 <NavLink to={`/reportistica/${data.id}/${index}`} key={index} className="report">
-                                    <div className='report-title'>{report.name}</div>
-                                    <div className='report-date'>{report.date}</div>
+                                    <img src={pdf} />
+                                    <div>
+                                        <div className='report-title'>{report.name}</div>
+                                        <div className='report-date'>{report.date}</div>
+                                    </div>
                                 </NavLink>
                             ))}
                         </div>
