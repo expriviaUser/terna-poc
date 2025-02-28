@@ -1,6 +1,6 @@
 .inspector-reports {
     display: flex;
-    flex: 1 1 45%;
+    flex: 1 1 25%;
     flex-direction: column;
 }
 

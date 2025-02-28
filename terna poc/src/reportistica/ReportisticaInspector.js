@@ -1,7 +1,7 @@
 import React from "react";
 import './ReportsInspector.css';
 import {Button} from "react-bootstrap";
-import pdf from "../assets/pdf.jpg";
+import pdf from "../assets/pdf.png";
 
 export function ReportisticaInspector(props) {
     return (
