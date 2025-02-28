@@ -1215,16 +1215,16 @@ function Misuratori() {
             <span style={{ textAlign: "left" }}>Attività di manutenzione sui nodi che possono impattare sullo stato o sulle misure dei misuratori correlati</span>
             <div className="manutenzioni">
               <div style={{ marginTop: "16px", display: "flex", flexDirection: "column" }}>
-                <h4 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Nord</h4>
+                <h5 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Nord</h5>
                 <ProgressBarLabel now={40} variant={"success"} />
               </div>
               <div style={{ marginTop: "16px", display: "flex", flexDirection: "column" }}>
-                <h4 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Centro</h4>
+                <h5 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Centro</h5>
                 <ProgressBarLabel now={25} variant={"warning"} />
                 <span style={{ textAlign: "right", width: "100%", marginTop: "12px" }}>In ritardo</span>
               </div>
               <div style={{ marginTop: "16px", display: "flex", flexDirection: "column" }}>
-                <h4 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Sud</h4>
+                <h5 style={{ textAlign: 'left' }}>Manutenzione nodo: Nodo_Zona_Sud</h5>
                 <ProgressBarLabel now={55} variant={"danger"} />
                 <span style={{ textAlign: "right", width: "100%", marginTop: "12px" }}>Attività ferma</span>
               </div>
