@@ -91,7 +91,7 @@ const GraphModule = ({selectedItem, item}) => {
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data}>
           <XAxis dataKey="time" />
-          <YAxis domain={[0, 5]} />
+          <YAxis domain={[3.4, 3.5]} />
           <Tooltip content={<CustomTooltip />} />
           <Line type="monotone" dataKey="value" stroke="green" strokeWidth={2} dot={<CustomDot />} />
         </LineChart>
