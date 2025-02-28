@@ -38,6 +38,10 @@ export const reports = [
             {
                 name: 'Misuratori spike 25',
                 date: '12/02/2024'
+            },
+            {
+                name: 'Misuratori spike 25',
+                date: '12/02/2024'
             }
         ]
     }
