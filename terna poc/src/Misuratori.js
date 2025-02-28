@@ -9,6 +9,7 @@ import { default as measurementsData2 } from './complete2.json';
 import GraphModule from './components/GraphModule';
 import ProgressBarLabel from "./ProgressBar";
 import {DropdownMenu} from "./components/DropdownMenu";
+import {PromptInput} from "./components/PromptInput";
 
 function Misuratori() {
   const [data, setData] = useState([]);
@@ -992,6 +993,7 @@ function Misuratori() {
             Showing {currentItems.length} of {filteredData.length} results
           </div>
         </div>
+        <PromptInput onClick={() => console.log("PROMPT INVIATO!")}/>
       </section>
       <aside className="inspector">
         <h2>{selectedItem ? `Matricola ${selectedItem.Modello_Misuratore}-${selectedItem.Misuratore}` : 'Inspector'}</h2>
