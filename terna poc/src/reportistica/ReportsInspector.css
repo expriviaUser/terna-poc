@@ -28,6 +28,11 @@
 
 }
 
+.inspector-pdf {
+    height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
 .inspector-footer {
     text-transform: uppercase;
     padding: 16px 24px;
