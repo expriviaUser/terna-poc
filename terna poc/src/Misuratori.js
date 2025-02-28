@@ -646,7 +646,7 @@ function Misuratori() {
 
   // Handle filter changes
   const handleFilterChange = (filterType, filterValue, isChecked) => {
-    if (filterValue && filterValue !== 'all') {
+    if (filterValue && filterType!=='tens' && filterValue !== 'all') {
       filters[filterType].all = false;
     }
     setFilters(prevFilters => {
@@ -854,13 +854,27 @@ function Misuratori() {
           </div>
           {showTensione &&
             <label className='tensione'>
-              MT
-              <Form.Switch // prettier-ignore
+             
+              <Form.Check // prettier-ignore
+            type='radio'
+            label="MT"
+            value="false"
+            checked={!filters.tens}
+            onChange={(e) => handleFilterChange('tens', null, false)}
+          />
+          <Form.Check // prettier-ignore
+          type='radio'
+          label="AT"
+          value="true"
+          checked={filters.tens}
+          onChange={(e) => handleFilterChange('tens', null, true)}
+        />
+             {/*  <Form.Switch // prettier-ignore
                 id="custom-switch"
                 label="AT"
                 checked={filters.tens}
-                onChange={(e) => handleFilterChange('tens', null, e.target.checked)/* {filters.tensione.at = !filters.tensione.at; filters.tensione.mt = !filters.tensione.mt;} */}
-              />
+                onChange={(e) => handleFilterChange('tens', null, e.target.checked)}
+              /> */}
 
             </label>
           }
@@ -1093,19 +1107,6 @@ function Misuratori() {
           </div>
         </div>
         <h3 className='page-title'>Gestione Misuratori</h3>
-        <div className="content-reports-child">
-          <h5>Filtri applicati</h5>
-          <div className="applied-filters">
-            {Object.keys(filters).map(filter => {
-              {
-                typeof filters[filter] === 'object' && Object.keys(filters[filter]).map(f => {
-                  return filters[filter][f] && <button key={filter} className="filter">{filtersLabel[filter]}</button>
-                })
-              }
-
-            })}
-          </div>
-        </div>
         <h4 className='page-title'>Overview</h4>
         <div className="clusters">
           <div className={"cluster " + (selectedCard && selectedCard === 1 ? 'active' : 'notActive')} onClick={() => { setCard(1) }}>

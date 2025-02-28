@@ -347,7 +347,7 @@ function App() {
 
   // Handle filter changes
   const handleFilterChange = (filterType, filterValue, isChecked) => {
-    if (filterValue && filterValue !== 'all') {
+    if (filterValue && filterType!=='tens' && filterValue !== 'all') {
       filters[filterType].all = false;
     }
     setFilters(prevFilters => {
@@ -546,15 +546,29 @@ function App() {
             </div>
             {showTensione &&
                 <label className='tensione'>
-                  MT
-                  <Form.Switch // prettier-ignore
-                      id="custom-switch"
-                      label="AT"
-                      checked={filters.tens}
-                      onChange={(e) => handleFilterChange('tens', null, e.target.checked)/* {filters.tensione.at = !filters.tensione.at; filters.tensione.mt = !filters.tensione.mt;} */}
-                  />
-
-                </label>
+             
+                <Form.Check // prettier-ignore
+              type='radio'
+              label="MT"
+              value="false"
+              checked={!filters.tens}
+              onChange={(e) => handleFilterChange('tens', null, false)}
+            />
+            <Form.Check // prettier-ignore
+            type='radio'
+            label="AT"
+            value="true"
+            checked={filters.tens}
+            onChange={(e) => handleFilterChange('tens', null, true)}
+          />
+               {/*  <Form.Switch // prettier-ignore
+                  id="custom-switch"
+                  label="AT"
+                  checked={filters.tens}
+                  onChange={(e) => handleFilterChange('tens', null, e.target.checked)}
+                /> */}
+  
+              </label>
             }
           </div>
           <div className="filter-group">
